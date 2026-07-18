@@ -61,6 +61,7 @@ export interface Founder {
   handles: FounderHandles;
   origin: FounderOrigin;
   bio?: string;
+  synthetic?: boolean; // authored demo profile, not a real person
   createdAt: string;
 }
 
@@ -183,6 +184,12 @@ export interface InterviewTurn {
 
 export type InterviewStatus = "invited" | "in_progress" | "complete";
 
+export interface FounderFeedback {
+  strengths: string[];
+  thinEvidence: string[];
+  nextSteps: string[];
+}
+
 export interface Interview {
   id: string;
   opportunityId: string;
@@ -190,7 +197,10 @@ export interface Interview {
   plannedQuestions: InterviewQuestion[];
   turns: InterviewTurn[];
   status: InterviewStatus;
+  currentQuestion?: number;
+  followUpsUsed?: number;
   extractedClaimIds: string[];
+  feedback?: FounderFeedback;
   createdAt: string;
 }
 

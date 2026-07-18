@@ -24,19 +24,23 @@ import { DEFAULT_THESIS } from "../thesis";
 
 const D = (s: string) => `2026-${s}:00Z`;
 
+// Every seeded founder is fictional and flagged synthetic: true. Their
+// signals carry no URLs (nothing fabricated is clickable), and any name
+// collision with a real person is coincidental. Live-scanned founders are
+// real people; only their public, neutral data is shown.
 const founders: Founder[] = [
-  { id: "f-lena", name: "Lena Vogel", origin: "outbound", handles: { github: "lenavogel", website: "cachette.dev" }, bio: "Ex-database engineer, Berlin. Building Cachette, a drop-in semantic cache for LLM apps.", createdAt: D("07-10T08:15") },
-  { id: "f-tomas", name: "Tomás Rivera", origin: "outbound", handles: { github: "tomasrivera" }, bio: "Won ETH Lisbon '26 with TraceKit, a time-travel debugger for AI agents.", createdAt: D("07-06T14:00") },
-  { id: "f-priya", name: "Priya Nair", origin: "outbound", handles: { github: "priyanair", website: "relayhealth.io", linkedin: "priya-nair" }, bio: "Former NHS data analyst. Relay Health drafts discharge summaries from ward notes.", createdAt: D("06-24T10:30") },
-  { id: "f-marcus", name: "Marcus Webb", origin: "inbound", handles: { website: "quotaflow.app", linkedin: "marcuswebb" }, bio: "Second-time founder. QuotaFlow forecasts sales pipeline slippage.", createdAt: D("07-02T09:00") },
-  { id: "f-aisha", name: "Aisha Bello", origin: "outbound", handles: {}, bio: "PhD candidate, first author on an arXiv paper on low-rank fine-tuning for edge devices.", createdAt: D("07-15T11:20") },
-  { id: "f-jonas", name: "Jonas Keller", origin: "outbound", handles: { github: "jonaskeller", hn: "jkeller" }, bio: "Show HN: local-first sync engine for offline field apps.", createdAt: D("07-14T19:45") },
-  { id: "f-sara", name: "Sara Lindqvist", origin: "outbound", handles: { linkedin: "sara-lindqvist" }, bio: "Antler Stockholm cohort. Grid-scale battery maintenance prediction.", createdAt: D("07-08T09:30") },
-  { id: "f-david", name: "David Okoye", origin: "outbound", handles: { github: "davidokoye" }, bio: "Building a CLI that turns failing CI logs into ranked fix suggestions.", createdAt: D("07-11T16:10") },
-  { id: "f-ines", name: "Inês Costa", origin: "outbound", handles: { website: "clausewise.pt" }, bio: "Won Lisbon LegalTech hack. Clausewise redlines NDAs against playbooks.", createdAt: D("07-05T12:00") },
-  { id: "f-viktor", name: "Viktor Hansen", origin: "inbound", handles: { website: "parcelmind.dk" }, bio: "ParcelMind reroutes last-mile delivery around live traffic and failed-drop risk.", createdAt: D("07-09T08:40") },
-  { id: "f-ruth", name: "Ruth Adler", origin: "outbound", handles: { github: "ruthadler" }, bio: "Techstars London '26. Observability for fine-tuned model drift.", createdAt: D("07-16T10:00") },
-  { id: "f-kenji", name: "Kenji Sato", origin: "outbound", handles: { github: "kenjisato", website: "kenjisato.dev" }, bio: "arXiv author and GitHub maintainer, structured-output constraint library.", createdAt: D("07-07T13:30") },
+  { id: "f-lena", name: "Lena Vogel", synthetic: true, origin: "outbound", handles: { github: "lenavogel", website: "cachette.dev" }, bio: "Ex-database engineer, Berlin. Building Cachette, a drop-in semantic cache for LLM apps.", createdAt: D("07-10T08:15") },
+  { id: "f-tomas", name: "Tomás Rivera", synthetic: true, origin: "outbound", handles: { github: "tomasrivera" }, bio: "Won ETH Lisbon '26 with TraceKit, a time-travel debugger for AI agents.", createdAt: D("07-06T14:00") },
+  { id: "f-priya", name: "Priya Nair", synthetic: true, origin: "outbound", handles: { github: "priyanair", website: "relayhealth.io", linkedin: "priya-nair" }, bio: "Former NHS data analyst. Relay Health drafts discharge summaries from ward notes.", createdAt: D("06-24T10:30") },
+  { id: "f-marcus", name: "Marcus Webb", synthetic: true, origin: "inbound", handles: { website: "quotaflow.app", linkedin: "marcuswebb" }, bio: "Second-time founder. QuotaFlow forecasts sales pipeline slippage.", createdAt: D("07-02T09:00") },
+  { id: "f-aisha", name: "Aisha Bello", synthetic: true, origin: "outbound", handles: {}, bio: "PhD candidate, first author on an arXiv paper on low-rank fine-tuning for edge devices.", createdAt: D("07-15T11:20") },
+  { id: "f-jonas", name: "Jonas Keller", synthetic: true, origin: "outbound", handles: { github: "jonaskeller", hn: "jkeller" }, bio: "Show HN: local-first sync engine for offline field apps.", createdAt: D("07-14T19:45") },
+  { id: "f-sara", name: "Sara Lindqvist", synthetic: true, origin: "outbound", handles: { linkedin: "sara-lindqvist" }, bio: "Antler Stockholm cohort. Grid-scale battery maintenance prediction.", createdAt: D("07-08T09:30") },
+  { id: "f-david", name: "David Okoye", synthetic: true, origin: "outbound", handles: { github: "davidokoye" }, bio: "Building a CLI that turns failing CI logs into ranked fix suggestions.", createdAt: D("07-11T16:10") },
+  { id: "f-ines", name: "Inês Costa", synthetic: true, origin: "outbound", handles: { website: "clausewise.pt" }, bio: "Won Lisbon LegalTech hack. Clausewise redlines NDAs against playbooks.", createdAt: D("07-05T12:00") },
+  { id: "f-viktor", name: "Viktor Hansen", synthetic: true, origin: "inbound", handles: { website: "parcelmind.dk" }, bio: "ParcelMind reroutes last-mile delivery around live traffic and failed-drop risk.", createdAt: D("07-09T08:40") },
+  { id: "f-ruth", name: "Ruth Adler", synthetic: true, origin: "outbound", handles: { github: "ruthadler" }, bio: "Techstars London '26. Observability for fine-tuned model drift.", createdAt: D("07-16T10:00") },
+  { id: "f-kenji", name: "Kenji Sato", synthetic: true, origin: "outbound", handles: { github: "kenjisato", website: "kenjisato.dev" }, bio: "arXiv author and GitHub maintainer, structured-output constraint library.", createdAt: D("07-07T13:30") },
 ];
 
 const ventures: Venture[] = [
@@ -90,33 +94,33 @@ const opportunities: Opportunity[] = [
 ];
 
 const signals: Signal[] = [
-  { id: "s-lena-1", founderId: "f-lena", source: "github", url: "https://github.com/lenavogel/cachette", title: "cachette — semantic cache for LLM calls", content: "1.9k stars, 41 commits in the last 30 days, v0.4 released with Redis backend. Issues answered same-day by the maintainer.", observedAt: D("07-10T08:00"), ingestedAt: D("07-10T08:15") },
-  { id: "s-lena-2", founderId: "f-lena", source: "hackernews", url: "https://news.ycombinator.com/item?id=100000001", title: "Show HN: Cachette — cut your LLM bill with a semantic cache", content: "214 points, 87 comments. Author answered objections about cache invalidation with benchmarks.", observedAt: D("07-12T17:30"), ingestedAt: D("07-12T18:00") },
+  { id: "s-lena-1", founderId: "f-lena", source: "github", title: "cachette — semantic cache for LLM calls", content: "1.9k stars, 41 commits in the last 30 days, v0.4 released with Redis backend. Issues answered same-day by the maintainer.", observedAt: D("07-10T08:00"), ingestedAt: D("07-10T08:15") },
+  { id: "s-lena-2", founderId: "f-lena", source: "hackernews", title: "Show HN: Cachette — cut your LLM bill with a semantic cache", content: "214 points, 87 comments. Author answered objections about cache invalidation with benchmarks.", observedAt: D("07-12T17:30"), ingestedAt: D("07-12T18:00") },
   { id: "s-tomas-1", founderId: "f-tomas", source: "hackathon", title: "ETH Lisbon 2026 — Grand Prize: TraceKit", content: "Won grand prize from 220 teams with a time-travel debugger for agent runs. Judges cited unusually complete execution for 36 hours.", observedAt: D("07-05T22:00"), ingestedAt: D("07-06T14:00") },
   { id: "s-priya-1", founderId: "f-priya", source: "hackathon", title: "NHS Hack Week 2026 — Winner: Relay Health", content: "Won with discharge-summary drafting tool. Built with two junior doctors; team continued after the event.", observedAt: D("06-20T18:00"), ingestedAt: D("06-24T10:30") },
   { id: "s-priya-2", founderId: "f-priya", source: "accelerator", title: "Techstars London 2026 cohort list", content: "Relay Health listed in the summer 2026 cohort. Company describes 2 hospital pilots underway.", observedAt: D("06-28T09:00"), ingestedAt: D("06-28T09:30") },
-  { id: "s-priya-3", founderId: "f-priya", source: "github", url: "https://github.com/priyanair/relay-notes", title: "relay-notes — ward note parser", content: "Steady commit history over 8 months including 5 months while employed full-time. Two external contributors.", observedAt: D("07-01T12:00"), ingestedAt: D("07-01T12:30") },
+  { id: "s-priya-3", founderId: "f-priya", source: "github", title: "relay-notes — ward note parser", content: "Steady commit history over 8 months including 5 months while employed full-time. Two external contributors.", observedAt: D("07-01T12:00"), ingestedAt: D("07-01T12:30") },
   { id: "s-marcus-1", founderId: "f-marcus", source: "application", title: "Inbound application — QuotaFlow", content: "Applied with deck. Claims $40K MRR, 12 paying customers, and a 3-person engineering team.", observedAt: D("07-02T09:00"), ingestedAt: D("07-02T09:00") },
-  { id: "s-marcus-2", founderId: "f-marcus", source: "hackernews", url: "https://news.ycombinator.com/item?id=100000002", title: "Podcast: RevOps Weekly, June 2026 episode notes", content: "In a June 2026 podcast appearance Marcus described QuotaFlow as pre-revenue and design-partner stage. Contradicts the July application's $40K MRR claim.", observedAt: D("06-15T08:00"), ingestedAt: D("07-03T10:00") },
-  { id: "s-aisha-1", founderId: "f-aisha", source: "arxiv", url: "https://arxiv.org/abs/2607.01234", title: "Sub-1B parameter adaptation for edge inference", content: "First-author paper, 40 citations in 6 weeks. Reference implementation released.", observedAt: D("07-14T09:00"), ingestedAt: D("07-15T11:20") },
-  { id: "s-jonas-1", founderId: "f-jonas", source: "hackernews", url: "https://news.ycombinator.com/item?id=100000003", title: "Show HN: Fieldsync — local-first sync for offline field apps", content: "156 points. Several commenters from utilities and agriculture asked for pilot access.", observedAt: D("07-14T16:00"), ingestedAt: D("07-14T19:45") },
+  { id: "s-marcus-2", founderId: "f-marcus", source: "hackernews", title: "Podcast: RevOps Weekly, June 2026 episode notes", content: "In a June 2026 podcast appearance Marcus described QuotaFlow as pre-revenue and design-partner stage. Contradicts the July application's $40K MRR claim.", observedAt: D("06-15T08:00"), ingestedAt: D("07-03T10:00") },
+  { id: "s-aisha-1", founderId: "f-aisha", source: "arxiv", title: "Sub-1B parameter adaptation for edge inference", content: "First-author paper, 40 citations in 6 weeks. Reference implementation released.", observedAt: D("07-14T09:00"), ingestedAt: D("07-15T11:20") },
+  { id: "s-jonas-1", founderId: "f-jonas", source: "hackernews", title: "Show HN: Fieldsync — local-first sync for offline field apps", content: "156 points. Several commenters from utilities and agriculture asked for pilot access.", observedAt: D("07-14T16:00"), ingestedAt: D("07-14T19:45") },
   { id: "s-sara-1", founderId: "f-sara", source: "accelerator", title: "Antler Stockholm residency list", content: "Voltwatch in current residency. Two grid operators in conversation.", observedAt: D("07-07T10:00"), ingestedAt: D("07-08T09:30") },
-  { id: "s-david-1", founderId: "f-david", source: "github", url: "https://github.com/davidokoye/fixline", title: "fixline — CI failure triage", content: "430 stars, weekly releases for 9 weeks straight.", observedAt: D("07-11T15:00"), ingestedAt: D("07-11T16:10") },
+  { id: "s-david-1", founderId: "f-david", source: "github", title: "fixline — CI failure triage", content: "430 stars, weekly releases for 9 weeks straight.", observedAt: D("07-11T15:00"), ingestedAt: D("07-11T16:10") },
   { id: "s-ines-1", founderId: "f-ines", source: "hackathon", title: "Lisbon LegalTech Hack — Winner: Clausewise", content: "Won with playbook-driven NDA redlining. Two law firms requested follow-up demos during judging.", observedAt: D("07-04T20:00"), ingestedAt: D("07-05T12:00") },
   { id: "s-viktor-1", founderId: "f-viktor", source: "application", title: "Inbound application — ParcelMind", content: "Applied with deck. Claims a live pilot with a Danish courier and a team of five.", observedAt: D("07-09T08:40"), ingestedAt: D("07-09T08:40") },
   { id: "s-viktor-2", founderId: "f-viktor", source: "accelerator", title: "Copenhagen Founders Fair profile", content: "June 2026 profile lists ParcelMind as a solo-founder project seeking a technical co-founder. Contradicts the application's team-of-five claim.", observedAt: D("06-18T09:00"), ingestedAt: D("07-10T09:00") },
   { id: "s-ruth-1", founderId: "f-ruth", source: "accelerator", title: "Techstars London 2026 cohort list", content: "Driftboard listed in the summer 2026 cohort, demo day scheduled September.", observedAt: D("07-15T09:00"), ingestedAt: D("07-16T10:00") },
-  { id: "s-kenji-1", founderId: "f-kenji", source: "arxiv", url: "https://arxiv.org/abs/2606.05678", title: "Grammar-constrained decoding at scale", content: "Second-author paper underpinning the Schemata library.", observedAt: D("06-30T09:00"), ingestedAt: D("07-07T13:30") },
-  { id: "s-kenji-2", founderId: "f-kenji", source: "github", url: "https://github.com/kenjisato/schemata", title: "schemata — structured output constraints", content: "2.7k stars, used by three notable open-source agent frameworks. Maintainer active but has not signalled commercial intent.", observedAt: D("07-06T12:00"), ingestedAt: D("07-07T13:30") },
+  { id: "s-kenji-1", founderId: "f-kenji", source: "arxiv", title: "Grammar-constrained decoding at scale", content: "Second-author paper underpinning the Schemata library.", observedAt: D("06-30T09:00"), ingestedAt: D("07-07T13:30") },
+  { id: "s-kenji-2", founderId: "f-kenji", source: "github", title: "schemata — structured output constraints", content: "2.7k stars, used by three notable open-source agent frameworks. Maintainer active but has not signalled commercial intent.", observedAt: D("07-06T12:00"), ingestedAt: D("07-07T13:30") },
 ];
 
 const claims: StoredClaim[] = [
-  { id: "c-priya-1", opportunityId: "o-priya", founderId: "f-priya", origin: "pitch", category: "traction", text: "Relay Health has two NHS hospital pilots underway", grade: "corroborated", reasoning: "Techstars cohort listing independently describes two hospital pilots.", sources: [{ url: "https://www.techstars.com/accelerators/london", title: "Techstars London 2026 cohort" }] },
-  { id: "c-priya-2", opportunityId: "o-priya", founderId: "f-priya", origin: "pitch", category: "technical", text: "Working parser handles unstructured ward notes across two hospital IT systems", grade: "weak_signal", reasoning: "Public repo shows sustained development and external contributors; cross-system claim not independently verified.", sources: [{ url: "https://github.com/priyanair/relay-notes", title: "relay-notes repository" }] },
-  { id: "c-priya-3", opportunityId: "o-priya", founderId: "f-priya", origin: "interview", category: "experience", text: "Built and maintained the tool for five months while employed full-time as an NHS data analyst", grade: "corroborated", reasoning: "Commit history timeline matches stated employment period.", sources: [{ url: "https://github.com/priyanair/relay-notes", title: "relay-notes commit history" }] },
+  { id: "c-priya-1", opportunityId: "o-priya", founderId: "f-priya", origin: "pitch", category: "traction", text: "Relay Health has two NHS hospital pilots underway", grade: "corroborated", reasoning: "Techstars cohort listing independently describes two hospital pilots.", sources: [{ url: "", title: "Techstars London 2026 cohort listing (synthetic)" }] },
+  { id: "c-priya-2", opportunityId: "o-priya", founderId: "f-priya", origin: "pitch", category: "technical", text: "Working parser handles unstructured ward notes across two hospital IT systems", grade: "weak_signal", reasoning: "Public repo shows sustained development and external contributors; cross-system claim not independently verified.", sources: [{ url: "", title: "relay-notes repository (synthetic)" }] },
+  { id: "c-priya-3", opportunityId: "o-priya", founderId: "f-priya", origin: "interview", category: "experience", text: "Built and maintained the tool for five months while employed full-time as an NHS data analyst", grade: "corroborated", reasoning: "Commit history timeline matches stated employment period.", sources: [{ url: "", title: "relay-notes commit history (synthetic)" }] },
   { id: "c-marcus-1", opportunityId: "o-marcus", founderId: "f-marcus", origin: "pitch", category: "traction", text: "QuotaFlow is at $40K MRR with 12 paying customers", grade: "weak_signal", reasoning: "No independent corroboration found, and a June 2026 podcast appearance described the company as pre-revenue. Contradiction flagged for the memo.", sources: [] },
   { id: "c-marcus-2", opportunityId: "o-marcus", founderId: "f-marcus", origin: "pitch", category: "team", text: "Three-person engineering team", grade: "unverifiable", reasoning: "No public evidence of additional engineers; no contradiction either.", sources: [] },
-  { id: "c-marcus-3", opportunityId: "o-marcus", founderId: "f-marcus", origin: "pitch", category: "experience", text: "Previously founded and sold a sales-analytics tool", grade: "corroborated", reasoning: "Acquisition covered in trade press in 2023.", sources: [{ url: "https://example-trade-press.com/quotawise-acquired", title: "QuotaWise acquired (2023)" }] },
+  { id: "c-marcus-3", opportunityId: "o-marcus", founderId: "f-marcus", origin: "pitch", category: "experience", text: "Previously founded and sold a sales-analytics tool", grade: "corroborated", reasoning: "Acquisition covered in trade press in 2023.", sources: [{ url: "", title: "QuotaWise acquisition coverage, 2023 (synthetic)" }] },
   { id: "c-viktor-1", opportunityId: "o-viktor", founderId: "f-viktor", origin: "pitch", category: "team", text: "Team of five including two ML engineers", grade: "weak_signal", reasoning: "A June 2026 founders-fair profile lists ParcelMind as a solo-founder project seeking a technical co-founder. Contradiction flagged for the memo.", sources: [] },
   { id: "c-viktor-2", opportunityId: "o-viktor", founderId: "f-viktor", origin: "pitch", category: "traction", text: "Live pilot with a Danish courier network", grade: "unverifiable", reasoning: "No public evidence found either way; absence of evidence, not evidence of falsehood.", sources: [] },
 ];
@@ -152,16 +156,6 @@ const founderScores: FounderScoreRecord[] = [
 const interviews: Interview[] = [
   { id: "i-lena", opportunityId: "o-lena", founderId: "f-lena", plannedQuestions: [], turns: [], status: "invited", extractedClaimIds: [], createdAt: D("07-16T09:00") },
 ];
-
-// Founder B for the demo: the cold-start applicant. Not seeded into Memory;
-// she enters live through the apply flow during the demo.
-export const DEMO_COLD_START_APPLICATION = {
-  name: "Amara Diallo",
-  company: "Wardly",
-  pitch:
-    "I spent eleven years as a ward staffing coordinator in two NHS trusts. Rotas are still built in spreadsheets, and every gap costs a fortune in last-minute agency cover. I built a rota assistant that predicts gaps two weeks out and suggests swaps before agencies are needed. It started as a spreadsheet with formulas, then a no-code app. Three wards at my old trust use it unofficially, and the rota manager at a neighbouring trust asked for it after seeing it at a conference. I taught myself to build it at nights over two years. I have no engineering degree, no investors, and I have never raised money. I want to rebuild it properly and get it approved for wider NHS use.",
-  links: [] as string[],
-};
 
 export function seedUniverse() {
   replaceAll("founders", founders);

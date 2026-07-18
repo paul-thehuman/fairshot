@@ -183,6 +183,26 @@ async function prescreen(report: ScanReport) {
   }
 }
 
+// Screen whatever sits in 'sourced' right now; used by the apply flow so an
+// inbound application is scored the same way as an outbound discovery.
+export async function screenPending(): Promise<Pick<ScanReport, "screened" | "invited" | "llmSkipped">> {
+  const report: ScanReport = {
+    scanners: [],
+    foundersCreated: 0,
+    foundersMerged: 0,
+    signalsAdded: 0,
+    screened: 0,
+    invited: 0,
+    llmSkipped: false,
+  };
+  await prescreen(report);
+  return {
+    screened: report.screened,
+    invited: report.invited,
+    llmSkipped: report.llmSkipped,
+  };
+}
+
 export async function runScan(): Promise<ScanReport> {
   const thesis = loadThesis();
   const scanners: Scanner[] = [

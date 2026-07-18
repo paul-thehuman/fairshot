@@ -82,7 +82,14 @@ export default async function PipelinePage() {
                       key={opp.id}
                       className="rounded-lg border border-neutral-200 p-3 text-sm dark:border-neutral-800"
                     >
-                      <p className="font-medium">{founder?.name ?? "Unknown"}</p>
+                      <p className="font-medium">
+                        {founder?.name ?? "Unknown"}
+                        {founder?.synthetic && (
+                          <span className="ml-1.5 rounded-full bg-violet-100 px-1.5 py-0.5 align-middle text-[10px] font-medium text-violet-700 dark:bg-violet-950 dark:text-violet-300">
+                            Synthetic
+                          </span>
+                        )}
+                      </p>
                       <p className="text-neutral-600 dark:text-neutral-400">
                         {venture?.name}
                         {venture?.oneLiner ? ` — ${venture.oneLiner.slice(0, 70)}` : ""}
