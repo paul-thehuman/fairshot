@@ -98,7 +98,8 @@ export type SignalSource =
   | "hackathon"
   | "accelerator"
   | "application"
-  | "interview";
+  | "interview"
+  | "web";
 
 export interface Signal {
   id: string;

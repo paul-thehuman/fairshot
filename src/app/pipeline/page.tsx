@@ -2,6 +2,7 @@ import { getAll } from "@/lib/store";
 import { loadThesis } from "@/lib/thesis";
 import type { OppStatus, SignalSource } from "@/lib/types";
 import ScanButton from "./scan-button";
+import SourceInput from "./source-input";
 
 export const dynamic = "force-dynamic";
 
@@ -21,6 +22,7 @@ const SOURCE_BADGE: Record<SignalSource, string> = {
   accelerator: "Accelerator",
   application: "Applied",
   interview: "Interview",
+  web: "Web",
 };
 
 export default async function PipelinePage() {
@@ -47,7 +49,10 @@ export default async function PipelinePage() {
             Conviction ≥ {thesis.convictionThreshold} triggers an interview invitation.
           </p>
         </div>
-        <ScanButton />
+        <div className="flex flex-col items-end gap-3">
+          <ScanButton />
+          <SourceInput />
+        </div>
       </header>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
