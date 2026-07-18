@@ -1,7 +1,8 @@
 "use client";
 
-import { use, useEffect, useRef, useState } from "react";
+import { use, useCallback, useEffect, useRef, useState } from "react";
 import type { FounderFeedback, Interview } from "@/lib/types";
+import { listenOnce, speak, speechRecognitionAvailable, stopSpeaking } from "./voice";
 
 interface Payload {
   interview: Interview;
@@ -19,7 +20,45 @@ export default function InterviewPage({
   const [error, setError] = useState<string | null>(null);
   const [draft, setDraft] = useState("");
   const [sending, setSending] = useState(false);
+  const [voiceOn, setVoiceOn] = useState(false);
+  const [listening, setListening] = useState(false);
+  const [micAvailable, setMicAvailable] = useState(false);
+  const stopListeningRef = useRef<(() => void) | null>(null);
+  const spokenCountRef = useRef(0);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMicAvailable(speechRecognitionAvailable());
+    return () => stopSpeaking();
+  }, []);
+
+  const speakLatest = useCallback((turns: Interview["turns"]) => {
+    const agentTurns = turns.filter((t) => t.role === "agent");
+    if (agentTurns.length === 0 || agentTurns.length === spokenCountRef.current) return;
+    spokenCountRef.current = agentTurns.length;
+    speak(agentTurns[agentTurns.length - 1].text).catch(() => setVoiceOn(false));
+  }, []);
+
+  useEffect(() => {
+    if (voiceOn && payload) speakLatest(payload.interview.turns);
+  }, [voiceOn, payload, speakLatest]);
+
+  function toggleMic() {
+    if (listening) {
+      stopListeningRef.current?.();
+      setListening(false);
+      return;
+    }
+    stopSpeaking();
+    const stop = listenOnce(
+      (transcript) => setDraft(transcript),
+      () => setListening(false)
+    );
+    if (stop) {
+      stopListeningRef.current = stop;
+      setListening(true);
+    }
+  }
 
   useEffect(() => {
     fetch(`/api/interview/${id}`)
@@ -91,6 +130,23 @@ export default function InterviewPage({
           A short conversation about things you&rsquo;ve actually done. Honest
           feedback at the end, whatever the outcome.
         </p>
+        {!complete && (
+          <button
+            type="button"
+            onClick={() => {
+              if (voiceOn) stopSpeaking();
+              else spokenCountRef.current = 0;
+              setVoiceOn(!voiceOn);
+            }}
+            className={`mt-3 rounded-md border px-3 py-1.5 text-sm ${
+              voiceOn
+                ? "border-emerald-400 text-emerald-700 dark:text-emerald-400"
+                : "border-neutral-300 text-neutral-600 dark:border-neutral-700 dark:text-neutral-400"
+            }`}
+          >
+            {voiceOn ? "🔊 Voice on — the interviewer speaks" : "🔈 Turn on voice interview"}
+          </button>
+        )}
       </header>
 
       <div className="flex-1 space-y-3">
@@ -116,9 +172,28 @@ export default function InterviewPage({
             className="flex-1 rounded-md border border-neutral-300 bg-transparent px-3 py-2 text-sm dark:border-neutral-700"
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
-            placeholder="Answer in your own words. Specifics beat polish."
+            placeholder={
+              listening
+                ? "Listening… speak your answer"
+                : "Answer in your own words. Specifics beat polish."
+            }
             disabled={sending}
           />
+          {micAvailable && (
+            <button
+              type="button"
+              onClick={toggleMic}
+              disabled={sending}
+              title={listening ? "Stop listening" : "Answer by voice"}
+              className={`self-end rounded-md border px-3 py-2 text-sm ${
+                listening
+                  ? "animate-pulse border-red-400 text-red-600"
+                  : "border-neutral-300 dark:border-neutral-700"
+              }`}
+            >
+              {listening ? "⏹" : "🎙"}
+            </button>
+          )}
           <button
             type="submit"
             disabled={sending || !draft.trim()}
