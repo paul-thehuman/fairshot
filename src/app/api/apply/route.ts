@@ -59,13 +59,33 @@ export async function POST(req: Request) {
 
   let venture = getAll("ventures").find((v) => v.founderId === founder.id);
   if (!venture) {
+    // Classify sector and geography from the pitch so the thesis filter and
+    // queries can reason about this venture; honest fallback if the LLM is out.
+    let sector = "unclassified";
+    let geography = "unknown";
+    let oneLiner = pitch.slice(0, 140);
+    try {
+      const classified = await completeJSON<{
+        sector: string;
+        geography: string;
+        oneLiner: string;
+      }>(
+        `You classify a startup pitch. Output strict JSON only: {"sector":"...","geography":"...","oneLiner":"..."}. sector: 2-4 plain words (e.g. "applied AI", "healthcare operations"). geography: region or country if stated or strongly implied, else "unknown". oneLiner: one sentence, max 120 characters, describing what the product does.`,
+        pitch
+      );
+      if (classified.sector) sector = classified.sector;
+      if (classified.geography) geography = classified.geography;
+      if (classified.oneLiner) oneLiner = classified.oneLiner;
+    } catch {
+      // Classification is best-effort; unclassified is honest.
+    }
     venture = {
       id: newId(),
       founderId: founder.id,
       name: company,
-      oneLiner: pitch.slice(0, 140),
-      sector: "unclassified",
-      geography: "unknown",
+      oneLiner,
+      sector,
+      geography,
       stage: "pre-seed",
       createdAt: now(),
     };

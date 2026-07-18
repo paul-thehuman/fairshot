@@ -21,7 +21,7 @@ interface QueryFilter {
 
 const QUERY_SYSTEM = `You translate an investor's plain-English founder query into a structured filter for a founder database.
 Filter fields, ALL optional — include only what the query implies:
-- sectors: string[] — sector terms
+- sectors: string[] — sector terms. When you use a sector, ALSO add its synonym expansion to keywords
 - geographies: string[] — regions, countries, or cities
 - sources: string[] — subset of ["github","hackernews","arxiv","hackathon","accelerator","application","interview"] when the query names where founders were found
 - minFounderScore: number 0-100 — when the query asks for "strong"/"top" founders, use 70
@@ -29,10 +29,13 @@ Filter fields, ALL optional — include only what the query implies:
 - traits: [{"trait":"ability"|"aspiration"|"learning_agility"|"accountability","min":number}]
 - noPriorVcBacking: true when the query asks for founders without prior VC funding or backing
 - status: string[] — subset of ["sourced","screened","interview","diligence","decision"]
-- keywords: string[] — remaining free-text terms (e.g. "technical", "infra", "health")
+- keywords: string[] — remaining free-text terms, EXPANDED with 2-4 close synonyms or domain terms so matching survives vocabulary gaps (e.g. "healthcare" → ["healthcare","health","NHS","hospital","clinical","medical"])
 Output strict JSON only: {"filter":{...},"interpretation":"one plain sentence restating what will be searched"}`;
 
-const FUNDING_EVIDENCE = /raised|series [a-c]\b|seed round|pre-seed round|vc[- ]backed|venture[- ]backed|angel round/i;
+// Positive funding evidence only; negated mentions ("never raised", "no
+// funding") must not count against a founder, that is the cold-start case.
+const NEGATED_FUNDING = /\b(never|not|no|without|haven't|hasn't|didn't)\b[^.!?]{0,40}\b(raised|funding|funded|backed|investors?)\b/gi;
+const FUNDING_EVIDENCE = /\braised (\$|£|€|an? |over |around )|series [a-c]\b|closed (a|our|the) (round|seed)|vc[- ]backed|venture[- ]backed|angel round|led by [A-Z]/;
 
 function fuzzyHit(haystack: string, needles: string[]): string | null {
   const lower = haystack.toLowerCase();
@@ -85,11 +88,19 @@ export async function POST(req: Request) {
       ].join(" ");
       const score = founderScores.get(founder.id)?.score;
       const matched: string[] = [];
+      const sectorUnknown =
+        !venture || ["unclassified", "unknown", ""].includes(venture.sector.toLowerCase());
 
       if (filter.sectors?.length) {
-        const hit = venture && fuzzyHit(venture.sector, filter.sectors);
-        if (!hit) return null;
-        matched.push(`sector: ${venture!.sector}`);
+        if (sectorUnknown) {
+          // Don't hard-fail founders whose sector was never classified; the
+          // expanded keywords carry the domain judgment instead.
+          matched.push("sector: unclassified (judged on domain terms instead)");
+        } else {
+          const hit = fuzzyHit(venture!.sector, filter.sectors);
+          if (!hit) return null;
+          matched.push(`sector: ${venture!.sector}`);
+        }
       }
       if (filter.geographies?.length) {
         const hit = venture && fuzzyHit(venture.geography, filter.geographies);
@@ -121,7 +132,8 @@ export async function POST(req: Request) {
         }
       }
       if (filter.noPriorVcBacking) {
-        if (FUNDING_EVIDENCE.test(myEvidence)) return null;
+        const denegated = myEvidence.replace(NEGATED_FUNDING, "");
+        if (FUNDING_EVIDENCE.test(denegated)) return null;
         matched.push("no funding evidence in Memory (treated as no prior VC backing)");
       }
       if (filter.status?.length) {
@@ -129,10 +141,16 @@ export async function POST(req: Request) {
         matched.push(`status: ${opp.status}`);
       }
       if (filter.keywords?.length) {
-        const searchable = `${founder.name} ${founder.bio ?? ""} ${venture?.name ?? ""} ${venture?.oneLiner ?? ""} ${myEvidence}`;
-        const hits = filter.keywords.filter((k) =>
-          searchable.toLowerCase().includes(k.toLowerCase())
-        );
+        const searchable =
+          `${founder.name} ${founder.bio ?? ""} ${venture?.name ?? ""} ${venture?.oneLiner ?? ""} ${myEvidence}`.toLowerCase();
+        // Stem down to 5 characters so "healthcare" still finds "health".
+        const hits = filter.keywords.filter((keyword) => {
+          const k = keyword.toLowerCase();
+          for (let len = k.length; len >= Math.min(5, k.length); len--) {
+            if (searchable.includes(k.slice(0, len))) return true;
+          }
+          return false;
+        });
         if (hits.length === 0) return null;
         matched.push(`mentions: ${hits.join(", ")}`);
       }

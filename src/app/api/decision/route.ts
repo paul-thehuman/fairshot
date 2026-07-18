@@ -30,12 +30,17 @@ export async function POST(req: Request) {
 
   // Speed instrumentation: first signal to decision, the metric the brief asks for.
   const firstSeen = new Date(opp.statusHistory[0].at).getTime();
-  const hours = Math.round((Date.now() - firstSeen) / 3_600_000);
+  const hours = (Date.now() - firstSeen) / 3_600_000;
+  const elapsed = hours < 1 ? `${Math.max(1, Math.round(hours * 60))}m` : `${Math.round(hours)}h`;
   const founder = getById("founders", opp.founderId);
   logEvent(
     "decision.made",
-    `Decision for ${founder?.name ?? "founder"}: ${verdict.toUpperCase()} (${hours}h from first signal to decision)`,
+    `Decision for ${founder?.name ?? "founder"}: ${verdict.toUpperCase()} (${elapsed} from first signal to decision)`,
     { founderId: opp.founderId, opportunityId }
   );
-  return NextResponse.json({ opportunity: updated, hoursToDecision: hours });
+  return NextResponse.json({
+    opportunity: updated,
+    hoursToDecision: Math.round(hours * 100) / 100,
+    elapsed,
+  });
 }

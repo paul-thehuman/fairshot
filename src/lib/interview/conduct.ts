@@ -66,8 +66,12 @@ export async function nextTurn(id: string, founderAnswer: string): Promise<Inter
   const qi = interview.currentQuestion ?? 0;
   const questions = interview.plannedQuestions;
   const isLast = qi >= questions.length - 1;
+  // One follow-up per question, at most two across the whole interview:
+  // founders' time is respected, and the demo stays tight.
+  const totalFollowUps = Math.max(0, agentTurnCount(turns) - (qi + 1));
   const followUpAvailable =
     (interview.followUpsUsed ?? 0) === 0 &&
+    totalFollowUps < 2 &&
     agentTurnCount(turns) < MAX_AGENT_TURNS - 1;
   const nextQuestion = isLast ? null : questions[qi + 1].question;
 
