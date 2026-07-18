@@ -42,3 +42,180 @@ export interface IntakePayload {
   pitch: string;
   links: string[];
 }
+
+// --- FairShot core model ---
+// People persist; ventures come and go. The split is what makes the Founder Score durable.
+
+export type FounderOrigin = "inbound" | "outbound";
+
+export interface FounderHandles {
+  github?: string;
+  linkedin?: string;
+  website?: string;
+  hn?: string;
+}
+
+export interface Founder {
+  id: string;
+  name: string;
+  handles: FounderHandles;
+  origin: FounderOrigin;
+  bio?: string;
+  createdAt: string;
+}
+
+export interface Venture {
+  id: string;
+  founderId: string;
+  name: string;
+  oneLiner: string;
+  sector: string;
+  geography: string;
+  stage: string;
+  createdAt: string;
+}
+
+export type OppStatus = "sourced" | "screened" | "interview" | "diligence" | "decision";
+export type Decision = "invest" | "pass" | "watch";
+
+export interface Opportunity {
+  id: string;
+  ventureId: string;
+  founderId: string;
+  status: OppStatus;
+  decision?: Decision;
+  convictionScore?: number;
+  convictionRationale?: string;
+  statusHistory: { status: OppStatus; at: string }[];
+  createdAt: string;
+}
+
+export type SignalSource =
+  | "github"
+  | "hackernews"
+  | "arxiv"
+  | "hackathon"
+  | "accelerator"
+  | "application"
+  | "interview";
+
+export interface Signal {
+  id: string;
+  founderId?: string;
+  source: SignalSource;
+  url?: string;
+  title: string;
+  content: string;
+  observedAt: string;
+  ingestedAt: string;
+}
+
+export type ClaimOrigin = "pitch" | "interview" | "signal";
+
+// A claim in Memory. Grading fields are absent until the evidence engine has run.
+export interface StoredClaim extends Claim {
+  opportunityId: string;
+  founderId: string;
+  origin: ClaimOrigin;
+  grade?: Grade;
+  reasoning?: string;
+  sources?: EvidenceSource[];
+}
+
+export type Trait = "ability" | "aspiration" | "learning_agility" | "accountability";
+export type TraitConfidence = "high" | "medium" | "low" | "insufficient";
+
+export interface TraitScore {
+  id: string;
+  founderId: string;
+  opportunityId: string;
+  trait: Trait;
+  score: number | null; // 0-100; null when confidence is 'insufficient'
+  confidence: TraitConfidence;
+  rationale: string;
+  evidenceClaimIds: string[];
+  assessedAt: string;
+}
+
+export interface FounderScoreRecord {
+  id: string; // same as founderId, one record per person
+  founderId: string;
+  score: number;
+  history: { score: number; at: string; reason: string }[];
+}
+
+export type Axis = "founder" | "market" | "idea_market";
+export type Trend = "improving" | "stable" | "declining";
+
+export interface AxisScore {
+  id: string;
+  opportunityId: string;
+  axis: Axis;
+  rating: string;
+  trend: Trend;
+  rationale: string;
+  evidenceRefs: string[];
+  assessedAt: string;
+}
+
+export interface Thesis {
+  id: string; // always 'active'
+  sectors: string[];
+  stages: string[];
+  geographies: string[];
+  checkSizeUsd: number;
+  ownershipTargetPct: number;
+  riskAppetite: "conservative" | "balanced" | "aggressive";
+  convictionThreshold: number; // 0-100; crossing it triggers an interview invitation
+}
+
+export interface InterviewQuestion {
+  trait: Trait;
+  question: string;
+  why: string; // which evidence gap this question targets; powers traceability
+}
+
+export interface InterviewTurn {
+  role: "agent" | "founder";
+  text: string;
+  at: string;
+}
+
+export type InterviewStatus = "invited" | "in_progress" | "complete";
+
+export interface Interview {
+  id: string;
+  opportunityId: string;
+  founderId: string;
+  plannedQuestions: InterviewQuestion[];
+  turns: InterviewTurn[];
+  status: InterviewStatus;
+  extractedClaimIds: string[];
+  createdAt: string;
+}
+
+export interface Memo {
+  id: string; // same as opportunityId
+  opportunityId: string;
+  snapshot: string;
+  hypotheses: string[];
+  swot: {
+    strengths: string[];
+    weaknesses: string[];
+    opportunities: string[];
+    threats: string[];
+  };
+  problemProduct: string;
+  tractionKpis: string;
+  gaps: string[]; // explicitly flagged missing data, never silently omitted
+  recommendation: { verdict: Decision; thesisFit: string; rationale: string };
+  generatedAt: string;
+}
+
+export interface EventLog {
+  id: string;
+  type: string;
+  detail: string;
+  refs?: Record<string, string>;
+  at: string;
+}

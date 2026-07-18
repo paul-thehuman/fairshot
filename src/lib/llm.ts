@@ -3,15 +3,17 @@ import Anthropic from "@anthropic-ai/sdk";
 import type { Claim, ClaimCategory, Grade, EvidenceSource } from "./types";
 import type { EvidenceSnippet } from "./tavily";
 
-type Provider = "openai" | "anthropic";
+type Provider = "openai" | "gemini" | "anthropic";
 
-// OpenAI first when both keys are present: keeps the app's own runtime
-// inference off the Claude Code subscription quota used to build it.
+// OpenAI, then Gemini (both hackathon credits), Anthropic last: keeps the
+// app's own runtime inference off the Claude Code subscription quota used to
+// build it.
 function activeProvider(): Provider {
   if (process.env.OPENAI_API_KEY) return "openai";
+  if (process.env.GEMINI_API_KEY) return "gemini";
   if (process.env.ANTHROPIC_API_KEY) return "anthropic";
   throw new Error(
-    "No LLM provider configured. Set OPENAI_API_KEY or ANTHROPIC_API_KEY in .env.local."
+    "No LLM provider configured. Set OPENAI_API_KEY, GEMINI_API_KEY, or ANTHROPIC_API_KEY in .env.local."
   );
 }
 
@@ -74,11 +76,47 @@ async function callAnthropic(system: string, user: string): Promise<string> {
   return block && block.type === "text" ? block.text : "{}";
 }
 
+async function callGemini(system: string, user: string): Promise<string> {
+  const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": process.env.GEMINI_API_KEY ?? "",
+      },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: system }] },
+        contents: [{ role: "user", parts: [{ text: user }] }],
+        generationConfig: { temperature: 0, responseMimeType: "application/json" },
+      }),
+    }
+  );
+  if (!res.ok) {
+    throw new Error(`Gemini call failed (${res.status}): ${await res.text()}`);
+  }
+  const data = (await res.json()) as {
+    candidates?: { content?: { parts?: { text?: string }[] } }[];
+  };
+  return data.candidates?.[0]?.content?.parts?.[0]?.text ?? "{}";
+}
+
 async function call(system: string, user: string): Promise<string> {
-  const provider = activeProvider();
-  return provider === "openai"
-    ? callOpenAI(system, user)
-    : callAnthropic(system, user);
+  switch (activeProvider()) {
+    case "openai":
+      return callOpenAI(system, user);
+    case "gemini":
+      return callGemini(system, user);
+    case "anthropic":
+      return callAnthropic(system, user);
+  }
+}
+
+// Generic JSON-mode completion for FairShot's reasoning steps (interview
+// planning, capability assessment, screening, memo, query parsing).
+export async function completeJSON<T>(system: string, user: string): Promise<T> {
+  return parseJson<T>(await call(system, user));
 }
 
 export function currentProvider(): Provider {
