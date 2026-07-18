@@ -1,5 +1,5 @@
 import { completeJSON } from "./llm";
-import { getAll, now, upsert } from "./store";
+import { getAll, getById, now, upsert } from "./store";
 import { TRAITS } from "./interview/planner";
 import type { Trait, TraitConfidence, TraitScore } from "./types";
 
@@ -18,10 +18,29 @@ Rules:
 
 const CONFIDENCES: TraitConfidence[] = ["high", "medium", "low", "insufficient"];
 
+// Assessment policy: FairShot judges capability only with the founder's
+// participation. Synthetic demo profiles and inbound applicants qualify;
+// outbound-discovered real people qualify only once they've answered in an
+// interview. Until then they are prioritised, never judged.
+export function assertAssessable(founderId: string): void {
+  const founder = getById("founders", founderId);
+  if (!founder || founder.synthetic || founder.origin === "inbound") return;
+  const participated = getAll("interviews").some(
+    (i) =>
+      i.founderId === founderId && i.turns.some((t) => t.role === "founder")
+  );
+  if (!participated) {
+    throw new Error(
+      "Assessment policy: this is a real, outbound-discovered person. FairShot prioritises them for outreach but does not judge capability until they participate in an interview."
+    );
+  }
+}
+
 export async function assessFounder(
   founderId: string,
   opportunityId: string
 ): Promise<TraitScore[]> {
+  assertAssessable(founderId);
   const claims = getAll("claims")
     .filter((c) => c.founderId === founderId)
     .map((c) => ({

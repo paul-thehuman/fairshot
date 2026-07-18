@@ -37,22 +37,35 @@ interface CollectionMap {
 export type CollectionName = keyof CollectionMap;
 
 const DATA_DIR = path.join(process.cwd(), "data");
-const cache = new Map<CollectionName, unknown[]>();
+
+// The cache is keyed on the file's mtime: the dev server bundles routes into
+// separate module instances, so a write through one instance must be visible
+// to reads through another. A stat per read is cheap at this scale.
+const cache = new Map<CollectionName, { mtimeMs: number; items: unknown[] }>();
 
 function fileFor(name: CollectionName): string {
   return path.join(DATA_DIR, `${name}.json`);
 }
 
+function mtimeOf(name: CollectionName): number {
+  try {
+    return fs.statSync(fileFor(name)).mtimeMs;
+  } catch {
+    return 0;
+  }
+}
+
 function load<K extends CollectionName>(name: K): CollectionMap[K][] {
-  const cached = cache.get(name);
-  if (cached) return cached as CollectionMap[K][];
+  const mtimeMs = mtimeOf(name);
+  const hit = cache.get(name);
+  if (hit && hit.mtimeMs === mtimeMs) return hit.items as CollectionMap[K][];
   let items: CollectionMap[K][] = [];
   try {
     items = JSON.parse(fs.readFileSync(fileFor(name), "utf8"));
   } catch {
     items = [];
   }
-  cache.set(name, items);
+  cache.set(name, { mtimeMs, items });
   return items;
 }
 
@@ -61,7 +74,7 @@ function persist(name: CollectionName, items: unknown[]): void {
   const tmp = `${fileFor(name)}.tmp`;
   fs.writeFileSync(tmp, JSON.stringify(items, null, 2));
   fs.renameSync(tmp, fileFor(name));
-  cache.set(name, items);
+  cache.set(name, { mtimeMs: mtimeOf(name), items });
 }
 
 export function newId(): string {

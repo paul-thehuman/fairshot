@@ -78,9 +78,9 @@ export default async function PipelinePage() {
                     (i) => i.opportunityId === opp.id && i.status !== "complete"
                   );
                   return (
+                    <a key={opp.id} href={`/memo/${opp.id}`} className="block">
                     <article
-                      key={opp.id}
-                      className="rounded-lg border border-neutral-200 p-3 text-sm dark:border-neutral-800"
+                      className="rounded-lg border border-neutral-200 p-3 text-sm transition-colors hover:border-neutral-400 dark:border-neutral-800 dark:hover:border-neutral-600"
                     >
                       <p className="font-medium">
                         {founder?.name ?? "Unknown"}
@@ -129,6 +129,7 @@ export default async function PipelinePage() {
                         </p>
                       )}
                     </article>
+                    </a>
                   );
                 })}
                 {cards.length === 0 && (
