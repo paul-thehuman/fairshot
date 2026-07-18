@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { extractClaims, gradeClaim } from "@/lib/llm";
+import { completeJSON, extractClaims, gradeClaim } from "@/lib/llm";
 import { searchEvidence } from "@/lib/tavily";
 import { findOrCreateFounder } from "@/lib/dedupe";
 import { screenPending } from "@/lib/pipeline";
