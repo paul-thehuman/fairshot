@@ -10,6 +10,7 @@ interface RecognitionResultEvent {
 
 interface RecognitionLike {
   lang: string;
+  continuous: boolean;
   interimResults: boolean;
   maxAlternatives: number;
   onresult: ((e: RecognitionResultEvent) => void) | null;
@@ -24,7 +25,11 @@ export function speechRecognitionAvailable(): boolean {
   return Boolean(w.SpeechRecognition || w.webkitSpeechRecognition);
 }
 
-export function listenOnce(
+// Keeps listening through natural pauses: founders think before they speak,
+// and the browser's recognizer loves to give up at the first silence. We run
+// in continuous mode and silently restart whenever the browser ends a
+// session, accumulating the transcript until the user presses stop.
+export function listenContinuous(
   onTranscript: (text: string) => void,
   onDone: () => void
 ): (() => void) | null {
@@ -34,20 +39,47 @@ export function listenOnce(
   };
   const Ctor = w.SpeechRecognition ?? w.webkitSpeechRecognition;
   if (!Ctor) return null;
-  const recognition = new Ctor();
-  recognition.lang = "en-GB";
-  recognition.interimResults = true;
-  recognition.maxAlternatives = 1;
-  recognition.onresult = (e) => {
-    const transcript = Array.from({ length: e.results.length }, (_, i) =>
-      e.results[i][0].transcript
-    ).join(" ");
-    onTranscript(transcript.trim());
+
+  let stopped = false;
+  let bankedText = "";
+  let sessionText = "";
+  let recognition: RecognitionLike | null = null;
+
+  const attach = () => {
+    recognition = new Ctor();
+    recognition.lang = "en-GB";
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.maxAlternatives = 1;
+    recognition.onresult = (e) => {
+      sessionText = Array.from(
+        { length: e.results.length },
+        (_, i) => e.results[i][0].transcript
+      ).join(" ");
+      onTranscript(`${bankedText} ${sessionText}`.replace(/\s+/g, " ").trim());
+    };
+    recognition.onerror = null;
+    recognition.onend = () => {
+      bankedText = `${bankedText} ${sessionText}`.replace(/\s+/g, " ").trim();
+      sessionText = "";
+      if (stopped) {
+        onDone();
+        return;
+      }
+      try {
+        attach();
+      } catch {
+        onDone();
+      }
+    };
+    recognition.start();
   };
-  recognition.onend = onDone;
-  recognition.onerror = onDone;
-  recognition.start();
-  return () => recognition.stop();
+
+  attach();
+  return () => {
+    stopped = true;
+    recognition?.stop();
+  };
 }
 
 let currentAudio: HTMLAudioElement | null = null;

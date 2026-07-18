@@ -2,7 +2,7 @@
 
 import { use, useCallback, useEffect, useRef, useState } from "react";
 import type { FounderFeedback, Interview } from "@/lib/types";
-import { listenOnce, speak, speechRecognitionAvailable, stopSpeaking } from "./voice";
+import { listenContinuous, speak, speechRecognitionAvailable, stopSpeaking } from "./voice";
 
 interface Payload {
   interview: Interview;
@@ -50,7 +50,7 @@ export default function InterviewPage({
       return;
     }
     stopSpeaking();
-    const stop = listenOnce(
+    const stop = listenContinuous(
       (transcript) => setDraft(transcript),
       () => setListening(false)
     );
@@ -77,6 +77,8 @@ export default function InterviewPage({
   async function send(e: React.FormEvent) {
     e.preventDefault();
     if (!draft.trim()) return;
+    stopListeningRef.current?.();
+    setListening(false);
     setSending(true);
     setError(null);
     try {
