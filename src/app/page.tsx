@@ -1,197 +1,173 @@
-"use client";
+import { getAll } from "@/lib/store";
+import { loadThesis } from "@/lib/thesis";
+import { FAIRNESS_EXCLUSIONS } from "@/lib/fairness";
+import QueryBar from "./query-bar";
 
-import { useState } from "react";
-import type { FounderScoreResult, Grade } from "@/lib/types";
+export const dynamic = "force-dynamic";
 
-const GRADE_STYLE: Record<Grade, string> = {
-  corroborated: "bg-emerald-100 text-emerald-800 border-emerald-300",
-  weak_signal: "bg-amber-100 text-amber-800 border-amber-300",
-  unverifiable: "bg-neutral-100 text-neutral-600 border-neutral-300",
+const EVENT_LABEL: Record<string, string> = {
+  "threshold.crossed": "Threshold crossed",
+  "dedupe.merge": "Profiles merged",
+  "decision.made": "Decision",
+  "interview.complete": "Interview complete",
+  "scan.complete": "Scan",
+  "memo.generated": "Memo drafted",
+  "application.received": "Application",
 };
 
-const GRADE_LABEL: Record<Grade, string> = {
-  corroborated: "Corroborated",
-  weak_signal: "Weak signal",
-  unverifiable: "Unverifiable",
-};
+function median(values: number[]): number | null {
+  if (values.length === 0) return null;
+  const sorted = [...values].sort((a, b) => a - b);
+  return sorted[Math.floor(sorted.length / 2)];
+}
 
-export default function Home() {
-  const [name, setName] = useState("");
-  const [pitch, setPitch] = useState("");
-  const [links, setLinks] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [result, setResult] = useState<FounderScoreResult | null>(null);
+export default async function Dashboard() {
+  const thesis = loadThesis();
+  const founders = getAll("founders");
+  const opportunities = getAll("opportunities");
+  const signals = getAll("signals");
+  const interviews = getAll("interviews");
+  const events = getAll("events")
+    .filter((e) => EVENT_LABEL[e.type])
+    .sort((a, b) => b.at.localeCompare(a.at))
+    .slice(0, 8);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setResult(null);
+  const sources = new Set(signals.map((s) => s.source));
+  const openInvites = interviews.filter((i) => i.status === "invited").length;
+  const decisionHours = opportunities
+    .filter((o) => o.decision)
+    .map((o) => {
+      const first = new Date(o.statusHistory[0].at).getTime();
+      const decided = new Date(
+        o.statusHistory.find((h) => h.status === "decision")?.at ?? o.createdAt
+      ).getTime();
+      return (decided - first) / 3_600_000;
+    });
+  const medianHours = median(decisionHours);
 
-    try {
-      const res = await fetch("/api/score", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          pitch,
-          links: links.split("\n").filter(Boolean),
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Something went wrong");
-      setResult(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong");
-    } finally {
-      setLoading(false);
-    }
-  }
+  const stats: { label: string; value: string; hint: string }[] = [
+    {
+      label: "Founders in Memory",
+      value: String(founders.length),
+      hint: `${founders.filter((f) => !f.synthetic).length} discovered live`,
+    },
+    {
+      label: "Signals ingested",
+      value: String(signals.length),
+      hint: `${sources.size} sourcing channels`,
+    },
+    {
+      label: "Awaiting interview",
+      value: String(openInvites),
+      hint: "crossed the conviction threshold",
+    },
+    {
+      label: "Signal → decision",
+      value: medianHours == null ? "—" : `${Math.round(medianHours)}h`,
+      hint: medianHours == null ? "no decisions yet" : "median, this Memory",
+    },
+  ];
 
   return (
-    <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-12">
-      <header className="mb-10">
+    <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-10">
+      <header className="mb-8">
         <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">
-          VC Brain
+          FairShot
         </p>
         <h1 className="mt-1 text-2xl font-semibold">
-          Apply for your first $100K the way you&rsquo;d apply for a credit
-          card.
+          Overlooked founders, found and fairly assessed
         </h1>
         <p className="mt-2 text-neutral-600 dark:text-neutral-400">
-          No gatekeeper, no network required. Every claim you make gets
-          checked against real evidence, not vibes.
+          Active thesis: {thesis.sectors.join(", ")} · {thesis.stages.join(", ")} ·{" "}
+          {thesis.geographies.join(", ")} · ${(thesis.checkSizeUsd / 1000).toFixed(0)}K
+          checks ·{" "}
+          <a href="/settings" className="text-blue-600 hover:underline dark:text-blue-400">
+            change
+          </a>
         </p>
       </header>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="name">
-            Founder name
-          </label>
-          <input
-            id="name"
-            className="w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-transparent px-3 py-2"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
+      <QueryBar />
 
-        <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="pitch">
-            Tell us what you&rsquo;ve built and who you are. Be specific.
-          </label>
-          <textarea
-            id="pitch"
-            rows={6}
-            className="w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-transparent px-3 py-2"
-            value={pitch}
-            onChange={(e) => setPitch(e.target.value)}
-            placeholder="e.g. I've spent 20 years leading learning and development teams, and this year I've shipped three AI products solo, including an e-learning authoring tool used by..."
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-1" htmlFor="links">
-            Public links (one per line: GitHub, product URL, press, LinkedIn)
-          </label>
-          <textarea
-            id="links"
-            rows={3}
-            className="w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-transparent px-3 py-2"
-            value={links}
-            onChange={(e) => setLinks(e.target.value)}
-            placeholder={"https://github.com/...\nhttps://yourproduct.com"}
-          />
-        </div>
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="rounded-md bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 px-4 py-2 font-medium disabled:opacity-50"
-        >
-          {loading ? "Checking the evidence…" : "Score this founder"}
-        </button>
-      </form>
-
-      {error && (
-        <p className="mt-6 rounded-md border border-red-300 bg-red-50 px-4 py-3 text-red-800">
-          {error}
-        </p>
-      )}
-
-      {result && (
-        <section className="mt-10 space-y-8">
-          <div className="rounded-lg border border-neutral-300 dark:border-neutral-700 p-6">
-            <p className="text-sm text-neutral-500">Founder score</p>
-            <p className="mt-1 text-4xl font-semibold">{result.score.pct}</p>
-            <p className="mt-1 font-medium">{result.score.band}</p>
-            <p className="mt-2 text-sm text-neutral-500">
-              Computed from the claims below, not asserted independently.
-              Evidence graded via {result.provider}, searched via Tavily.
+      <section className="mb-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+        {stats.map((stat) => (
+          <div
+            key={stat.label}
+            className="rounded-lg border border-neutral-200 p-4 dark:border-neutral-800"
+          >
+            <p className="text-xs uppercase tracking-wide text-neutral-500">
+              {stat.label}
             </p>
+            <p className="mt-1 text-2xl font-semibold">{stat.value}</p>
+            <p className="text-xs text-neutral-500">{stat.hint}</p>
           </div>
+        ))}
+      </section>
 
-          <div>
-            <h2 className="text-lg font-semibold mb-3">Claims and evidence</h2>
-            <ul className="space-y-4">
-              {result.claims.map((claim) => (
+      <div className="grid gap-6 md:grid-cols-2">
+        <section>
+          <h2 className="mb-3 font-semibold">What just happened</h2>
+          <ul className="space-y-2">
+            {events.map((event) => (
+              <li
+                key={event.id}
+                className="rounded-lg border border-neutral-200 p-3 text-sm dark:border-neutral-800"
+              >
+                <p className="text-xs font-medium uppercase tracking-wide text-neutral-500">
+                  {EVENT_LABEL[event.type]}
+                </p>
+                <p className="mt-0.5 text-neutral-700 dark:text-neutral-300">
+                  {event.detail}
+                </p>
+              </li>
+            ))}
+            {events.length === 0 && (
+              <li className="rounded-lg border border-dashed border-neutral-200 p-3 text-sm text-neutral-400 dark:border-neutral-800">
+                Nothing yet. Seed the universe and run a scan from the Pipeline page.
+              </li>
+            )}
+          </ul>
+        </section>
+
+        <section>
+          <h2 className="mb-3 font-semibold">Newest signals</h2>
+          <ul className="space-y-2">
+            {signals
+              .sort((a, b) => b.ingestedAt.localeCompare(a.ingestedAt))
+              .slice(0, 6)
+              .map((signal) => (
                 <li
-                  key={claim.id}
-                  className="rounded-lg border border-neutral-200 dark:border-neutral-800 p-4"
+                  key={signal.id}
+                  className="rounded-lg border border-neutral-200 p-3 text-sm dark:border-neutral-800"
                 >
-                  <div className="flex items-start justify-between gap-3">
-                    <p className="font-medium">{claim.text}</p>
-                    <span
-                      className={`shrink-0 rounded-full border px-2 py-0.5 text-xs font-medium ${GRADE_STYLE[claim.grade]}`}
-                    >
-                      {GRADE_LABEL[claim.grade]}
-                    </span>
-                  </div>
-                  <p className="mt-1 text-xs uppercase tracking-wide text-neutral-500">
-                    {claim.category}
+                  <p className="text-xs font-medium uppercase tracking-wide text-neutral-500">
+                    {signal.source}
                   </p>
-                  <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-                    {claim.reasoning}
+                  <p className="mt-0.5 text-neutral-700 dark:text-neutral-300">
+                    {signal.title}
                   </p>
-                  {claim.sources.length > 0 && (
-                    <ul className="mt-2 space-y-1">
-                      {claim.sources.map((s) => (
-                        <li key={s.url}>
-                          <a
-                            href={s.url}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
-                          >
-                            {s.title || s.url}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
                 </li>
               ))}
-            </ul>
-          </div>
-
-          <div className="rounded-lg border border-neutral-300 dark:border-neutral-700 p-6">
-            <h2 className="font-semibold">What this score deliberately ignores</h2>
-            <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
-              This score is built only from evidence tied to specific claims.
-              It deliberately does not use:
-            </p>
-            <ul className="mt-2 list-disc pl-5 text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
-              {result.fairnessExclusions.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
+          </ul>
         </section>
-      )}
+      </div>
+
+      <section className="mt-10 rounded-lg border border-neutral-200 p-5 dark:border-neutral-800">
+        <h2 className="font-semibold">What FairShot deliberately ignores</h2>
+        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+          Capability is scored from evidence tied to specific claims. The system
+          does not use:
+        </p>
+        <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-neutral-600 dark:text-neutral-400">
+          {FAIRNESS_EXCLUSIONS.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+        <p className="mt-3 text-sm text-neutral-500">
+          And one enforced policy: real people discovered outbound are prioritised
+          for outreach, never capability-judged until they choose to take part.
+        </p>
+      </section>
     </main>
   );
 }
