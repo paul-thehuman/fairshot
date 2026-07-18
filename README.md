@@ -1,61 +1,94 @@
-# VC Brain
+﻿# FairShot
 
-Built for Hack-Nation's 6th Global AI Hackathon, Challenge 02 (Maschmeyer Group).
+An AI venture capital operating system that finds overlooked founders, assesses them the way a world-class talent team would, and delivers an evidence-backed $100K decision within 24 hours.
 
-Karl's framing of the challenge: the best founders often go unfunded not
-because the idea is weak, but because nobody with a checkbook knows their
-name. VC Brain is a self-serve founder-scoring engine that substitutes
-evidence for network access. A founder submits their own pitch and public
-links, the same way you'd apply for a credit card online. No gatekeeper.
+Built solo in under 24 hours for Hack-Nation's 6th Global AI Hackathon (July 2026), Challenge 02 "The VC Brain" (Maschmeyer Group), by Paul Thomas of [The Human Co.](https://thehumanco.org), building with Claude Code.
 
-## How it works
+## The problem
 
-1. **Claim extraction.** The pitch is parsed into 3-6 discrete, checkable
-   claims (traction, technical, experience, team, market), not vague
-   ambition statements.
-2. **Evidence search.** Each claim is searched independently via the
-   [Tavily](https://tavily.com) API, scoped to the founder's own public
-   links where provided.
-3. **Grading, not asserting.** Each claim is graded `corroborated`,
-   `weak_signal`, or `unverifiable` against the actual search results.
-   The model can only cite a source URL that was genuinely returned by the
-   search, enforced server-side (`src/lib/llm.ts`), so it cannot invent a
-   supporting source it never saw.
-4. **The headline score is computed, not generated.** The founder score is
-   a deterministic aggregation over the graded claims (`src/lib/scoring.ts`),
-   not a separate number the model asserts. If you disagree with the score,
-   you can see exactly which claim moved it.
-5. **A fairness panel, on every result.** The scoring engine explicitly
-   states what it does not use: school, network, age, gender, location, or
-   prior VC/accelerator names. This directly answers the bias the challenge
-   itself names, rather than assuming a scoring system is automatically fair.
+Capital flows through networks. A founder's story is scattered across repos, launches, papers and posts nobody reads closely, and diligence takes weeks. Founders who know the right people get seen; equally strong founders who don't, give up waiting. FairShot treats that as an infrastructure problem: make capability visible and checkable, so the decision runs on what someone has done, not who they know.
 
-## Stack
+## The loop
 
-Next.js (App Router) + TypeScript + Tailwind. No database: this is a
-stateless scoring engine, each request is self-contained.
+Sourcing -> Screening -> Interview -> Diligence -> Decision. Two doors into one funnel:
 
-The LLM layer (`src/lib/llm.ts`) is provider-agnostic: it uses whichever of
-`OPENAI_API_KEY` / `ANTHROPIC_API_KEY` is set, preferring OpenAI when both
-are present, so the app's own runtime inference doesn't compete with the
-Claude Code subscription used to build it.
+- **Outbound**: scanners watch GitHub, Hacker News launches and arXiv (live), plus hackathon results and accelerator cohorts (synthetic channels). Discoveries become evidence profiles, deduplicated and screened against the fund's thesis. Crossing the conviction threshold triggers an interview invitation. Targeted sourcing is also supported: point FairShot at any GitHub handle and it profiles that person from their real footprint.
+- **Inbound**: a founder applies with a company name and a pitch. Minimum bar, by design. Claims are extracted and graded against real web evidence immediately.
 
-## Setup
+Both doors converge on the same universal gate: the **Socratic interview**.
 
-```bash
-npm install
-cp .env.local.example .env.local   # fill in your keys
-npm run dev
-```
+## The capability engine (the differentiator)
 
-Requires a [Tavily](https://tavily.com) API key and either an OpenAI or
-Anthropic API key. See `.env.local.example`.
+FairShot's Founder axis is not vibes. It applies a high-potential assessment framework drawn from 20+ years of HR and talent practice, scoring four traits from evidence:
 
-## What this is not
+| Trait | What the system looks for | Convergent research |
+|---|---|---|
+| Ability | Quality of what they built and wrote; problem decomposition | Self-efficacy; execution over pedigree |
+| Aspiration | Shipping cadence, persistence, building alongside commitments | Determination (Y Combinator); grit (Duckworth) |
+| Learning agility | Visible skill acquisition, absorbing feedback, domain jumps that stuck | Adaptability, openness (founder personality studies) |
+| Accountability | Follow-through: maintaining what they shipped, fixing what others report | Internal locus of control; "formidability" (Seibel) |
 
-This is decision support, not a real investment commitment, and not
-financial diligence. It grades what's checkable from public evidence in
-seconds; it does not replace a term sheet, a background check, or a human
-conversation. Absence of evidence for a claim is reported as
-"unverifiable," not as a mark against the founder, most real, true things
-about an early-stage founder are not yet indexed by a search engine.
+Each trait gets a score, a confidence level, a rationale, and citations into the exact evidence used. "Insufficient evidence" is a first-class answer. Externally corroborated evidence outweighs self-report; interview answers cap at medium confidence unless corroborated.
+
+**The cold-start case is the point, not an afterthought.** A founder with no GitHub, no funding and no network still generates assessable evidence, because the interview is a behavioural instrument: adaptive questions anchored in whatever evidence exists, probing for specific past events the way a skilled human assessor would. The interview plans itself against the founder's evidence gaps, and every question stores the gap it targets.
+
+**The system is two-way.** Every assessed founder receives "What we saw": strengths, thin evidence, and concrete steps that would strengthen a future application. Assessment that helps people succeed, not surveillance.
+
+**Memory never forgets.** The Founder Score persists across ventures and applications, never resets, and strengthens with shipped milestones. It is one input into the Founder axis, not a substitute for per-opportunity assessment.
+
+## Honesty, enforced in code
+
+- The evidence grader can only cite source URLs it actually retrieved; fabricated citations are dropped server-side.
+- The capability engine can only cite evidence ids that exist in Memory; invented references are filtered.
+- Headline scores are deterministic aggregations computed in code, never numbers a model asserts.
+- Investment memos must flag missing data explicitly ("Cap table: not disclosed"); the standard gaps are appended in code even if the model forgets.
+- The three screening axes (Founder, Market, Idea-vs-Market) are scored independently and never averaged; each carries its own trend.
+- "No prior VC backing" queries are negation-aware: a founder saying they have never raised money is counted for them, not against them.
+- Web enrichment passes an identity gate: results about namesakes are excluded and the exclusion is logged. No verification means no enrichment.
+- Speed is instrumented: every status change is timestamped, and each decision records elapsed time from first signal.
+
+## Assessment policy
+
+Real people discovered outbound are prioritised for outreach, never capability-judged, until they choose to participate in an interview. Applying inbound is participation. Synthetic demo profiles are labelled "Synthetic" in the UI, carry no fabricated clickable links, and any name collision with a real person is coincidental. During this hackathon, decisions and memos are demonstrated on synthetic profiles, plus one real, consenting volunteer: the builder, who was sourced by his own system, interviewed by voice, and honestly rated WATCH.
+
+## Rubric mapping
+
+| Criterion | FairShot's answer |
+|---|---|
+| Data Architecture & Intelligence (30%) | Multi-channel live + synthetic sourcing, dedup on handle, domain and name, identity-gated enrichment, explicit cold-start method |
+| Intelligent Analysis & Trust (25%) | Per-claim trust grades with retrieved sources, confidence levels, contradictions flagged before the investor sees them |
+| Investment Utility & Execution (30%) | Actionable memo with a recommendation against a configurable thesis; signal-to-decision time measured; one-click decision |
+| UX & Design (15%) | Investor dashboard, funnel board, plain-English querying, voice interview |
+
+## Architecture
+
+Next.js 16 (App Router) + TypeScript. Memory is a typed JSON file store behind one repository module (src/lib/store.ts); swapping to a real database touches one file. Runtime LLM calls run through a provider-agnostic layer (src/lib/llm.ts): OpenAI first, Gemini fallback, JSON mode, deliberately separate from the coding assistant used to build the product. Evidence search via Tavily. Voice via ElevenLabs text-to-speech plus browser speech recognition; the interview brain stays FairShot's own.
+
+Key modules: scanners/ (sourcing channels), pipeline.ts (ingest, dedup, screen, threshold), sourceFounder.ts (targeted sourcing + identity gate), interview/ (planner + adaptive conduct), capability.ts (trait scoring), founderScore.ts (persistent score), screening.ts (three axes), memo.ts (evidence-backed memo), feedback.ts (founder-facing feedback).
+
+## Run it
+
+    npm install
+    cp .env.local.example .env.local   # add TAVILY_API_KEY and OPENAI_API_KEY or GEMINI_API_KEY
+    npm run dev
+    curl -X POST localhost:3000/api/seed
+
+Then visit the dashboard, run a scan from the Pipeline page, apply as the demo cold-start founder from /apply, or run the full scripted rehearsal: node scripts/rehearsal.mjs
+
+## Research areas engaged
+
+- **Confidence around soft-skill assessment**: every trait carries a confidence level bound to evidence quality, with self-report structurally capped and "insufficient" allowed. The 12 to 54 founder-score movement of the demo cold-start founder is the method demonstrated: the interview manufactures assessable evidence where none existed.
+- **Public footprints and founder success**: the capability framework converges with the entrepreneurship literature (grit and determination, adaptability, internal locus of control), and the trait definitions map those constructs onto observable footprint behaviour.
+- **Data quality vs volume**: the identity gate prefers empty enrichment over wrong enrichment, and logs what it excluded.
+
+## Honest limits
+
+- Trend arrows are v1 heuristics (score history and evidence recency), stated as such.
+- The JSON store is a hackathon choice; the repository layer isolates the swap.
+- Voice input uses the browser's built-in speech recognition (Chrome).
+- LLM judgments vary between runs; the code-level guards constrain hallucination, they do not abolish variance.
+- This is decision support, not financial diligence, and not a substitute for a term sheet or a human conversation.
+
+## Credits
+
+Hack-Nation partner credits: Tavily (evidence search), OpenAI (runtime reasoning), ElevenLabs (voice). Built with Claude Code.
