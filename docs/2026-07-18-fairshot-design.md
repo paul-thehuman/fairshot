@@ -22,8 +22,8 @@ Sourcing and diligence machinery comparable to commercial tools (Harmonic, Spect
 ## Components
 
 1. **Thesis settings.** Investor-configurable: sectors, stage, geography, check size, ownership target, risk appetite. All downstream scoring filters through this lens. Not hardcoded.
-2. **Sourcing.** Two doors, one funnel. Outbound: scanners over GitHub, Hacker News launches, and arXiv (live) plus hackathon winners and accelerator cohorts (synthetic); discoveries become profiles scored identically to applicants; conviction-threshold alerts; outreach drafts to trigger a real application. Inbound: application with deck + company name minimum.
-3. **Socratic interview.** Adaptive behavioural interview at application time. Probes the four capability traits with follow-up questions; the transcript is parsed into claims and fed to the evidence engine. Text chat is core scope; ElevenLabs conversational voice is a stretch upgrade pending credits.
+2. **Sourcing.** Two doors, one funnel. Outbound: scanners over GitHub, Hacker News launches, and arXiv (live) plus hackathon winners and accelerator cohorts (synthetic); discoveries become profiles scored identically to applicants; crossing the conviction threshold triggers an invitation to the Socratic interview. Inbound: application with deck + company name minimum.
+3. **Socratic interview.** The universal assessment gate for both doors. Every inbound applicant sits it (mandatory when public evidence is thin or absent); outbound-discovered founders who cross the conviction threshold are invited to it. The question plan adapts to the evidence already held, so interview time goes where evidence is thinnest. Probes the four capability traits with follow-up questions; the transcript is parsed into claims and fed to the evidence engine. Text chat is core scope; ElevenLabs conversational voice is a stretch upgrade pending credits.
 4. **Memory.** SQLite. Founders, companies, signals, claims, evidence, scores. Everything timestamped and source-tagged; duplicates merged. Houses the Founder Score: persists across ventures and applications, never resets, strengthens with shipped milestones. Distinct from per-opportunity scores.
 5. **Capability engine.** Four traits scored in v1: Ability, Aspiration, Learning agility, Accountability. Each trait: score + evidence citations + confidence level; "insufficient evidence" is a permitted output. Roadmap traits (documented, not built): Engagement, Strategic mindset, Informal influence. Framework grounded in high-potential talent assessment and convergent with entrepreneurship research (grit/determination, adaptability/openness, internal locus of control).
 6. **Three-axis screening.** Founder (capability engine + Founder Score as one input), Market (sizing, competitors, bull/neutral/bear), Idea-vs-Market (survives scrutiny as-is, or team strong enough to pivot). Axes scored independently, never averaged, each with a trend direction.
@@ -37,11 +37,11 @@ Hybrid. Live: GitHub, Hacker News, arXiv, Tavily evidence search. Synthetic: fou
 
 ## Stack
 
-Next.js + TypeScript (existing scaffold kept; its claim-extraction → Tavily-grounding → honest-grading engine is reused as the Trust Score core). SQLite for Memory. Runtime LLM calls: OpenAI (Gemini fallback), never the builder's Claude quota. Evidence: Tavily. Voice: ElevenLabs (stretch).
+Next.js + TypeScript (existing scaffold kept; its claim-extraction → Tavily-grounding → honest-grading engine is reused as the Trust Score core). Memory: typed JSON file store behind a repository layer (build decision: zero native-dependency risk on Windows; production swap to a real database is isolated to one file). Runtime LLM calls: OpenAI (Gemini fallback), never the builder's Claude quota. Evidence: Tavily. Voice: ElevenLabs (stretch).
 
 ## Demo storyline (also the video script)
 
-Founder A is discovered: GitHub signal → enriched profile → capability scores → memo → invest recommendation, every claim traceable. Founder B is invisible: no GitHub, no network; applies with a deck, sits the Socratic interview, capability becomes visible, memo marks unverifiable claims honestly. Around them: thesis filtering and one natural-language query moment.
+Founder A is discovered: GitHub signal → enriched profile → crosses the conviction threshold → invited to the Socratic interview → capability scores → memo → invest recommendation, every claim traceable. Founder B is invisible: no GitHub, no network; applies with a deck, sits the Socratic interview, capability becomes visible, memo marks unverifiable claims honestly. Around them: thesis filtering and one natural-language query moment.
 
 ## Build order and cut lines
 
@@ -52,7 +52,7 @@ Founder A is discovered: GitHub signal → enriched profile → capability score
 5. Dashboard polish
 6. Sunday morning reserved: video, README, submission
 
-Cut first if behind: outreach drafts, trend arrows, voice interview. Never cut: cold-start path, memo, per-claim traceability.
+Cut first if behind: outreach invitation copy, trend arrows, voice interview. Never cut: cold-start path, memo, per-claim traceability.
 
 ## Out of scope
 
