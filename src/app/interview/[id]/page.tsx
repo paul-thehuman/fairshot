@@ -2,7 +2,13 @@
 
 import { use, useCallback, useEffect, useRef, useState } from "react";
 import type { FounderFeedback, Interview, InterviewBrief, TurnCheck } from "@/lib/types";
-import { listenContinuous, speak, speechRecognitionAvailable, stopSpeaking } from "./voice";
+import {
+  listenContinuous,
+  speak,
+  speechRecognitionAvailable,
+  stopSpeaking,
+  unlockAudio,
+} from "./voice";
 
 interface Payload {
   interview: Interview;
@@ -149,8 +155,14 @@ export default function InterviewPage({
           <button
             type="button"
             onClick={() => {
-              if (voiceOn) stopSpeaking();
-              else spokenCountRef.current = 0;
+              if (voiceOn) {
+                stopSpeaking();
+              } else {
+                // Unlock audio inside this click so later, network-delayed
+                // TTS turns are allowed to play.
+                unlockAudio();
+                spokenCountRef.current = 0;
+              }
               setVoiceOn(!voiceOn);
             }}
             className={`nb-btn nb-btn-sm mt-3 ${voiceOn ? "nb-btn-teal" : ""}`}
@@ -164,7 +176,10 @@ export default function InterviewPage({
         <PreInterviewBrief
           brief={brief}
           firstName={(founder?.name ?? "there").split(" ")[0]}
-          onReady={() => setReady(true)}
+          onReady={() => {
+            unlockAudio();
+            setReady(true);
+          }}
         />
       ) : (
         <>
