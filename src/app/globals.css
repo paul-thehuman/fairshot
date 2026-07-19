@@ -35,14 +35,12 @@
   --nb-shadow-none: 0px 0px 0px 0px var(--color-border);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: #101216;
-    --color-surface: #1a1d24;
-    --color-foreground: #eaeaea;
-    --color-foreground-muted: rgba(234, 234, 234, 0.55);
-    --color-border: #eaeaea;
-  }
+/* FairShot ships light-only: the neobrutalist palette is designed for the
+   light canvas, so we pin the scheme rather than follow the viewer's OS.
+   The dark token set is kept in the Co.llab source but deliberately not
+   wired up here. */
+:root {
+  color-scheme: light;
 }
 
 @theme inline {
