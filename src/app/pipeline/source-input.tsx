@@ -38,7 +38,7 @@ export default function SourceInput() {
     <div className="flex flex-col items-end gap-1">
       <form onSubmit={run} className="flex gap-2">
         <input
-          className="w-44 rounded-md border border-neutral-300 bg-transparent px-2.5 py-1.5 text-sm dark:border-neutral-700"
+          className="nb-input w-44 text-sm"
           placeholder="GitHub handle…"
           value={handle}
           onChange={(e) => setHandle(e.target.value)}
@@ -46,12 +46,12 @@ export default function SourceInput() {
         <button
           type="submit"
           disabled={running || !handle.trim()}
-          className="rounded-md border border-neutral-300 px-3 py-1.5 text-sm disabled:opacity-50 dark:border-neutral-700"
+          className="nb-btn nb-btn-sm"
         >
           {running ? "Profiling…" : "Source founder"}
         </button>
       </form>
-      {note && <p className="max-w-xs text-right text-xs text-neutral-500">{note}</p>}
+      {note && <p className="max-w-xs text-right text-xs text-muted">{note}</p>}
     </div>
   );
 }

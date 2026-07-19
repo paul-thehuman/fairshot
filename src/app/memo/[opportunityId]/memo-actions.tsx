@@ -25,14 +25,10 @@ export function GenerateMemoButton({ opportunityId }: { opportunityId: string })
 
   return (
     <div className="space-y-2">
-      <button
-        onClick={run}
-        disabled={running}
-        className="rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-neutral-100 dark:text-neutral-900"
-      >
+      <button onClick={run} disabled={running} className="nb-btn nb-btn-primary text-sm">
         {running ? "Scoring axes and drafting memo…" : "Run diligence: score axes + draft memo"}
       </button>
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-[var(--color-error)]">{error}</p>}
     </div>
   );
 }
@@ -67,26 +63,26 @@ export function DecisionButtons({ opportunityId }: { opportunityId: string }) {
         <button
           onClick={() => decide("invest")}
           disabled={busy !== null}
-          className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
+          className="nb-btn nb-btn-teal text-sm"
         >
           {busy === "invest" ? "…" : "Invest $100K"}
         </button>
         <button
           onClick={() => decide("watch")}
           disabled={busy !== null}
-          className="rounded-md border border-neutral-300 px-4 py-2 text-sm font-medium disabled:opacity-50 dark:border-neutral-700"
+          className="nb-btn text-sm"
         >
           {busy === "watch" ? "…" : "Watch"}
         </button>
         <button
           onClick={() => decide("pass")}
           disabled={busy !== null}
-          className="rounded-md border border-neutral-300 px-4 py-2 text-sm font-medium disabled:opacity-50 dark:border-neutral-700"
+          className="nb-btn text-sm"
         >
           {busy === "pass" ? "…" : "Pass"}
         </button>
       </div>
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-[var(--color-error)]">{error}</p>}
     </div>
   );
 }

@@ -71,17 +71,17 @@ export default async function Dashboard() {
   return (
     <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-10">
       <header className="mb-8">
-        <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">
+        <p className="text-sm font-bold uppercase tracking-wide text-[var(--color-main)]">
           FairShot
         </p>
-        <h1 className="mt-1 text-2xl font-semibold">
+        <h1 className="mt-1 text-3xl">
           Overlooked founders, found and fairly assessed
         </h1>
-        <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+        <p className="mt-2 text-muted">
           Active thesis: {thesis.sectors.join(", ")} · {thesis.stages.join(", ")} ·{" "}
           {thesis.geographies.join(", ")} · ${(thesis.checkSizeUsd / 1000).toFixed(0)}K
           checks ·{" "}
-          <a href="/settings" className="text-blue-600 hover:underline dark:text-blue-400">
+          <a href="/settings" className="font-medium text-[var(--color-main)] hover:underline">
             change
           </a>
         </p>
@@ -93,13 +93,15 @@ export default async function Dashboard() {
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="rounded-lg border border-neutral-200 p-4 dark:border-neutral-800"
+            className="nb-card p-4"
           >
-            <p className="text-xs uppercase tracking-wide text-neutral-500">
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted">
               {stat.label}
             </p>
-            <p className="mt-1 text-2xl font-semibold">{stat.value}</p>
-            <p className="text-xs text-neutral-500">{stat.hint}</p>
+            <p className="mt-1 font-[family-name:var(--font-heading)] text-3xl font-bold">
+              {stat.value}
+            </p>
+            <p className="text-xs text-muted">{stat.hint}</p>
           </div>
         ))}
       </section>
@@ -111,18 +113,16 @@ export default async function Dashboard() {
             {events.map((event) => (
               <li
                 key={event.id}
-                className="rounded-lg border border-neutral-200 p-3 text-sm dark:border-neutral-800"
+                className="nb-card-flat p-3 text-sm"
               >
-                <p className="text-xs font-medium uppercase tracking-wide text-neutral-500">
+                <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-purple)]">
                   {EVENT_LABEL[event.type]}
                 </p>
-                <p className="mt-0.5 text-neutral-700 dark:text-neutral-300">
-                  {event.detail}
-                </p>
+                <p className="mt-0.5">{event.detail}</p>
               </li>
             ))}
             {events.length === 0 && (
-              <li className="rounded-lg border border-dashed border-neutral-200 p-3 text-sm text-neutral-400 dark:border-neutral-800">
+              <li className="nb-card-flat nb-dashed p-3 text-sm text-muted">
                 Nothing yet. Seed the universe and run a scan from the Pipeline page.
               </li>
             )}
@@ -138,32 +138,30 @@ export default async function Dashboard() {
               .map((signal) => (
                 <li
                   key={signal.id}
-                  className="rounded-lg border border-neutral-200 p-3 text-sm dark:border-neutral-800"
+                  className="nb-card-flat p-3 text-sm"
                 >
-                  <p className="text-xs font-medium uppercase tracking-wide text-neutral-500">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-teal)]">
                     {signal.source}
                   </p>
-                  <p className="mt-0.5 text-neutral-700 dark:text-neutral-300">
-                    {signal.title}
-                  </p>
+                  <p className="mt-0.5">{signal.title}</p>
                 </li>
               ))}
           </ul>
         </section>
       </div>
 
-      <section className="mt-10 rounded-lg border border-neutral-200 p-5 dark:border-neutral-800">
-        <h2 className="font-semibold">What FairShot deliberately ignores</h2>
-        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+      <section className="nb-card mt-10 p-5">
+        <h2 className="text-lg">What FairShot deliberately ignores</h2>
+        <p className="mt-1 text-sm text-muted">
           Capability is scored from evidence tied to specific claims. The system
           does not use:
         </p>
-        <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-neutral-600 dark:text-neutral-400">
+        <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted">
           {FAIRNESS_EXCLUSIONS.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>
-        <p className="mt-3 text-sm text-neutral-500">
+        <p className="mt-3 text-sm font-medium">
           And one enforced policy: real people discovered outbound are prioritised
           for outreach, never capability-judged until they choose to take part.
         </p>

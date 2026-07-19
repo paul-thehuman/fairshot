@@ -113,7 +113,7 @@ export default function InterviewPage({
   if (error && !payload) {
     return (
       <main className="mx-auto w-full max-w-2xl px-6 py-12">
-        <p className="rounded-md border border-red-300 bg-red-50 px-4 py-3 text-red-800">
+        <p className="rounded-[5px] border-2 border-[var(--color-error)] bg-[var(--color-surface)] px-4 py-3 text-[var(--color-error)]">
           {error}
         </p>
       </main>
@@ -134,14 +134,14 @@ export default function InterviewPage({
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col px-6 py-8">
       <header className="mb-6">
-        <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">
+        <p className="text-sm font-bold uppercase tracking-wide text-[var(--color-main)]">
           Capability interview
         </p>
-        <h1 className="mt-1 text-xl font-semibold">
+        <h1 className="mt-1 text-2xl">
           {founder?.name}
           {venture ? ` · ${venture.name}` : ""}
         </h1>
-        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+        <p className="mt-1 text-sm text-muted">
           A short conversation about things you&rsquo;ve actually done. Honest
           feedback at the end, whatever the outcome.
         </p>
@@ -153,11 +153,7 @@ export default function InterviewPage({
               else spokenCountRef.current = 0;
               setVoiceOn(!voiceOn);
             }}
-            className={`mt-3 rounded-md border px-3 py-1.5 text-sm ${
-              voiceOn
-                ? "border-emerald-400 text-emerald-700 dark:text-emerald-400"
-                : "border-neutral-300 text-neutral-600 dark:border-neutral-700 dark:text-neutral-400"
-            }`}
+            className={`nb-btn nb-btn-sm mt-3 ${voiceOn ? "nb-btn-teal" : ""}`}
           >
             {voiceOn ? "🔊 Voice on — the interviewer speaks" : "🔈 Turn on voice interview"}
           </button>
@@ -178,8 +174,8 @@ export default function InterviewPage({
                 key={i}
                 className={
                   turn.role === "agent"
-                    ? "max-w-[85%] rounded-lg border border-neutral-200 p-3 text-sm dark:border-neutral-800"
-                    : "ml-auto max-w-[85%] rounded-lg bg-neutral-100 p-3 text-sm dark:bg-neutral-900"
+                    ? "nb-card-flat max-w-[85%] p-3 text-sm"
+                    : "ml-auto max-w-[85%] rounded-[5px] border-2 border-[var(--color-border)] bg-[var(--color-main)] p-3 text-sm text-black"
                 }
               >
                 {turn.text}
@@ -187,7 +183,7 @@ export default function InterviewPage({
               </div>
             ))}
             {sending && (
-              <div className="max-w-[85%] animate-pulse rounded-lg border border-dashed border-neutral-300 p-3 text-sm text-neutral-500 dark:border-neutral-700">
+              <div className="max-w-[85%] animate-pulse rounded-[5px] border-2 border-dashed border-[var(--color-border)] bg-[var(--color-surface)] p-3 text-sm text-muted">
                 🔍 Checking what you said against public sources…
               </div>
             )}
@@ -198,7 +194,7 @@ export default function InterviewPage({
             <form onSubmit={send} className="mt-6 flex gap-2">
               <textarea
                 rows={3}
-                className="flex-1 rounded-md border border-neutral-300 bg-transparent px-3 py-2 text-sm dark:border-neutral-700"
+                className="nb-input flex-1 text-sm"
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
                 placeholder={
@@ -214,10 +210,8 @@ export default function InterviewPage({
                   onClick={toggleMic}
                   disabled={sending}
                   title={listening ? "Stop listening" : "Answer by voice"}
-                  className={`self-end rounded-md border px-3 py-2 text-sm ${
-                    listening
-                      ? "animate-pulse border-red-400 text-red-600"
-                      : "border-neutral-300 dark:border-neutral-700"
+                  className={`nb-btn nb-btn-sm self-end ${
+                    listening ? "nb-btn-danger animate-pulse" : ""
                   }`}
                 >
                   {listening ? "⏹" : "🎙"}
@@ -226,7 +220,7 @@ export default function InterviewPage({
               <button
                 type="submit"
                 disabled={sending || !draft.trim()}
-                className="self-end rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-neutral-100 dark:text-neutral-900"
+                className="nb-btn nb-btn-primary self-end text-sm"
               >
                 {sending ? "…" : "Send"}
               </button>
@@ -249,8 +243,10 @@ export default function InterviewPage({
 function CheckChip({ check }: { check: TurnCheck }) {
   const style =
     check.grade === "corroborated"
-      ? "border-emerald-300 text-emerald-700 dark:border-emerald-800 dark:text-emerald-400"
-      : "border-amber-300 text-amber-700 dark:border-amber-800 dark:text-amber-400";
+      ? "bg-[var(--color-teal)] text-black"
+      : check.grade === "weak_signal"
+        ? "bg-[var(--color-warning)] text-black"
+        : "bg-[var(--color-background)]";
   const label =
     check.grade === "corroborated"
       ? "Corroborated"
@@ -259,10 +255,10 @@ function CheckChip({ check }: { check: TurnCheck }) {
         : "No public record found";
   return (
     <div
-      className={`mt-2 rounded-md border border-dashed px-2.5 py-1.5 text-xs ${style}`}
+      className={`mt-2 rounded-[5px] border-2 border-[var(--color-border)] px-2.5 py-1.5 text-xs ${style}`}
     >
-      <span className="font-medium">🔍 Checked while you spoke:</span>{" "}
-      &ldquo;{check.claim}&rdquo; — {label}
+      <span className="font-bold">🔍 Checked while you spoke:</span>{" "}
+      &ldquo;{check.claim}&rdquo; — <span className="font-bold">{label}</span>
       {check.sourceUrl && (
         <>
           {" · "}
@@ -270,7 +266,7 @@ function CheckChip({ check }: { check: TurnCheck }) {
             href={check.sourceUrl}
             target="_blank"
             rel="noreferrer"
-            className="underline"
+            className="font-medium underline"
           >
             {check.sourceTitle || "source"}
           </a>
@@ -291,21 +287,23 @@ function PreInterviewBrief({
 }) {
   return (
     <div className="flex-1">
-      <div className="rounded-lg border border-neutral-200 p-5 dark:border-neutral-800">
-        <h2 className="font-semibold">Before we start, {firstName}</h2>
-        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+      <div className="nb-card p-5">
+        <h2 className="text-lg">Before we start, {firstName}</h2>
+        <p className="mt-1 text-sm text-muted">
           {brief.hasPublicEvidence
             ? "We've read what's public about you already. This short conversation is to fill the gaps a web search can't reach, so it helps to have a few specifics to hand."
             : "There's no public track record to go on yet, so this conversation is where your story gets told. That is not a mark against you, it just means the detail matters more."}
         </p>
 
         <section className="mt-5">
-          <h3 className="text-sm font-semibold">What we&rsquo;ll dig into</h3>
+          <h3 className="text-sm font-bold uppercase tracking-wide text-[var(--color-purple)]">
+            What we&rsquo;ll dig into
+          </h3>
           <ul className="mt-2 space-y-2 text-sm">
             {brief.focusAreas.map((area) => (
               <li key={area.trait}>
-                <span className="font-medium">{area.label}.</span>{" "}
-                <span className="text-neutral-600 dark:text-neutral-400">{area.why}</span>
+                <span className="font-semibold">{area.label}.</span>{" "}
+                <span className="text-muted">{area.why}</span>
               </li>
             ))}
           </ul>
@@ -313,10 +311,10 @@ function PreInterviewBrief({
 
         {brief.couldNotVerify.length > 0 && (
           <section className="mt-5">
-            <h3 className="text-sm font-semibold text-amber-700 dark:text-amber-400">
+            <h3 className="text-sm font-bold uppercase tracking-wide text-[var(--color-main)]">
               You told us this, and we couldn&rsquo;t confirm it
             </h3>
-            <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+            <p className="mt-1 text-sm text-muted">
               If you can back any of these up, have it ready. We never hold
               missing evidence against you; evidence we can check just earns more
               confidence.
@@ -330,7 +328,9 @@ function PreInterviewBrief({
         )}
 
         <section className="mt-5">
-          <h3 className="text-sm font-semibold">Worth having to hand</h3>
+          <h3 className="text-sm font-bold uppercase tracking-wide text-[var(--color-teal)]">
+            Worth having to hand
+          </h3>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
             {brief.bringThese.map((b) => (
               <li key={b}>{b}</li>
@@ -338,14 +338,10 @@ function PreInterviewBrief({
           </ul>
         </section>
 
-        <button
-          type="button"
-          onClick={onReady}
-          className="mt-6 rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white dark:bg-neutral-100 dark:text-neutral-900"
-        >
+        <button type="button" onClick={onReady} className="nb-btn nb-btn-primary mt-6 text-sm">
           I&rsquo;m ready, start the interview
         </button>
-        <p className="mt-2 text-xs text-neutral-500">
+        <p className="mt-2 text-xs text-muted">
           Take your time. Nothing is timed, and there are no wrong answers.
         </p>
       </div>
@@ -356,22 +352,22 @@ function PreInterviewBrief({
 function FeedbackCard({ feedback }: { feedback?: FounderFeedback }) {
   if (!feedback) {
     return (
-      <div className="mt-8 rounded-lg border border-neutral-200 p-5 text-sm text-neutral-600 dark:border-neutral-800 dark:text-neutral-400">
+      <div className="nb-card-flat mt-8 p-5 text-sm text-muted">
         Interview complete. Your evidence is being reviewed; feedback will appear
         on this page.
       </div>
     );
   }
   return (
-    <div className="mt-8 space-y-4 rounded-lg border border-neutral-200 p-5 dark:border-neutral-800">
+    <div className="nb-card mt-8 space-y-4 p-5">
       <div>
-        <h2 className="font-semibold">What we saw</h2>
-        <p className="text-sm text-neutral-500">
+        <h2 className="text-lg">What we saw</h2>
+        <p className="text-sm text-muted">
           The same evidence the investor sees. Yours to keep, whatever happens.
         </p>
       </div>
       <div>
-        <h3 className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">
+        <h3 className="text-sm font-bold uppercase tracking-wide text-[var(--color-teal)]">
           Strengths
         </h3>
         <ul className="mt-1 list-disc space-y-1 pl-5 text-sm">
@@ -381,7 +377,7 @@ function FeedbackCard({ feedback }: { feedback?: FounderFeedback }) {
         </ul>
       </div>
       <div>
-        <h3 className="text-sm font-semibold text-amber-700 dark:text-amber-400">
+        <h3 className="text-sm font-bold uppercase tracking-wide text-[var(--color-main)]">
           Where evidence was thin
         </h3>
         <ul className="mt-1 list-disc space-y-1 pl-5 text-sm">
@@ -391,7 +387,9 @@ function FeedbackCard({ feedback }: { feedback?: FounderFeedback }) {
         </ul>
       </div>
       <div>
-        <h3 className="text-sm font-semibold">What would strengthen a future application</h3>
+        <h3 className="text-sm font-bold uppercase tracking-wide text-[var(--color-purple)]">
+          What would strengthen a future application
+        </h3>
         <ul className="mt-1 list-disc space-y-1 pl-5 text-sm">
           {feedback.nextSteps.map((s) => (
             <li key={s}>{s}</li>

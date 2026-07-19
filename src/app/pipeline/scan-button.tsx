@@ -32,12 +32,12 @@ export default function ScanButton() {
       <button
         onClick={run}
         disabled={running}
-        className="rounded-md bg-neutral-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-neutral-100 dark:text-neutral-900"
+        className="nb-btn nb-btn-primary text-sm"
       >
         {running ? "Scanning channels…" : "Run outbound scan"}
       </button>
       {report && (
-        <p className="max-w-md text-right text-xs text-neutral-500">
+        <p className="max-w-md text-right text-xs text-muted">
           {report.scanners
             .map((s) => `${s.source}: ${s.error ? "failed" : s.found}`)
             .join(" · ")}
@@ -47,7 +47,7 @@ export default function ScanButton() {
           {report.llmSkipped ? " (screening skipped: no LLM key)" : ""}
         </p>
       )}
-      {error && <p className="text-xs text-red-600">{error}</p>}
+      {error && <p className="text-xs text-[var(--color-error)]">{error}</p>}
     </div>
   );
 }

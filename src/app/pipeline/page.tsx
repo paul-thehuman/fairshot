@@ -6,12 +6,12 @@ import SourceInput from "./source-input";
 
 export const dynamic = "force-dynamic";
 
-const COLUMNS: { status: OppStatus; label: string; hint: string }[] = [
-  { status: "sourced", label: "Sourced", hint: "Found, not yet screened" },
-  { status: "screened", label: "Screened", hint: "Thesis fit + conviction scored" },
-  { status: "interview", label: "Interview", hint: "Capability interview open" },
-  { status: "diligence", label: "Diligence", hint: "Evidence and memo in progress" },
-  { status: "decision", label: "Decision", hint: "Invest, pass, or watch" },
+const COLUMNS: { status: OppStatus; label: string; hint: string; accent: string }[] = [
+  { status: "sourced", label: "Sourced", hint: "Found, not yet screened", accent: "var(--color-slate)" },
+  { status: "screened", label: "Screened", hint: "Thesis fit + conviction scored", accent: "var(--color-purple)" },
+  { status: "interview", label: "Interview", hint: "Capability interview open", accent: "var(--color-main)" },
+  { status: "diligence", label: "Diligence", hint: "Evidence and memo in progress", accent: "var(--color-warning)" },
+  { status: "decision", label: "Decision", hint: "Invest, pass, or watch", accent: "var(--color-teal)" },
 ];
 
 const SOURCE_BADGE: Record<SignalSource, string> = {
@@ -41,11 +41,11 @@ export default async function PipelinePage() {
     <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-8">
       <header className="mb-6 flex items-start justify-between gap-4">
         <div>
-          <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">
+          <p className="text-sm font-bold uppercase tracking-wide text-[var(--color-main)]">
             One funnel, two doors
           </p>
-          <h1 className="mt-1 text-2xl font-semibold">Pipeline</h1>
-          <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+          <h1 className="mt-1 text-3xl">Pipeline</h1>
+          <p className="mt-1 text-sm text-muted">
             Outbound discoveries and inbound applications, screened the same way.
             Conviction ≥ {thesis.convictionThreshold} triggers an interview invitation.
           </p>
@@ -63,11 +63,15 @@ export default async function PipelinePage() {
             .sort((a, b) => (b.convictionScore ?? -1) - (a.convictionScore ?? -1));
           return (
             <section key={col.status}>
-              <h2 className="mb-1 text-sm font-semibold">
+              <div
+                className="mb-2 h-2 rounded-[2px] border-2 border-[var(--color-border)]"
+                style={{ background: col.accent }}
+              />
+              <h2 className="mb-1 text-sm font-bold">
                 {col.label}{" "}
-                <span className="font-normal text-neutral-400">({cards.length})</span>
+                <span className="font-normal text-muted">({cards.length})</span>
               </h2>
-              <p className="mb-3 text-xs text-neutral-500">{col.hint}</p>
+              <p className="mb-3 text-xs text-muted">{col.hint}</p>
               <div className="space-y-3">
                 {cards.map((opp) => {
                   const founder = founders.get(opp.founderId);
@@ -85,52 +89,41 @@ export default async function PipelinePage() {
                   );
                   return (
                     <a key={opp.id} href={`/memo/${opp.id}`} className="block">
-                    <article
-                      className="rounded-lg border border-neutral-200 p-3 text-sm transition-colors hover:border-neutral-400 dark:border-neutral-800 dark:hover:border-neutral-600"
-                    >
-                      <p className="font-medium">
+                    <article className="nb-card-flat p-3 text-sm transition-transform hover:-translate-y-0.5">
+                      <p className="font-semibold">
                         {founder?.name ?? "Unknown"}
                         {founder?.synthetic && (
-                          <span className="ml-1.5 rounded-full bg-violet-100 px-1.5 py-0.5 align-middle text-[10px] font-medium text-violet-700 dark:bg-violet-950 dark:text-violet-300">
+                          <span className="nb-badge nb-badge-purple ml-1.5 align-middle">
                             Synthetic
                           </span>
                         )}
                       </p>
-                      <p className="text-neutral-600 dark:text-neutral-400">
+                      <p className="text-muted">
                         {venture?.name}
                         {venture?.oneLiner ? ` — ${venture.oneLiner.slice(0, 70)}` : ""}
                       </p>
                       <div className="mt-2 flex flex-wrap items-center gap-1.5">
                         {sources.map((s) => (
-                          <span
-                            key={s}
-                            className="rounded-full border border-neutral-300 px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-neutral-500 dark:border-neutral-700"
-                          >
+                          <span key={s} className="nb-badge uppercase tracking-wide">
                             {SOURCE_BADGE[s]}
                           </span>
                         ))}
                         {invited && (
-                          <span className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-800">
+                          <span className="nb-badge nb-badge-warning">
                             Interview invited
                           </span>
                         )}
                       </div>
-                      <div className="mt-2 flex gap-4 text-xs text-neutral-500">
+                      <div className="mt-2 flex gap-4 text-xs text-muted">
                         <span>
-                          Conviction:{" "}
-                          <strong className="text-neutral-700 dark:text-neutral-300">
-                            {opp.convictionScore ?? "—"}
-                          </strong>
+                          Conviction: <strong>{opp.convictionScore ?? "—"}</strong>
                         </span>
                         <span>
-                          Founder score:{" "}
-                          <strong className="text-neutral-700 dark:text-neutral-300">
-                            {score?.score ?? "—"}
-                          </strong>
+                          Founder score: <strong>{score?.score ?? "—"}</strong>
                         </span>
                       </div>
                       {opp.convictionRationale && (
-                        <p className="mt-2 text-xs text-neutral-500">
+                        <p className="mt-2 text-xs text-muted">
                           {opp.convictionRationale}
                         </p>
                       )}
@@ -139,7 +132,7 @@ export default async function PipelinePage() {
                   );
                 })}
                 {cards.length === 0 && (
-                  <p className="rounded-lg border border-dashed border-neutral-200 p-3 text-xs text-neutral-400 dark:border-neutral-800">
+                  <p className="nb-card-flat nb-dashed p-3 text-xs text-muted">
                     Empty
                   </p>
                 )}

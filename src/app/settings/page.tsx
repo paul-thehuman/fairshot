@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import type { Thesis } from "@/lib/types";
 
-const inputClass =
-  "w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-transparent px-3 py-2";
+const inputClass = "nb-input";
 
 export default function SettingsPage() {
   const [thesis, setThesis] = useState<Thesis | null>(null);
@@ -44,11 +43,11 @@ export default function SettingsPage() {
   return (
     <main className="mx-auto w-full max-w-2xl flex-1 px-6 py-12">
       <header className="mb-8">
-        <p className="text-sm font-medium uppercase tracking-wide text-neutral-500">
+        <p className="text-sm font-bold uppercase tracking-wide text-[var(--color-main)]">
           Thesis engine
         </p>
-        <h1 className="mt-1 text-2xl font-semibold">What this fund invests in</h1>
-        <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+        <h1 className="mt-1 text-3xl">What this fund invests in</h1>
+        <p className="mt-2 text-muted">
           Every sourced founder, screen and memo is filtered and scored through this
           lens. Change it and the system changes with it.
         </p>
@@ -139,21 +138,19 @@ export default function SettingsPage() {
                 setSaved(false);
               }}
             />
-            <p className="mt-1 text-xs text-neutral-500">
+            <p className="mt-1 text-xs text-muted">
               Outbound founders crossing this score are invited to interview.
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <button
-            onClick={save}
-            disabled={saving}
-            className="rounded-md bg-neutral-900 px-4 py-2 font-medium text-white disabled:opacity-50 dark:bg-neutral-100 dark:text-neutral-900"
-          >
+          <button onClick={save} disabled={saving} className="nb-btn nb-btn-primary">
             {saving ? "Saving…" : "Save thesis"}
           </button>
-          {saved && <span className="text-sm text-emerald-600">Saved.</span>}
+          {saved && (
+            <span className="text-sm font-semibold text-[var(--color-teal)]">Saved.</span>
+          )}
         </div>
       </div>
     </main>
