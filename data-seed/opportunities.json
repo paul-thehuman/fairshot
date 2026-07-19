@@ -1,0 +1,285 @@
+[
+  {
+    "id": "o-lena",
+    "ventureId": "v-lena",
+    "founderId": "f-lena",
+    "status": "interview",
+    "convictionScore": 78,
+    "convictionRationale": "Strong thesis fit (AI infra, Europe); shipping cadence and adoption signals both rising",
+    "statusHistory": [
+      {
+        "status": "sourced",
+        "at": "2026-07-10T08:15:00Z"
+      },
+      {
+        "status": "screened",
+        "at": "2026-07-10T08:40:00Z"
+      },
+      {
+        "status": "interview",
+        "at": "2026-07-16T09:00:00Z"
+      }
+    ],
+    "createdAt": "2026-07-10T08:15:00Z"
+  },
+  {
+    "id": "o-tomas",
+    "ventureId": "v-tomas",
+    "founderId": "f-tomas",
+    "status": "screened",
+    "convictionScore": 64,
+    "convictionRationale": "Hackathon win is a strong ability signal; no adoption evidence yet",
+    "statusHistory": [
+      {
+        "status": "sourced",
+        "at": "2026-07-06T14:00:00Z"
+      },
+      {
+        "status": "screened",
+        "at": "2026-07-06T14:25:00Z"
+      }
+    ],
+    "createdAt": "2026-07-06T14:00:00Z"
+  },
+  {
+    "id": "o-priya",
+    "ventureId": "v-priya",
+    "founderId": "f-priya",
+    "status": "diligence",
+    "convictionScore": 82,
+    "convictionRationale": "Two independent sourcing channels; pilot traction inside target sector",
+    "statusHistory": [
+      {
+        "status": "sourced",
+        "at": "2026-06-24T10:30:00Z"
+      },
+      {
+        "status": "screened",
+        "at": "2026-06-24T11:00:00Z"
+      },
+      {
+        "status": "interview",
+        "at": "2026-06-30T09:00:00Z"
+      },
+      {
+        "status": "diligence",
+        "at": "2026-07-04T15:30:00Z"
+      }
+    ],
+    "createdAt": "2026-06-24T10:30:00Z"
+  },
+  {
+    "id": "o-marcus",
+    "ventureId": "v-marcus",
+    "founderId": "f-marcus",
+    "status": "diligence",
+    "convictionScore": 71,
+    "convictionRationale": "Experienced founder, credible wedge; revenue claims need verification",
+    "statusHistory": [
+      {
+        "status": "sourced",
+        "at": "2026-07-02T09:00:00Z"
+      },
+      {
+        "status": "screened",
+        "at": "2026-07-02T09:20:00Z"
+      },
+      {
+        "status": "interview",
+        "at": "2026-07-08T10:00:00Z"
+      },
+      {
+        "status": "diligence",
+        "at": "2026-07-12T11:00:00Z"
+      }
+    ],
+    "createdAt": "2026-07-02T09:00:00Z"
+  },
+  {
+    "id": "o-aisha",
+    "ventureId": "v-aisha",
+    "founderId": "f-aisha",
+    "status": "interview",
+    "convictionScore": 90,
+    "convictionRationale": "Strong evidence of AI infrastructure work with a first-author paper and widely used reference implementation in Europe.",
+    "statusHistory": [
+      {
+        "status": "sourced",
+        "at": "2026-07-15T11:20:00Z"
+      },
+      {
+        "status": "screened",
+        "at": "2026-07-19T12:38:19.083Z"
+      },
+      {
+        "status": "interview",
+        "at": "2026-07-19T12:38:19.083Z"
+      }
+    ],
+    "createdAt": "2026-07-15T11:20:00Z"
+  },
+  {
+    "id": "o-jonas",
+    "ventureId": "v-jonas",
+    "founderId": "f-jonas",
+    "status": "interview",
+    "convictionScore": 85,
+    "convictionRationale": "Developer tools sector with strong community interest and potential pilot customers in Europe.",
+    "statusHistory": [
+      {
+        "status": "sourced",
+        "at": "2026-07-14T19:45:00Z"
+      },
+      {
+        "status": "screened",
+        "at": "2026-07-19T12:38:19.088Z"
+      },
+      {
+        "status": "interview",
+        "at": "2026-07-19T12:38:19.088Z"
+      }
+    ],
+    "createdAt": "2026-07-14T19:45:00Z"
+  },
+  {
+    "id": "o-sara",
+    "ventureId": "v-sara",
+    "founderId": "f-sara",
+    "status": "screened",
+    "convictionScore": 35,
+    "convictionRationale": "Capable founder but climate hardware is outside the active thesis sectors",
+    "statusHistory": [
+      {
+        "status": "sourced",
+        "at": "2026-07-08T09:30:00Z"
+      },
+      {
+        "status": "screened",
+        "at": "2026-07-08T09:55:00Z"
+      }
+    ],
+    "createdAt": "2026-07-08T09:30:00Z"
+  },
+  {
+    "id": "o-david",
+    "ventureId": "v-david",
+    "founderId": "f-david",
+    "status": "screened",
+    "convictionScore": 58,
+    "convictionRationale": "Useful wedge in a crowded space; differentiation unclear",
+    "statusHistory": [
+      {
+        "status": "sourced",
+        "at": "2026-07-11T16:10:00Z"
+      },
+      {
+        "status": "screened",
+        "at": "2026-07-11T16:30:00Z"
+      }
+    ],
+    "createdAt": "2026-07-11T16:10:00Z"
+  },
+  {
+    "id": "o-ines",
+    "ventureId": "v-ines",
+    "founderId": "f-ines",
+    "status": "screened",
+    "convictionScore": 66,
+    "convictionRationale": "Clear buyer and demo; market size for single-workflow legal tools uncertain",
+    "statusHistory": [
+      {
+        "status": "sourced",
+        "at": "2026-07-05T12:00:00Z"
+      },
+      {
+        "status": "screened",
+        "at": "2026-07-05T12:20:00Z"
+      }
+    ],
+    "createdAt": "2026-07-05T12:00:00Z"
+  },
+  {
+    "id": "o-viktor",
+    "ventureId": "v-viktor",
+    "founderId": "f-viktor",
+    "status": "screened",
+    "convictionScore": 61,
+    "convictionRationale": "Live pilot claimed; team composition needs verification",
+    "statusHistory": [
+      {
+        "status": "sourced",
+        "at": "2026-07-09T08:40:00Z"
+      },
+      {
+        "status": "screened",
+        "at": "2026-07-09T09:00:00Z"
+      }
+    ],
+    "createdAt": "2026-07-09T08:40:00Z"
+  },
+  {
+    "id": "o-ruth",
+    "ventureId": "v-ruth",
+    "founderId": "f-ruth",
+    "status": "screened",
+    "convictionScore": 40,
+    "convictionRationale": "AI infrastructure sector but only evidence is accelerator cohort listing without product or traction details.",
+    "statusHistory": [
+      {
+        "status": "sourced",
+        "at": "2026-07-16T10:00:00Z"
+      },
+      {
+        "status": "screened",
+        "at": "2026-07-19T12:38:19.092Z"
+      }
+    ],
+    "createdAt": "2026-07-16T10:00:00Z"
+  },
+  {
+    "id": "o-kenji",
+    "ventureId": "v-kenji",
+    "founderId": "f-kenji",
+    "status": "screened",
+    "convictionScore": 69,
+    "convictionRationale": "One point under threshold: strong library adoption, founder intent to commercialise unconfirmed",
+    "statusHistory": [
+      {
+        "status": "sourced",
+        "at": "2026-07-07T13:30:00Z"
+      },
+      {
+        "status": "screened",
+        "at": "2026-07-07T13:50:00Z"
+      }
+    ],
+    "createdAt": "2026-07-07T13:30:00Z"
+  },
+  {
+    "id": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "ventureId": "fb538579-67bf-4724-b9e8-63817aed466e",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "status": "diligence",
+    "statusHistory": [
+      {
+        "status": "sourced",
+        "at": "2026-07-19T12:37:58.699Z"
+      },
+      {
+        "status": "screened",
+        "at": "2026-07-19T12:38:19.094Z"
+      },
+      {
+        "status": "interview",
+        "at": "2026-07-19T12:38:19.097Z"
+      },
+      {
+        "status": "diligence",
+        "at": "2026-07-19T12:39:00.168Z"
+      }
+    ],
+    "createdAt": "2026-07-19T12:37:58.699Z",
+    "convictionScore": 40,
+    "convictionRationale": "Off-thesis sector (healthcare operations) despite strong founder domain expertise and early traction in UK."
+  }
+]

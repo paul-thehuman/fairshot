@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+
+export const maxDuration = 300;
 import { sourceFounderByGithub } from "@/lib/sourceFounder";
 
 export async function POST(req: Request) {

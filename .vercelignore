@@ -1,0 +1,4 @@
+# Runtime state stays local; the deployed demo boots from data-seed/ instead.
+data/
+design-export/
+.env.local

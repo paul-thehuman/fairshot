@@ -1,0 +1,314 @@
+[
+  {
+    "id": "c-priya-1",
+    "opportunityId": "o-priya",
+    "founderId": "f-priya",
+    "origin": "pitch",
+    "category": "traction",
+    "text": "Relay Health has two NHS hospital pilots underway",
+    "grade": "corroborated",
+    "reasoning": "Techstars cohort listing independently describes two hospital pilots.",
+    "sources": [
+      {
+        "url": "",
+        "title": "Techstars London 2026 cohort listing (synthetic)"
+      }
+    ]
+  },
+  {
+    "id": "c-priya-2",
+    "opportunityId": "o-priya",
+    "founderId": "f-priya",
+    "origin": "pitch",
+    "category": "technical",
+    "text": "Working parser handles unstructured ward notes across two hospital IT systems",
+    "grade": "weak_signal",
+    "reasoning": "Public repo shows sustained development and external contributors; cross-system claim not independently verified.",
+    "sources": [
+      {
+        "url": "",
+        "title": "relay-notes repository (synthetic)"
+      }
+    ]
+  },
+  {
+    "id": "c-priya-3",
+    "opportunityId": "o-priya",
+    "founderId": "f-priya",
+    "origin": "interview",
+    "category": "experience",
+    "text": "Built and maintained the tool for five months while employed full-time as an NHS data analyst",
+    "grade": "corroborated",
+    "reasoning": "Commit history timeline matches stated employment period.",
+    "sources": [
+      {
+        "url": "",
+        "title": "relay-notes commit history (synthetic)"
+      }
+    ]
+  },
+  {
+    "id": "c-marcus-1",
+    "opportunityId": "o-marcus",
+    "founderId": "f-marcus",
+    "origin": "pitch",
+    "category": "traction",
+    "text": "QuotaFlow is at $40K MRR with 12 paying customers",
+    "grade": "weak_signal",
+    "reasoning": "No independent corroboration found, and a June 2026 podcast appearance described the company as pre-revenue. Contradiction flagged for the memo.",
+    "sources": []
+  },
+  {
+    "id": "c-marcus-2",
+    "opportunityId": "o-marcus",
+    "founderId": "f-marcus",
+    "origin": "pitch",
+    "category": "team",
+    "text": "Three-person engineering team",
+    "grade": "unverifiable",
+    "reasoning": "No public evidence of additional engineers; no contradiction either.",
+    "sources": []
+  },
+  {
+    "id": "c-marcus-3",
+    "opportunityId": "o-marcus",
+    "founderId": "f-marcus",
+    "origin": "pitch",
+    "category": "experience",
+    "text": "Previously founded and sold a sales-analytics tool",
+    "grade": "corroborated",
+    "reasoning": "Acquisition covered in trade press in 2023.",
+    "sources": [
+      {
+        "url": "",
+        "title": "QuotaWise acquisition coverage, 2023 (synthetic)"
+      }
+    ]
+  },
+  {
+    "id": "c-viktor-1",
+    "opportunityId": "o-viktor",
+    "founderId": "f-viktor",
+    "origin": "pitch",
+    "category": "team",
+    "text": "Team of five including two ML engineers",
+    "grade": "weak_signal",
+    "reasoning": "A June 2026 founders-fair profile lists ParcelMind as a solo-founder project seeking a technical co-founder. Contradiction flagged for the memo.",
+    "sources": []
+  },
+  {
+    "id": "c-viktor-2",
+    "opportunityId": "o-viktor",
+    "founderId": "f-viktor",
+    "origin": "pitch",
+    "category": "traction",
+    "text": "Live pilot with a Danish courier network",
+    "grade": "unverifiable",
+    "reasoning": "No public evidence found either way; absence of evidence, not evidence of falsehood.",
+    "sources": []
+  },
+  {
+    "id": "b3ad71be-6e25-480f-824b-479155264538",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "origin": "pitch",
+    "text": "The founder spent eleven years as a ward staffing coordinator in two NHS trusts.",
+    "category": "experience",
+    "grade": "unverifiable",
+    "reasoning": "None of the provided sources mention the founder's work history or specifically that they spent eleven years as a ward staffing coordinator in two NHS trusts.",
+    "sources": []
+  },
+  {
+    "id": "f373a3ca-b4b0-4a5c-ae28-5308f1e463b2",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "origin": "pitch",
+    "text": "Rotas in NHS trusts are still built in spreadsheets.",
+    "category": "market",
+    "grade": "corroborated",
+    "reasoning": "Evidence shows that NHS rotas are still managed using Excel spreadsheets, as indicated by references to exporting shifts to Excel and the existence of Excel-based rota templates and files.",
+    "sources": [
+      {
+        "url": "https://assets.applytosupply.digitalmarketplace.service.gov.uk/g-cloud-14/documents/711410/510531538868067-terms-and-conditions-2024-05-03-0859.pdf",
+        "title": "HealthRota"
+      },
+      {
+        "url": "https://groups.google.com/g/nhshackday/c/I8Gp3IdftRI",
+        "title": "Medical Excel Rota"
+      },
+      {
+        "url": "https://rapidrota.com/for-nhs",
+        "title": "NHS Rota Management Software"
+      },
+      {
+        "url": "https://www.med.scot.nhs.uk/trainee-doctors/rota-information/rota-templates",
+        "title": "Rota Templates"
+      }
+    ]
+  },
+  {
+    "id": "2086cc93-4b93-43a4-9f01-2000f00742b2",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "origin": "pitch",
+    "text": "The founder built a rota assistant that predicts staffing gaps two weeks in advance and suggests swaps to avoid last-minute agency cover.",
+    "category": "technical",
+    "grade": "unverifiable",
+    "reasoning": "None of the provided sources mention a rota assistant that predicts staffing gaps or suggests swaps to avoid last-minute agency cover.",
+    "sources": []
+  },
+  {
+    "id": "621783bc-20fa-4c23-8e77-3da83dc0330d",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "origin": "pitch",
+    "text": "Three wards at the founder's old trust use the rota assistant unofficially.",
+    "category": "traction",
+    "grade": "unverifiable",
+    "reasoning": "None of the provided sources mention anything about wards at the founder's old trust using the rota assistant unofficially.",
+    "sources": []
+  },
+  {
+    "id": "d8dbfce5-06f0-43af-afd3-14b8676a6403",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "origin": "pitch",
+    "text": "The rota manager at a neighbouring trust requested the rota assistant after seeing it at a conference.",
+    "category": "traction",
+    "grade": "unverifiable",
+    "reasoning": "None of the provided sources mention a rota manager at a neighbouring trust requesting the rota assistant after seeing it at a conference.",
+    "sources": []
+  },
+  {
+    "id": "b897d230-aaf0-49f9-b0a4-7ebcf79a1467",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "origin": "interview",
+    "text": "The founder used NHS England's e-rostering guidance as a reference for safe staffing rules.",
+    "category": "experience",
+    "grade": "corroborated",
+    "reasoning": "The NHS England's e-rostering guidance document directly supports the claim that the founder used it as a reference for safe staffing rules.",
+    "sources": [
+      {
+        "url": "https://www.england.nhs.uk/wp-content/uploads/2020/09/e-rostering-guidance.pdf",
+        "title": "E-rostering the clinical workforce"
+      }
+    ]
+  },
+  {
+    "id": "4fe1aa57-277f-4fb4-80e2-09b75850c456",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "origin": "interview",
+    "text": "The founder used Airtable for the availability matrix and Glide to build an app.",
+    "category": "experience",
+    "grade": "weak_signal",
+    "reasoning": "The sources show that Airtable can be used as a data source and Glide can be used to build apps, but none specifically confirm that the founder used Airtable for the availability matrix and Glide to build an app.",
+    "sources": [
+      {
+        "url": "https://aatt.io/video/build-a-mobile-app-from-your-airtable-base-using-glide-with-david-siegel",
+        "title": "Powerful No-code Apps Using Airtable + Glide | Automate All the Things"
+      },
+      {
+        "url": "https://www.youtube.com/watch?v=xT89eayJ54Q",
+        "title": "Powerful no-code apps using Airtable + Glide with David Siegel"
+      },
+      {
+        "url": "https://www.linkedin.com/posts/andrew-dodds-airtable_build-a-mobile-app-with-airtable-and-glide-activity-7196531839405043713-mdcB",
+        "title": "Build a mobile app with Airtable and Glide(part 1)"
+      },
+      {
+        "url": "https://www.youtube.com/watch?v=leIUYrI8JLY",
+        "title": "How To Turn Your Airtable Bases Into Apps With Glide | Step-By-Step ..."
+      }
+    ]
+  },
+  {
+    "id": "19831443-63e1-4172-ab36-6ad2f6f81670",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "origin": "interview",
+    "text": "The founder was asked for the product by the rota manager from the neighbouring trust at a conference.",
+    "category": "experience",
+    "grade": "unverifiable",
+    "reasoning": "None of the provided sources mention the founder being asked for the product by the rota manager from the neighbouring trust at a conference.",
+    "sources": []
+  },
+  {
+    "id": "db1310c2-4432-4303-9df2-e1ece9352d69",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "origin": "interview",
+    "text": "The founder rebuilt the availability matrix over about three weekends to accommodate twelve-hour shifts at a neighbouring trust.",
+    "category": "technical",
+    "grade": "unverifiable",
+    "reasoning": "Behavioural account from the interview; weighed for consistency rather than external corroboration.",
+    "sources": []
+  },
+  {
+    "id": "ed112785-fd37-4823-a50d-c6ae43a15ec9",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "origin": "interview",
+    "text": "The founder tested the rebuilt availability matrix against six months of the neighbouring trust's old rotas before sharing it.",
+    "category": "technical",
+    "grade": "unverifiable",
+    "reasoning": "Behavioural account from the interview; weighed for consistency rather than external corroboration.",
+    "sources": []
+  },
+  {
+    "id": "d95b5d06-9acf-47d7-8915-96be227afe4e",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "origin": "interview",
+    "text": "The neighbouring trust's rota manager receives a gap forecast every Monday and reports agency requests are down by about a third.",
+    "category": "traction",
+    "grade": "unverifiable",
+    "reasoning": "Behavioural account from the interview; weighed for consistency rather than external corroboration.",
+    "sources": []
+  },
+  {
+    "id": "8809c631-e727-4054-906d-4b71b0817e84",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "origin": "interview",
+    "text": "The founder personally paid fifty pounds a month for Glide for the first year due to lack of budget from the trust.",
+    "category": "experience",
+    "grade": "unverifiable",
+    "reasoning": "Behavioural account from the interview; weighed for consistency rather than external corroboration.",
+    "sources": []
+  },
+  {
+    "id": "a68dea58-4038-4e3a-a017-090017e54f63",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "origin": "interview",
+    "text": "The founder delivered a sickness-cover feature by November ahead of the winter flu season deadline and fixed a critical bug over a weekend.",
+    "category": "technical",
+    "grade": "unverifiable",
+    "reasoning": "Behavioural account from the interview; weighed for consistency rather than external corroboration.",
+    "sources": []
+  },
+  {
+    "id": "3803feb0-1dbd-45d3-a4d2-44603948e34f",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "origin": "interview",
+    "text": "The founder started a hazard log and began studying the DCB0129 clinical safety standard to ensure the product's safety for NHS use.",
+    "category": "experience",
+    "grade": "unverifiable",
+    "reasoning": "Behavioural account from the interview; weighed for consistency rather than external corroboration.",
+    "sources": []
+  },
+  {
+    "id": "103b2b46-197c-4fba-98f7-573f9737ca89",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "origin": "interview",
+    "text": "The founder improved the app's user interface for night staff by reducing it to one screen after observing their difficulties during two shifts.",
+    "category": "technical",
+    "grade": "unverifiable",
+    "reasoning": "Behavioural account from the interview; weighed for consistency rather than external corroboration.",
+    "sources": []
+  }
+]

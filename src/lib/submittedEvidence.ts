@@ -2,9 +2,9 @@ import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 import { gradeClaim } from "./llm";
 import { searchEvidence } from "./tavily";
-import { getAll, getById, logEvent, newId, now, patchById, upsert } from "./store";
+import { DATA_DIR, getAll, getById, logEvent, newId, now, patchById, upsert } from "./store";
 
-const UPLOAD_DIR = join(process.cwd(), "data", "uploads");
+const UPLOAD_DIR = join(DATA_DIR, "uploads");
 
 function hostOf(u: string): string {
   try {

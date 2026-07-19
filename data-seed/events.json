@@ -1,0 +1,135 @@
+[
+  {
+    "id": "f8e52f31-abc4-4aa2-9536-902316192860",
+    "type": "seed",
+    "detail": "Synthetic universe seeded: 12 founders, 18 signals, 2 seeded contradictions, 1 dedup merge, 1 open interview invitation",
+    "at": "2026-07-19T12:37:28.441Z"
+  },
+  {
+    "id": "f7edd9d1-d18f-4dad-bb04-c07bbc2362bd",
+    "type": "dedupe.merge",
+    "detail": "Priya Nair reached via two channels (NHS Hack Week + Techstars cohort); profiles merged on GitHub handle",
+    "refs": {
+      "founderId": "f-priya"
+    },
+    "at": "2026-07-19T12:37:28.443Z"
+  },
+  {
+    "id": "bfc64ace-2d1a-4b42-85b6-0318579956cf",
+    "type": "threshold.crossed",
+    "detail": "Lena Vogel crossed the conviction threshold (78 ≥ 70); interview invitation created",
+    "refs": {
+      "founderId": "f-lena",
+      "opportunityId": "o-lena"
+    },
+    "at": "2026-07-19T12:37:28.444Z"
+  },
+  {
+    "id": "693565f7-8335-437e-8536-cb66341563bc",
+    "type": "memo.generated",
+    "detail": "Investment memo generated for Priya Nair (Relay Health): watch",
+    "refs": {
+      "founderId": "f-priya",
+      "opportunityId": "o-priya"
+    },
+    "at": "2026-07-19T12:37:47.298Z"
+  },
+  {
+    "id": "adebc788-431a-4308-83ae-372918964707",
+    "type": "threshold.crossed",
+    "detail": "Aisha Bello crossed the conviction threshold (90 ≥ 70); interview invitation created",
+    "refs": {
+      "founderId": "f-aisha",
+      "opportunityId": "o-aisha"
+    },
+    "at": "2026-07-19T12:38:19.085Z"
+  },
+  {
+    "id": "a0dfff66-7557-4f6f-892b-f95350eb2473",
+    "type": "threshold.crossed",
+    "detail": "Jonas Keller crossed the conviction threshold (85 ≥ 70); interview invitation created",
+    "refs": {
+      "founderId": "f-jonas",
+      "opportunityId": "o-jonas"
+    },
+    "at": "2026-07-19T12:38:19.089Z"
+  },
+  {
+    "id": "cb29b46a-0c9d-4856-952b-effff283901d",
+    "type": "founderScore.updated",
+    "detail": "Founder score set to 12: Inbound application received and evidence graded",
+    "refs": {
+      "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b"
+    },
+    "at": "2026-07-19T12:38:19.102Z"
+  },
+  {
+    "id": "a9922423-50ff-47f3-a836-b60644961e05",
+    "type": "application.received",
+    "detail": "Amara Diallo applied with Wardly; 5 claims graded; interview created",
+    "refs": {
+      "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+      "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025"
+    },
+    "at": "2026-07-19T12:38:19.104Z"
+  },
+  {
+    "id": "4d5aa6fd-44d9-462b-8fde-13c1dcae5ad8",
+    "type": "interview.live_check",
+    "detail": "Live-checked mid-interview: \"The founder used NHS England's e-rostering guidance as a reference for safe staf\" → corroborated",
+    "refs": {
+      "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+      "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025"
+    },
+    "at": "2026-07-19T12:38:27.373Z"
+  },
+  {
+    "id": "004097ce-bdcd-4b4b-a8df-1ed62b9ae9a0",
+    "type": "interview.live_check",
+    "detail": "Live-checked mid-interview: \"The founder used Airtable for the availability matrix and Glide to build an app.\" → weak_signal",
+    "refs": {
+      "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+      "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025"
+    },
+    "at": "2026-07-19T12:38:33.758Z"
+  },
+  {
+    "id": "f465ab97-6b8c-4686-8d4f-2044c4171e38",
+    "type": "interview.live_check",
+    "detail": "Live-checked mid-interview: \"The founder was asked for the product by the rota manager from the neighbouring \" → unverifiable",
+    "refs": {
+      "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+      "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025"
+    },
+    "at": "2026-07-19T12:38:43.128Z"
+  },
+  {
+    "id": "909414b4-06c6-4fe4-9f8f-947855470b5f",
+    "type": "founderScore.updated",
+    "detail": "Founder score moved 12 → 54: Capability interview completed",
+    "refs": {
+      "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b"
+    },
+    "at": "2026-07-19T12:38:57.065Z"
+  },
+  {
+    "id": "e3cdd3b5-fd7c-4f3a-bef2-6eaec915e5bc",
+    "type": "interview.complete",
+    "detail": "Capability interview complete for Amara Diallo; 7 claims extracted; opportunity moved to diligence",
+    "refs": {
+      "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+      "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025"
+    },
+    "at": "2026-07-19T12:39:00.170Z"
+  },
+  {
+    "id": "cfd89b46-7253-4b04-bb22-be6e373938fb",
+    "type": "memo.generated",
+    "detail": "Investment memo generated for Amara Diallo (Wardly): watch",
+    "refs": {
+      "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+      "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025"
+    },
+    "at": "2026-07-19T12:39:17.486Z"
+  }
+]

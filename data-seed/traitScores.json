@@ -1,0 +1,106 @@
+[
+  {
+    "id": "t-priya-ability",
+    "founderId": "f-priya",
+    "opportunityId": "o-priya",
+    "trait": "ability",
+    "score": 82,
+    "confidence": "high",
+    "rationale": "Working parser across messy real-world data; hackathon win judged on execution; clean problem decomposition in the deck.",
+    "evidenceClaimIds": [
+      "c-priya-2",
+      "c-priya-1"
+    ],
+    "assessedAt": "2026-07-04T16:00:00Z"
+  },
+  {
+    "id": "t-priya-aspiration",
+    "founderId": "f-priya",
+    "opportunityId": "o-priya",
+    "trait": "aspiration",
+    "score": 84,
+    "confidence": "high",
+    "rationale": "Five months of nights-and-weekends shipping while employed full-time; kept the team together after the hackathon.",
+    "evidenceClaimIds": [
+      "c-priya-3"
+    ],
+    "assessedAt": "2026-07-04T16:00:00Z"
+  },
+  {
+    "id": "t-priya-learning",
+    "founderId": "f-priya",
+    "opportunityId": "o-priya",
+    "trait": "learning_agility",
+    "score": 74,
+    "confidence": "medium",
+    "rationale": "Analyst to founder-engineer transition visible in repo history; limited evidence of absorbing commercial feedback yet.",
+    "evidenceClaimIds": [
+      "c-priya-3"
+    ],
+    "assessedAt": "2026-07-04T16:00:00Z"
+  },
+  {
+    "id": "t-priya-accountability",
+    "founderId": "f-priya",
+    "opportunityId": "o-priya",
+    "trait": "accountability",
+    "score": 79,
+    "confidence": "medium",
+    "rationale": "Maintains the tool for hospital users beyond her formal role; responsive to contributor issues.",
+    "evidenceClaimIds": [
+      "c-priya-3",
+      "c-priya-2"
+    ],
+    "assessedAt": "2026-07-04T16:00:00Z"
+  },
+  {
+    "id": "d6f09407-77c8-4139-94bc-3c73a842c025-ability",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "trait": "ability",
+    "score": 60,
+    "confidence": "medium",
+    "rationale": "The founder built a rota assistant starting from spreadsheets to a no-code app, showing problem decomposition and technical depth; however, key claims about predictive features and adoption are uncorroborated.",
+    "evidenceClaimIds": [
+      "2a47f828-f546-4318-9833-ab8875816ab6"
+    ],
+    "assessedAt": "2026-07-19T12:38:57.056Z"
+  },
+  {
+    "id": "d6f09407-77c8-4139-94bc-3c73a842c025-aspiration",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "trait": "aspiration",
+    "score": 80,
+    "confidence": "medium",
+    "rationale": "The founder taught themselves to build the product over two years at nights, persisted without formal engineering background or investors, and aims to rebuild and scale the product for NHS use.",
+    "evidenceClaimIds": [
+      "2a47f828-f546-4318-9833-ab8875816ab6"
+    ],
+    "assessedAt": "2026-07-19T12:38:57.057Z"
+  },
+  {
+    "id": "d6f09407-77c8-4139-94bc-3c73a842c025-learning_agility",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "trait": "learning_agility",
+    "score": 70,
+    "confidence": "medium",
+    "rationale": "Self-taught technical skills over two years and transitioned from spreadsheets to no-code app development, indicating skill acquisition and adaptation.",
+    "evidenceClaimIds": [
+      "2a47f828-f546-4318-9833-ab8875816ab6"
+    ],
+    "assessedAt": "2026-07-19T12:38:57.059Z"
+  },
+  {
+    "id": "d6f09407-77c8-4139-94bc-3c73a842c025-accountability",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "trait": "accountability",
+    "score": null,
+    "confidence": "insufficient",
+    "rationale": "No corroborated evidence of follow-through, maintenance, or fixing issues post-shipping is available.",
+    "evidenceClaimIds": [],
+    "assessedAt": "2026-07-19T12:38:57.061Z"
+  }
+]

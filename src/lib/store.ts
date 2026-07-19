@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
 import type {
@@ -36,7 +37,30 @@ interface CollectionMap {
 
 export type CollectionName = keyof CollectionMap;
 
-const DATA_DIR = path.join(process.cwd(), "data");
+// On serverless hosts (Vercel) the working directory is read-only and only
+// /tmp is writable, per instance. Memory lives there, boot-strapped from the
+// bundled demo seed on first touch. Local runs keep using data/ untouched.
+const IS_SERVERLESS = Boolean(process.env.VERCEL);
+const SEED_DIR = path.join(process.cwd(), "data-seed");
+export const DATA_DIR = IS_SERVERLESS
+  ? path.join(os.tmpdir(), "fairshot-data")
+  : path.join(process.cwd(), "data");
+
+let bootstrapped = false;
+function ensureDataDir(): void {
+  if (bootstrapped || !IS_SERVERLESS) return;
+  bootstrapped = true;
+  try {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+    if (fs.existsSync(path.join(DATA_DIR, "founders.json"))) return;
+    if (!fs.existsSync(SEED_DIR)) return;
+    for (const f of fs.readdirSync(SEED_DIR).filter((n) => n.endsWith(".json"))) {
+      fs.copyFileSync(path.join(SEED_DIR, f), path.join(DATA_DIR, f));
+    }
+  } catch {
+    // A failed bootstrap degrades to an empty Memory; POST /api/seed rebuilds it.
+  }
+}
 
 // The cache is keyed on the file's mtime: the dev server bundles routes into
 // separate module instances, so a write through one instance must be visible
@@ -44,6 +68,7 @@ const DATA_DIR = path.join(process.cwd(), "data");
 const cache = new Map<CollectionName, { mtimeMs: number; items: unknown[] }>();
 
 function fileFor(name: CollectionName): string {
+  ensureDataDir();
   return path.join(DATA_DIR, `${name}.json`);
 }
 

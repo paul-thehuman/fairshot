@@ -1,0 +1,122 @@
+[
+  {
+    "id": "a-priya-founder",
+    "opportunityId": "o-priya",
+    "axis": "founder",
+    "rating": "80 — strong",
+    "trend": "improving",
+    "rationale": "Four capability traits scored on high or medium confidence evidence; founder score rising across milestones.",
+    "evidenceRefs": [
+      "t-priya-ability",
+      "t-priya-aspiration",
+      "t-priya-learning",
+      "t-priya-accountability"
+    ],
+    "assessedAt": "2026-07-04T17:00:00Z"
+  },
+  {
+    "id": "a-priya-market",
+    "opportunityId": "o-priya",
+    "axis": "market",
+    "rating": "neutral",
+    "trend": "stable",
+    "rationale": "Clear pain and buyer, but NHS procurement cycles are slow and pilots convert unevenly.",
+    "evidenceRefs": [
+      "s-priya-2"
+    ],
+    "assessedAt": "2026-07-04T17:00:00Z"
+  },
+  {
+    "id": "a-priya-idea",
+    "opportunityId": "o-priya",
+    "axis": "idea_market",
+    "rating": "survives scrutiny",
+    "trend": "improving",
+    "rationale": "Wedge survives as-is; even if discharge summaries commoditise, the ward-notes parsing layer generalises and the team has shown it can pivot.",
+    "evidenceRefs": [
+      "c-priya-2"
+    ],
+    "assessedAt": "2026-07-04T17:00:00Z"
+  },
+  {
+    "id": "o-priya-founder",
+    "opportunityId": "o-priya",
+    "axis": "founder",
+    "rating": "80 — strong",
+    "trend": "improving",
+    "rationale": "4 of 4 capability traits scored (ability 82, aspiration 84, learning agility 74, accountability 79). The persistent Founder Score is one input; per-opportunity capability evidence is the rest.",
+    "evidenceRefs": [
+      "t-priya-ability",
+      "t-priya-aspiration",
+      "t-priya-learning",
+      "t-priya-accountability"
+    ],
+    "assessedAt": "2026-07-19T12:37:29.377Z"
+  },
+  {
+    "id": "o-priya-market",
+    "opportunityId": "o-priya",
+    "axis": "market",
+    "rating": "bullish",
+    "trend": "stable",
+    "rationale": "The market for hospital discharge summaries and post-acute care handoff is large and growing due to increasing patient discharges, higher patient acuity, and regulatory focus on improving care transitions, with hospitals facing urgent needs and funding to improve these processes.",
+    "evidenceRefs": [
+      "https://www.usnews.com/opinion/articles/2026-07-13/hospitals-must-do-more-to-improve-the-handoff-to-post-acute-care",
+      "https://pubmed.ncbi.nlm.nih.gov/39939300",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC4090779",
+      "https://wtop.com/national/2026/05/california-lawmakers-rush-25-million-to-hospitals-without-knowing-who-qualifies"
+    ],
+    "assessedAt": "2026-07-19T12:37:29.379Z"
+  },
+  {
+    "id": "o-priya-idea",
+    "opportunityId": "o-priya",
+    "axis": "idea_market",
+    "rating": "pivot likely, team could make it",
+    "trend": "stable",
+    "rationale": "While the team has demonstrated initial traction with NHS pilots and a working parser, the weak signal on handling unstructured notes suggests the product may need refinement; however, the team's domain expertise and ongoing NHS engagement indicate they could pivot effectively to address these challenges.",
+    "evidenceRefs": [
+      "claims"
+    ],
+    "assessedAt": "2026-07-19T12:37:33.083Z"
+  },
+  {
+    "id": "d6f09407-77c8-4139-94bc-3c73a842c025-founder",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "axis": "founder",
+    "rating": "54 — promising",
+    "trend": "improving",
+    "rationale": "3 of 4 capability traits scored (ability 60, aspiration 80, learning agility 70). The persistent Founder Score is one input; per-opportunity capability evidence is the rest.",
+    "evidenceRefs": [
+      "d6f09407-77c8-4139-94bc-3c73a842c025-ability",
+      "d6f09407-77c8-4139-94bc-3c73a842c025-aspiration",
+      "d6f09407-77c8-4139-94bc-3c73a842c025-learning_agility",
+      "d6f09407-77c8-4139-94bc-3c73a842c025-accountability"
+    ],
+    "assessedAt": "2026-07-19T12:39:00.247Z"
+  },
+  {
+    "id": "d6f09407-77c8-4139-94bc-3c73a842c025-market",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "axis": "market",
+    "rating": "bullish",
+    "trend": "stable",
+    "rationale": "The market for AI-powered staff scheduling in NHS trusts and care homes is large and growing due to ongoing staffing challenges and high costs of agency cover, with limited direct competition in this specialized healthcare operations niche.",
+    "evidenceRefs": [
+      "https://rotaai.co.uk"
+    ],
+    "assessedAt": "2026-07-19T12:39:00.249Z"
+  },
+  {
+    "id": "d6f09407-77c8-4139-94bc-3c73a842c025-idea",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "axis": "idea_market",
+    "rating": "pivot likely, team could make it",
+    "trend": "stable",
+    "rationale": "While the market opportunity is strong and the founder has relevant domain experience, most claims lack verification and the current product appears to be an early prototype with limited adoption; however, the founder's deep NHS knowledge and iterative improvements suggest they could pivot to a more robust, scalable solution.",
+    "evidenceRefs": [
+      "claims"
+    ],
+    "assessedAt": "2026-07-19T12:39:02.980Z"
+  }
+]

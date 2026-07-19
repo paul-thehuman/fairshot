@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+
+export const maxDuration = 300;
 import { runScan } from "@/lib/pipeline";
 
 export async function POST() {

@@ -1,0 +1,224 @@
+[
+  {
+    "id": "i-lena",
+    "opportunityId": "o-lena",
+    "founderId": "f-lena",
+    "plannedQuestions": [
+      {
+        "trait": "ability",
+        "question": "Walk me through the week when you released Cachette v0.4 with the Redis backend. What specific challenges did you face, and what did you do to overcome them?",
+        "why": "There is limited direct evidence of Lena's technical problem-solving and execution ability during a concrete product milestone."
+      },
+      {
+        "trait": "aspiration",
+        "question": "Tell me about the moment you decided to build Cachette as a drop-in semantic cache for LLM apps. What motivated you personally to start this project?",
+        "why": "There is no explicit evidence about Lena's personal drive or motivation behind founding Cachette."
+      },
+      {
+        "trait": "learning_agility",
+        "question": "Describe a time when you received critical feedback or objections on Hacker News about Cachette’s cache invalidation. How did you respond and what did you learn from that experience?",
+        "why": "We lack insight into how Lena processes feedback and adapts her approach based on community input."
+      },
+      {
+        "trait": "accountability",
+        "question": "Tell me about a time recently when an issue was raised on GitHub and you took responsibility to address it the same day. What steps did you take and what was the outcome?",
+        "why": "While issues are answered same-day, we need concrete examples of Lena’s personal accountability in managing user problems."
+      },
+      {
+        "trait": "ability",
+        "question": "Walk me through how you managed the growth of Cachette’s GitHub repository to 1.9k stars. What actions did you take to engage the community and maintain momentum?",
+        "why": "There is thin evidence on Lena’s ability to grow and sustain community engagement around her project."
+      }
+    ],
+    "turns": [
+      {
+        "role": "agent",
+        "text": "Hi Lena, thanks for making time. This is a short conversation about things you've actually done. There are no trick questions and no wrong answers, and you'll see honest feedback afterwards either way. Walk me through the week when you released Cachette v0.4 with the Redis backend. What specific challenges did you face, and what did you do to overcome them?",
+        "at": "2026-07-19T12:37:57.627Z"
+      }
+    ],
+    "status": "in_progress",
+    "extractedClaimIds": [],
+    "createdAt": "2026-07-16T09:00:00Z",
+    "currentQuestion": 0,
+    "followUpsUsed": 0
+  },
+  {
+    "id": "4a1e6326-8cda-4756-be37-b6e4a433b14e",
+    "opportunityId": "o-aisha",
+    "founderId": "f-aisha",
+    "plannedQuestions": [],
+    "turns": [],
+    "status": "invited",
+    "extractedClaimIds": [],
+    "createdAt": "2026-07-19T12:38:19.083Z"
+  },
+  {
+    "id": "56efa1e5-bf62-4db8-88ad-5d046dc41c10",
+    "opportunityId": "o-jonas",
+    "founderId": "f-jonas",
+    "plannedQuestions": [],
+    "turns": [],
+    "status": "invited",
+    "extractedClaimIds": [],
+    "createdAt": "2026-07-19T12:38:19.088Z"
+  },
+  {
+    "id": "0599253d-1eed-4192-af8b-c6a4e1222071",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "plannedQuestions": [
+      {
+        "trait": "ability",
+        "question": "Walk me through the time when you taught yourself to build the rota assistant over two years. What specific steps did you take to learn and develop the app, and what was the outcome?",
+        "why": "There is thin evidence on the founder's technical ability and learning process in building the app."
+      },
+      {
+        "trait": "accountability",
+        "question": "Tell me about the moment when three wards at your old trust started using your rota assistant unofficially. What role did you play in making that happen, and what was the result?",
+        "why": "The claim about wards using the app unofficially lacks detail on the founder's direct involvement and accountability."
+      },
+      {
+        "trait": "learning_agility",
+        "question": "Describe the experience when the rota manager at a neighbouring trust asked for your rota assistant after seeing it at a conference. How did you respond, and what did you learn from that interaction?",
+        "why": "There is little evidence on how the founder adapts and learns from external feedback or interest."
+      },
+      {
+        "trait": "aspiration",
+        "question": "Walk me through the week when you decided to rebuild the rota assistant properly and seek NHS approval. What motivated you, and what actions did you take?",
+        "why": "The founder's aspiration to scale and formalize the product is stated but not supported with concrete past actions."
+      },
+      {
+        "trait": "ability",
+        "question": "Tell me about a challenging problem you faced while coordinating ward staffing using spreadsheets, and how you personally addressed it. What was the outcome?",
+        "why": "The founder's ability to solve real-world problems in staffing coordination is not deeply evidenced beyond general claims."
+      }
+    ],
+    "turns": [
+      {
+        "role": "agent",
+        "text": "Hi Amara, thanks for making time. This is a short conversation about things you've actually done. There are no trick questions and no wrong answers, and you'll see honest feedback afterwards either way. Walk me through the time when you taught yourself to build the rota assistant over two years. What specific steps did you take to learn and develop the app, and what was the outcome?",
+        "at": "2026-07-19T12:38:23.314Z"
+      },
+      {
+        "role": "founder",
+        "text": "The neighbouring trust ran twelve-hour shifts while ours ran eight-hour ones, so my model's assumptions broke completely. I rebuilt the availability matrix over about three weekends, using the e-rostering guidance NHS England publishes as my reference for safe staffing rules, and tested it against six months of their old rotas before showing anyone. Their rota manager now gets a gap forecast every Monday and says agency requests are down by about a third.",
+        "at": "2026-07-19T12:38:23.343Z"
+      },
+      {
+        "role": "agent",
+        "text": "Quick note: while you were answering, I checked \"you used NHS England's e-rostering guidance as a reference for safe staffing rules\" and found it (E-rostering the clinical workforce). You mentioned testing the rebuilt availability matrix against six months of old rotas and that the neighbouring trust's rota manager now receives gap forecasts weekly. Can you share specific details about how you conducted those tests and what your exact role was in implementing the forecasts at that trust?",
+        "at": "2026-07-19T12:38:29.144Z",
+        "check": {
+          "claim": "The founder used NHS England's e-rostering guidance as a reference for safe staffing rules.",
+          "grade": "corroborated",
+          "sourceUrl": "https://www.england.nhs.uk/wp-content/uploads/2020/09/e-rostering-guidance.pdf",
+          "sourceTitle": "E-rostering the clinical workforce"
+        }
+      },
+      {
+        "role": "founder",
+        "text": "Honestly the tools were basic. I used Airtable for the availability matrix and Glide to put an app on top. I designed the matrix, wrote every formula, and sat with ward sisters on their breaks to check the swap suggestions made sense. The trust never gave me a budget, so I paid the fifty pounds a month for Glide myself for the first year.",
+        "at": "2026-07-19T12:38:29.169Z"
+      },
+      {
+        "role": "agent",
+        "text": "Quick note: I looked for a public record of \"you used Airtable for the availability matrix and Glide to build an app\" while you were answering and found only weak traces, which is common for early work. Thanks for explaining how you built the app with Airtable and Glide and involved ward sisters to validate the swap suggestions. Tell me about the moment when three wards at your old trust started using your rota assistant unofficially. What role did you play in making that happen, and what was the result?",
+        "at": "2026-07-19T12:38:35.344Z",
+        "check": {
+          "claim": "The founder used Airtable for the availability matrix and Glide to build an app.",
+          "grade": "weak_signal",
+          "sourceUrl": "https://aatt.io/video/build-a-mobile-app-from-your-airtable-base-using-glide-with-david-siegel",
+          "sourceTitle": "Powerful No-code Apps Using Airtable + Glide | Automate All the Things"
+        }
+      },
+      {
+        "role": "founder",
+        "text": "I never did a formal course. I picked things up from YouTube and the Glide community forum at night after shifts. The biggest jump came when I stopped copying templates and rebuilt the matrix logic myself so I actually understood it. When the safer staffing guidance was updated I went through it line by line and rebuilt my swap rules around it.",
+        "at": "2026-07-19T12:38:35.365Z"
+      },
+      {
+        "role": "agent",
+        "text": "You mentioned learning from YouTube and the Glide forum, and rebuilding the matrix logic yourself. Can you share a specific example of a challenge you faced during that learning process, including when it happened and what exact steps you took to overcome it?",
+        "at": "2026-07-19T12:38:37.270Z"
+      },
+      {
+        "role": "founder",
+        "text": "The winter flu season was the deadline that mattered. Two ward sisters told me sickness cover was their worst week of the year, so I promised them a sickness-cover feature by December. I delivered it in November and then spent a weekend fixing a bug they found in the swap chain, because if it suggested an unsafe swap even once they would stop trusting it.",
+        "at": "2026-07-19T12:38:37.294Z"
+      },
+      {
+        "role": "agent",
+        "text": "You delivered the sickness-cover feature ahead of the critical winter flu season and quickly fixed a bug to maintain trust. Describe the experience when the rota manager at a neighbouring trust asked for your rota assistant after seeing it at a conference. How did you respond, and what did you learn from that interaction?",
+        "at": "2026-07-19T12:38:39.385Z"
+      },
+      {
+        "role": "founder",
+        "text": "The moment I decided to take it seriously was when the rota manager from the neighbouring trust asked for it at a conference. Until then it was a side project. Since then I have started a hazard log and begun studying the DCB0129 clinical safety standard, because if I want this used across the NHS it has to be safe, not just clever.",
+        "at": "2026-07-19T12:38:39.408Z"
+      },
+      {
+        "role": "agent",
+        "text": "Quick note: I looked for a public record of \"you was asked for the product by the rota manager from the neighbouring trust at a conference\" while you were answering and couldn't find one. That's expected for internal work, and it is not held against you. You mentioned starting a hazard log and studying the DCB0129 clinical safety standard after deciding to take the project seriously. Walk me through the week when you decided to rebuild the rota assistant properly and seek NHS approval. What motivated you, and what actions did you take?",
+        "at": "2026-07-19T12:38:44.362Z",
+        "check": {
+          "claim": "The founder was asked for the product by the rota manager from the neighbouring trust at a conference.",
+          "grade": "unverifiable"
+        }
+      },
+      {
+        "role": "founder",
+        "text": "What I want next is to rebuild it properly with real engineering help, get it through information governance at one trust officially rather than unofficially, and prove the agency-cover savings with actual finance numbers instead of anecdotes.",
+        "at": "2026-07-19T12:38:44.386Z"
+      },
+      {
+        "role": "agent",
+        "text": "You mentioned wanting to prove agency-cover savings with actual finance numbers instead of anecdotes. Tell me about a challenging problem you faced while coordinating ward staffing using spreadsheets, and how you personally addressed it. What was the outcome?",
+        "at": "2026-07-19T12:38:46.209Z"
+      },
+      {
+        "role": "founder",
+        "text": "The hardest feedback was a ward sister telling me the app was confusing on nights when staff were tired. I sat with the night team for two shifts, watched where they got stuck, and stripped the interface down to one screen. Complaints stopped after that.",
+        "at": "2026-07-19T12:38:46.231Z"
+      },
+      {
+        "role": "agent",
+        "text": "Thank you for sharing that example of how you improved the app's usability based on direct user feedback. We'll review all the evidence you've provided and get back to you with honest feedback soon.",
+        "at": "2026-07-19T12:38:48.038Z"
+      }
+    ],
+    "status": "complete",
+    "extractedClaimIds": [
+      "b897d230-aaf0-49f9-b0a4-7ebcf79a1467",
+      "4fe1aa57-277f-4fb4-80e2-09b75850c456",
+      "19831443-63e1-4172-ab36-6ad2f6f81670",
+      "db1310c2-4432-4303-9df2-e1ece9352d69",
+      "ed112785-fd37-4823-a50d-c6ae43a15ec9",
+      "d95b5d06-9acf-47d7-8915-96be227afe4e",
+      "8809c631-e727-4054-906d-4b71b0817e84",
+      "a68dea58-4038-4e3a-a017-090017e54f63",
+      "3803feb0-1dbd-45d3-a4d2-44603948e34f",
+      "103b2b46-197c-4fba-98f7-573f9737ca89"
+    ],
+    "createdAt": "2026-07-19T12:38:19.096Z",
+    "currentQuestion": 4,
+    "followUpsUsed": 0,
+    "feedback": {
+      "strengths": [
+        "The founder demonstrated technical problem-solving by building a rota assistant that moves beyond spreadsheet-based scheduling to a no-code app using Airtable and Glide.",
+        "They showed persistence and self-motivation by teaching themselves to develop the product over two years while working full-time in NHS roles.",
+        "The founder incorporated NHS England's e-rostering guidance into the product design, indicating attention to relevant safety and operational standards."
+      ],
+      "thinEvidence": [
+        "Key claims about the rota assistant's predictive capabilities and its adoption by multiple NHS wards and trusts are not independently verified.",
+        "There is limited evidence of ongoing product maintenance, user support, or impact measurement beyond anecdotal reports.",
+        "Details about the founder’s direct involvement in fixing critical bugs and implementing new features are based on uncorroborated statements."
+      ],
+      "nextSteps": [
+        "Collect and share documented user feedback or usage data from NHS wards currently using the rota assistant to demonstrate real-world impact.",
+        "Publish or provide evidence of product updates, bug fixes, and maintenance activities to show accountability and ongoing commitment.",
+        "Develop and share a clear roadmap or case study illustrating how the product meets NHS safety standards and scales across trusts."
+      ]
+    }
+  }
+]

@@ -18,6 +18,8 @@ function handlesFromLinks(links: string[]): FounderHandles {
   return handles;
 }
 
+export const maxDuration = 300;
+
 // Inbound door: deck + company name minimum. Creates the founder, grades the
 // pitch claims against real evidence, screens against the thesis, and always
 // ends at the universal gate: the Socratic interview.

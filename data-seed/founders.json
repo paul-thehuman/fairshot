@@ -1,0 +1,146 @@
+[
+  {
+    "id": "f-lena",
+    "name": "Lena Vogel",
+    "synthetic": true,
+    "origin": "outbound",
+    "handles": {
+      "github": "lenavogel",
+      "website": "cachette.dev"
+    },
+    "bio": "Ex-database engineer, Berlin. Building Cachette, a drop-in semantic cache for LLM apps.",
+    "createdAt": "2026-07-10T08:15:00Z"
+  },
+  {
+    "id": "f-tomas",
+    "name": "Tomás Rivera",
+    "synthetic": true,
+    "origin": "outbound",
+    "handles": {
+      "github": "tomasrivera"
+    },
+    "bio": "Won ETH Lisbon '26 with TraceKit, a time-travel debugger for AI agents.",
+    "createdAt": "2026-07-06T14:00:00Z"
+  },
+  {
+    "id": "f-priya",
+    "name": "Priya Nair",
+    "synthetic": true,
+    "origin": "outbound",
+    "handles": {
+      "github": "priyanair",
+      "website": "relayhealth.io",
+      "linkedin": "priya-nair"
+    },
+    "bio": "Former NHS data analyst. Relay Health drafts discharge summaries from ward notes.",
+    "createdAt": "2026-06-24T10:30:00Z"
+  },
+  {
+    "id": "f-marcus",
+    "name": "Marcus Webb",
+    "synthetic": true,
+    "origin": "inbound",
+    "handles": {
+      "website": "quotaflow.app",
+      "linkedin": "marcuswebb"
+    },
+    "bio": "Second-time founder. QuotaFlow forecasts sales pipeline slippage.",
+    "createdAt": "2026-07-02T09:00:00Z"
+  },
+  {
+    "id": "f-aisha",
+    "name": "Aisha Bello",
+    "synthetic": true,
+    "origin": "outbound",
+    "handles": {},
+    "bio": "PhD candidate, first author on an arXiv paper on low-rank fine-tuning for edge devices.",
+    "createdAt": "2026-07-15T11:20:00Z"
+  },
+  {
+    "id": "f-jonas",
+    "name": "Jonas Keller",
+    "synthetic": true,
+    "origin": "outbound",
+    "handles": {
+      "github": "jonaskeller",
+      "hn": "jkeller"
+    },
+    "bio": "Show HN: local-first sync engine for offline field apps.",
+    "createdAt": "2026-07-14T19:45:00Z"
+  },
+  {
+    "id": "f-sara",
+    "name": "Sara Lindqvist",
+    "synthetic": true,
+    "origin": "outbound",
+    "handles": {
+      "linkedin": "sara-lindqvist"
+    },
+    "bio": "Antler Stockholm cohort. Grid-scale battery maintenance prediction.",
+    "createdAt": "2026-07-08T09:30:00Z"
+  },
+  {
+    "id": "f-david",
+    "name": "David Okoye",
+    "synthetic": true,
+    "origin": "outbound",
+    "handles": {
+      "github": "davidokoye"
+    },
+    "bio": "Building a CLI that turns failing CI logs into ranked fix suggestions.",
+    "createdAt": "2026-07-11T16:10:00Z"
+  },
+  {
+    "id": "f-ines",
+    "name": "Inês Costa",
+    "synthetic": true,
+    "origin": "outbound",
+    "handles": {
+      "website": "clausewise.pt"
+    },
+    "bio": "Won Lisbon LegalTech hack. Clausewise redlines NDAs against playbooks.",
+    "createdAt": "2026-07-05T12:00:00Z"
+  },
+  {
+    "id": "f-viktor",
+    "name": "Viktor Hansen",
+    "synthetic": true,
+    "origin": "inbound",
+    "handles": {
+      "website": "parcelmind.dk"
+    },
+    "bio": "ParcelMind reroutes last-mile delivery around live traffic and failed-drop risk.",
+    "createdAt": "2026-07-09T08:40:00Z"
+  },
+  {
+    "id": "f-ruth",
+    "name": "Ruth Adler",
+    "synthetic": true,
+    "origin": "outbound",
+    "handles": {
+      "github": "ruthadler"
+    },
+    "bio": "Techstars London '26. Observability for fine-tuned model drift.",
+    "createdAt": "2026-07-16T10:00:00Z"
+  },
+  {
+    "id": "f-kenji",
+    "name": "Kenji Sato",
+    "synthetic": true,
+    "origin": "outbound",
+    "handles": {
+      "github": "kenjisato",
+      "website": "kenjisato.dev"
+    },
+    "bio": "arXiv author and GitHub maintainer, structured-output constraint library.",
+    "createdAt": "2026-07-07T13:30:00Z"
+  },
+  {
+    "id": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "name": "Amara Diallo",
+    "handles": {},
+    "origin": "inbound",
+    "bio": "I spent eleven years as a ward staffing coordinator in two NHS trusts. Rotas are still built in spreadsheets, and every gap costs a fortune in last-minute agenc",
+    "createdAt": "2026-07-19T12:37:57.716Z"
+  }
+]

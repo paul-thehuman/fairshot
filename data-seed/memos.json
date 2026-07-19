@@ -1,0 +1,106 @@
+[
+  {
+    "id": "o-priya",
+    "opportunityId": "o-priya",
+    "snapshot": "Hospitals face urgent challenges in efficiently producing accurate discharge summaries from unstructured ward notes, a critical step for patient care transitions. Relay Health, founded by Priya Nair, a former NHS data analyst, addresses this by automating draft discharge summaries using a clinician-reviewed AI parser that works across multiple hospital IT systems. The company is piloting with two NHS hospitals and has demonstrated technical progress and founder capability.",
+    "hypotheses": [
+      "Strong founder capability: Priya Nair scores 80 on founder assessment with high confidence in ability (82) and aspiration (84), supported by sustained development and commitment while employed full-time.",
+      "Early validated traction: Two NHS hospital pilots are corroborated by independent Techstars cohort listings, indicating initial market acceptance.",
+      "Technical feasibility: A working parser handles unstructured ward notes across two hospital IT systems, supported by steady GitHub commits and external contributors, though cross-system claims are weak signals.",
+      "Market opportunity: The hospital discharge summary and post-acute care handoff market is large and growing due to regulatory focus and increasing patient acuity, providing a strong market pull.",
+      "Pivot potential: The product’s core parsing technology generalizes beyond discharge summaries, and the team’s domain expertise and NHS engagement suggest they can pivot if needed."
+    ],
+    "swot": {
+      "strengths": [
+        "Founder with strong capability and commitment, demonstrated by hackathon win, accelerator acceptance, and sustained product development.",
+        "Corroborated traction with two NHS hospital pilots underway.",
+        "Technical progress with a working parser handling complex, unstructured data from multiple hospital IT systems."
+      ],
+      "weaknesses": [
+        "Parser’s cross-system functionality is a weak signal, not independently verified.",
+        "Limited evidence of commercial feedback absorption and product refinement so far.",
+        "NHS procurement cycles are slow and pilot conversions uneven, posing go-to-market challenges."
+      ],
+      "opportunities": [
+        "Large and growing market driven by urgent hospital needs and regulatory pressure to improve care transitions.",
+        "Potential to generalize the parsing technology beyond discharge summaries to other clinical documentation.",
+        "Strong founder learning agility and accountability suggest capacity to adapt and pivot."
+      ],
+      "threats": [
+        "Slow and complex NHS procurement processes may delay scaling.",
+        "Competition or commoditization of discharge summary drafting could reduce differentiation.",
+        "Technical challenges in reliably parsing highly unstructured clinical notes across diverse systems."
+      ]
+    },
+    "problemProduct": "Hospitals struggle to efficiently create accurate discharge summaries from messy, unstructured ward notes, which delays patient care handoffs and increases risk. Relay Health’s product automates drafting these summaries by parsing ward notes using AI. Step by step: 1) The system ingests unstructured ward notes from hospital IT systems. 2) It applies a parser to extract relevant clinical information. 3) It drafts discharge summaries for clinician review. 4) Clinicians review and finalize the summaries, improving speed and accuracy of patient discharge documentation.",
+    "tractionKpis": "Relay Health has two NHS hospital pilots underway, corroborated by independent Techstars cohort listings. The parser is actively developed with steady commits over eight months and two external contributors, though cross-system functionality is a weak signal. The founder maintained the tool for five months while employed full-time, confirmed by commit history. No verified revenue or user growth metrics disclosed.",
+    "gaps": [
+      "Cap table: not disclosed",
+      "Financials & round structure: not available at this stage",
+      "Customer references and detailed pilot outcomes: unavailable",
+      "Verified commercial metrics such as revenue, user adoption, or retention: unavailable",
+      "Competitive landscape analysis: not provided"
+    ],
+    "recommendation": {
+      "verdict": "watch",
+      "thesisFit": "Relay Health fits the fund’s focus on applied AI in Europe at pre-seed stage with a strong founder and early traction.",
+      "rationale": "The founder axis rates strongly with improving capability and commitment, aligning well with the fund’s founder quality emphasis. The market axis is bullish but tempered by NHS procurement challenges, matching the fund’s balanced risk appetite. The idea_market axis shows a viable product with pivot potential but some technical uncertainty, suggesting watch status until further commercial validation. Overall, Relay Health merits close monitoring and potential follow-up after pilot results mature."
+    },
+    "generatedAt": "2026-07-19T12:37:47.296Z"
+  },
+  {
+    "id": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "opportunityId": "d6f09407-77c8-4139-94bc-3c73a842c025",
+    "snapshot": "NHS ward staffing rotas remain managed via spreadsheets, causing costly last-minute agency cover due to unpredictable staffing gaps. Wardly, founded by Amara Diallo, a promising founder with deep NHS domain knowledge, offers an AI-powered rota assistant that predicts staffing gaps and suggests swaps to reduce agency reliance. The product is an early-stage no-code app built from the founder's experience and iterative improvements, targeting a large, growing healthcare operations market in the UK.",
+    "hypotheses": [
+      "The market for AI-powered staff scheduling in NHS trusts is large and growing with limited direct competition, supported by corroborated evidence of spreadsheet-based rotas and high agency costs.",
+      "The founder has strong domain expertise and technical ability, demonstrated by self-teaching and building a working rota assistant prototype over two years, indicating capacity to iterate and pivot.",
+      "Early traction signals include informal use of the product at a neighbouring trust with reported agency requests down by about a third, suggesting product-market fit potential, though unverified.",
+      "The founder shows high aspiration and learning agility, having persisted without formal engineering background or investors, and is actively studying NHS clinical safety standards to scale safely.",
+      "The product addresses a critical operational inefficiency in NHS staffing, offering predictive gap forecasts and swap suggestions, which if validated, could yield significant cost savings."
+    ],
+    "swot": {
+      "strengths": [
+        "Founder has deep NHS domain knowledge and relevant experience coordinating ward staffing.",
+        "Product addresses a clear, urgent problem with NHS rotas still managed in spreadsheets.",
+        "Founder demonstrates strong aspiration, learning agility, and technical ability to build and improve the product.",
+        "Market is large, specialized, and growing with limited direct competition."
+      ],
+      "weaknesses": [
+        "Key product claims such as predictive gap forecasting and adoption by wards are unverified.",
+        "Current product is an early prototype built with no-code tools, limiting scalability and robustness.",
+        "No corroborated evidence of sustained maintenance, follow-through, or formal customer contracts.",
+        "Founder accountability score is insufficient due to lack of evidence on post-shipping support."
+      ],
+      "opportunities": [
+        "Potential to pivot and scale the product into a robust AI-powered scheduling platform for NHS and care homes.",
+        "Growing NHS focus on reducing agency costs and improving staffing efficiency supports adoption.",
+        "Leveraging NHS England's e-rostering guidance and clinical safety standards can facilitate regulatory compliance and trust.",
+        "Expanding beyond initial trusts to wider UK healthcare operations market."
+      ],
+      "threats": [
+        "Uncertainty around product-market fit due to limited verified traction and adoption.",
+        "Potential competition from established e-rostering and scheduling software providers.",
+        "Regulatory and clinical safety compliance challenges in NHS software deployment.",
+        "Dependence on founder's capacity to scale product beyond prototype stage."
+      ]
+    },
+    "problemProduct": "NHS ward staffing rotas are still managed using spreadsheets, which leads to unpredictable staffing gaps and expensive last-minute agency cover. Wardly's product is an AI-powered rota assistant that predicts staffing gaps up to two weeks in advance and suggests staff swaps to avoid agency use. The founder built the product starting from spreadsheets, creating an availability matrix in Airtable and a no-code app in Glide. The product delivers weekly gap forecasts to rota managers, who have reported reductions in agency requests. The founder iteratively improved the app's UI and features based on user feedback and is working towards NHS clinical safety compliance.",
+    "tractionKpis": "No verified traction metrics are available. Claims of three wards using the product unofficially and a neighbouring trust reporting a one-third reduction in agency requests are unverified behavioral accounts from the founder's interview. No formal customer contracts or usage data have been corroborated.",
+    "gaps": [
+      "Founder work history verification: unverifiable",
+      "Product technical details and predictive capabilities: unverifiable",
+      "Customer adoption and usage data: unverifiable",
+      "Financials and round structure: not available at this stage",
+      "Cap table: not disclosed",
+      "Customer references: unavailable",
+      "Founder accountability and maintenance evidence: insufficient"
+    ],
+    "recommendation": {
+      "verdict": "watch",
+      "thesisFit": "Wardly fits the fund thesis targeting pre-seed applied AI startups in healthcare operations within Europe, led by promising founders.",
+      "rationale": "The opportunity is strong with a large NHS market and a founder showing promising ability and aspiration, aligning with the founder and market axes. However, the idea-market axis signals a likely pivot due to unverified traction and an early prototype product. Given the balanced risk appetite and the need for more evidence on product-market fit and scalability, a watch stance is appropriate to monitor progress before investing."
+    },
+    "generatedAt": "2026-07-19T12:39:17.484Z"
+  }
+]

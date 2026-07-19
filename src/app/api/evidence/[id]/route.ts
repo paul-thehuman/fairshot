@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { readFileSync, readdirSync } from "fs";
 import { join } from "path";
+import { DATA_DIR } from "@/lib/store";
 
 export const dynamic = "force-dynamic";
 
-const UPLOAD_DIR = join(process.cwd(), "data", "uploads");
+const UPLOAD_DIR = join(DATA_DIR, "uploads");
 
 const MIME: Record<string, string> = {
   png: "image/png",

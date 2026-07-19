@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { submitFileEvidence, submitUrlEvidence } from "@/lib/submittedEvidence";
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 300;
 
 // One endpoint, two shapes. multipart/form-data => file upload; JSON => a link
 // the founder wants checked. Both attach to an opportunity before assessment.

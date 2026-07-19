@@ -4,6 +4,7 @@ import { buildBrief } from "@/lib/interview/brief";
 import { getAll, getById } from "@/lib/store";
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 300;
 
 function interviewPayload(id: string) {
   const interview = getById("interviews", id);

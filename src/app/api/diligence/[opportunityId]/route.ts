@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+
+export const maxDuration = 300;
 import { assertAssessable } from "@/lib/capability";
 import { generateMemo } from "@/lib/memo";
 import { scoreAxes } from "@/lib/screening";

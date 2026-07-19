@@ -1,0 +1,183 @@
+[
+  {
+    "id": "f-lena",
+    "founderId": "f-lena",
+    "score": 72,
+    "history": [
+      {
+        "score": 72,
+        "at": "2026-07-12T18:00:00Z",
+        "reason": "Initial assessment from GitHub and Show HN signals"
+      }
+    ]
+  },
+  {
+    "id": "f-tomas",
+    "founderId": "f-tomas",
+    "score": 61,
+    "history": [
+      {
+        "score": 61,
+        "at": "2026-07-06T14:30:00Z",
+        "reason": "Initial assessment from hackathon win"
+      }
+    ]
+  },
+  {
+    "id": "f-priya",
+    "founderId": "f-priya",
+    "score": 80,
+    "history": [
+      {
+        "score": 64,
+        "at": "2026-06-24T11:00:00Z",
+        "reason": "Initial assessment from hackathon win"
+      },
+      {
+        "score": 73,
+        "at": "2026-06-28T10:00:00Z",
+        "reason": "Accelerator acceptance and pilot evidence merged from second sourcing channel"
+      },
+      {
+        "score": 80,
+        "at": "2026-07-04T17:00:00Z",
+        "reason": "Capability interview completed; four traits scored on verified evidence"
+      }
+    ]
+  },
+  {
+    "id": "f-marcus",
+    "founderId": "f-marcus",
+    "score": 66,
+    "history": [
+      {
+        "score": 71,
+        "at": "2026-07-02T10:00:00Z",
+        "reason": "Initial assessment; prior exit corroborated"
+      },
+      {
+        "score": 66,
+        "at": "2026-07-12T11:30:00Z",
+        "reason": "Revenue claim contradicted by June podcast; trust-weighted adjustment"
+      }
+    ]
+  },
+  {
+    "id": "f-aisha",
+    "founderId": "f-aisha",
+    "score": 58,
+    "history": [
+      {
+        "score": 58,
+        "at": "2026-07-15T12:00:00Z",
+        "reason": "Initial assessment from research signal"
+      }
+    ]
+  },
+  {
+    "id": "f-jonas",
+    "founderId": "f-jonas",
+    "score": 57,
+    "history": [
+      {
+        "score": 57,
+        "at": "2026-07-14T20:00:00Z",
+        "reason": "Initial assessment from Show HN reception"
+      }
+    ]
+  },
+  {
+    "id": "f-sara",
+    "founderId": "f-sara",
+    "score": 63,
+    "history": [
+      {
+        "score": 63,
+        "at": "2026-07-08T10:00:00Z",
+        "reason": "Initial assessment; strong operator signals, off-thesis venture"
+      }
+    ]
+  },
+  {
+    "id": "f-david",
+    "founderId": "f-david",
+    "score": 55,
+    "history": [
+      {
+        "score": 55,
+        "at": "2026-07-11T16:40:00Z",
+        "reason": "Initial assessment from repo cadence"
+      }
+    ]
+  },
+  {
+    "id": "f-ines",
+    "founderId": "f-ines",
+    "score": 62,
+    "history": [
+      {
+        "score": 62,
+        "at": "2026-07-05T12:30:00Z",
+        "reason": "Initial assessment from hackathon win and buyer interest"
+      }
+    ]
+  },
+  {
+    "id": "f-viktor",
+    "founderId": "f-viktor",
+    "score": 54,
+    "history": [
+      {
+        "score": 59,
+        "at": "2026-07-09T09:10:00Z",
+        "reason": "Initial assessment from application"
+      },
+      {
+        "score": 54,
+        "at": "2026-07-10T09:30:00Z",
+        "reason": "Team-size claim contradicted by founders-fair profile"
+      }
+    ]
+  },
+  {
+    "id": "f-ruth",
+    "founderId": "f-ruth",
+    "score": 60,
+    "history": [
+      {
+        "score": 60,
+        "at": "2026-07-16T10:30:00Z",
+        "reason": "Initial assessment from accelerator acceptance"
+      }
+    ]
+  },
+  {
+    "id": "f-kenji",
+    "founderId": "f-kenji",
+    "score": 68,
+    "history": [
+      {
+        "score": 68,
+        "at": "2026-07-07T14:00:00Z",
+        "reason": "Initial assessment from library adoption and research record"
+      }
+    ]
+  },
+  {
+    "id": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "score": 54,
+    "history": [
+      {
+        "score": 12,
+        "at": "2026-07-19T12:38:19.100Z",
+        "reason": "Inbound application received and evidence graded"
+      },
+      {
+        "score": 54,
+        "at": "2026-07-19T12:38:57.064Z",
+        "reason": "Capability interview completed"
+      }
+    ]
+  }
+]

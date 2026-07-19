@@ -1,0 +1,132 @@
+[
+  {
+    "id": "v-lena",
+    "founderId": "f-lena",
+    "name": "Cachette",
+    "oneLiner": "Drop-in semantic cache that cuts LLM API spend 40-70%",
+    "sector": "AI infrastructure",
+    "geography": "Europe",
+    "stage": "pre-seed",
+    "createdAt": "2026-07-10T08:15:00Z"
+  },
+  {
+    "id": "v-tomas",
+    "founderId": "f-tomas",
+    "name": "TraceKit",
+    "oneLiner": "Time-travel debugger for AI agent runs",
+    "sector": "developer tools",
+    "geography": "Europe",
+    "stage": "pre-seed",
+    "createdAt": "2026-07-06T14:00:00Z"
+  },
+  {
+    "id": "v-priya",
+    "founderId": "f-priya",
+    "name": "Relay Health",
+    "oneLiner": "Drafts hospital discharge summaries from ward notes, clinician-reviewed",
+    "sector": "applied AI",
+    "geography": "Europe",
+    "stage": "pre-seed",
+    "createdAt": "2026-06-24T10:30:00Z"
+  },
+  {
+    "id": "v-marcus",
+    "founderId": "f-marcus",
+    "name": "QuotaFlow",
+    "oneLiner": "Predicts which pipeline deals will slip this quarter",
+    "sector": "applied AI",
+    "geography": "North America",
+    "stage": "pre-seed",
+    "createdAt": "2026-07-02T09:00:00Z"
+  },
+  {
+    "id": "v-aisha",
+    "founderId": "f-aisha",
+    "name": "Edgeworth Labs",
+    "oneLiner": "Low-rank fine-tuning toolkit for on-device models",
+    "sector": "AI infrastructure",
+    "geography": "Europe",
+    "stage": "pre-seed",
+    "createdAt": "2026-07-15T11:20:00Z"
+  },
+  {
+    "id": "v-jonas",
+    "founderId": "f-jonas",
+    "name": "Fieldsync",
+    "oneLiner": "Local-first sync engine for offline field workflows",
+    "sector": "developer tools",
+    "geography": "Europe",
+    "stage": "pre-seed",
+    "createdAt": "2026-07-14T19:45:00Z"
+  },
+  {
+    "id": "v-sara",
+    "founderId": "f-sara",
+    "name": "Voltwatch",
+    "oneLiner": "Predictive maintenance for grid-scale batteries",
+    "sector": "climate hardware",
+    "geography": "Europe",
+    "stage": "pre-seed",
+    "createdAt": "2026-07-08T09:30:00Z"
+  },
+  {
+    "id": "v-david",
+    "founderId": "f-david",
+    "name": "Fixline",
+    "oneLiner": "Turns failing CI logs into ranked fix suggestions",
+    "sector": "developer tools",
+    "geography": "Europe",
+    "stage": "pre-seed",
+    "createdAt": "2026-07-11T16:10:00Z"
+  },
+  {
+    "id": "v-ines",
+    "founderId": "f-ines",
+    "name": "Clausewise",
+    "oneLiner": "Redlines NDAs against a firm's own playbook in minutes",
+    "sector": "applied AI",
+    "geography": "Europe",
+    "stage": "pre-seed",
+    "createdAt": "2026-07-05T12:00:00Z"
+  },
+  {
+    "id": "v-viktor",
+    "founderId": "f-viktor",
+    "name": "ParcelMind",
+    "oneLiner": "Reroutes last-mile delivery around failed-drop risk",
+    "sector": "applied AI",
+    "geography": "Europe",
+    "stage": "pre-seed",
+    "createdAt": "2026-07-09T08:40:00Z"
+  },
+  {
+    "id": "v-ruth",
+    "founderId": "f-ruth",
+    "name": "Driftboard",
+    "oneLiner": "Catches fine-tuned model drift before users do",
+    "sector": "AI infrastructure",
+    "geography": "Europe",
+    "stage": "pre-seed",
+    "createdAt": "2026-07-16T10:00:00Z"
+  },
+  {
+    "id": "v-kenji",
+    "founderId": "f-kenji",
+    "name": "Schemata",
+    "oneLiner": "Constraint library guaranteeing valid structured model output",
+    "sector": "developer tools",
+    "geography": "North America",
+    "stage": "pre-seed",
+    "createdAt": "2026-07-07T13:30:00Z"
+  },
+  {
+    "id": "fb538579-67bf-4724-b9e8-63817aed466e",
+    "founderId": "1c522cfe-b647-4ee9-90ef-0fa3a8b0477b",
+    "name": "Wardly",
+    "oneLiner": "AI-powered rota assistant predicts staffing gaps and suggests swaps to reduce costly agency cover in NHS wards.",
+    "sector": "healthcare operations",
+    "geography": "UK",
+    "stage": "pre-seed",
+    "createdAt": "2026-07-19T12:37:58.697Z"
+  }
+]
