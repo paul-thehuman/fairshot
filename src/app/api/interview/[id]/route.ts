@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { nextTurn, startInterview } from "@/lib/interview/conduct";
+import { buildBrief } from "@/lib/interview/brief";
 import { getAll, getById } from "@/lib/store";
 
 export const dynamic = "force-dynamic";
@@ -17,6 +18,7 @@ function interviewPayload(id: string) {
       ? { name: founder.name, synthetic: founder.synthetic ?? false }
       : null,
     venture: venture ? { name: venture.name } : null,
+    brief: buildBrief(interview),
   };
 }
 

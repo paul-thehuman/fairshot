@@ -71,6 +71,46 @@ export default function ApplyPage() {
         </button>
       </header>
 
+      <section className="mb-8 rounded-lg border border-neutral-200 bg-neutral-50 p-5 dark:border-neutral-800 dark:bg-neutral-900/40">
+        <h2 className="text-sm font-semibold">Give us something we can check</h2>
+        <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+          The more of your pitch we can verify, the stronger it lands. Anything
+          you can&rsquo;t show in public, you&rsquo;ll get to walk us through in the
+          interview.
+        </p>
+        <ul className="mt-3 space-y-2 text-sm">
+          <li>
+            <span className="font-medium">Working links beat descriptions.</span>{" "}
+            <span className="text-neutral-600 dark:text-neutral-400">
+              Product, repo, demo, a live page. Paste anything public.
+            </span>
+          </li>
+          <li>
+            <span className="font-medium">Numbers beat adjectives.</span>{" "}
+            <span className="text-neutral-600 dark:text-neutral-400">
+              &ldquo;40 paying users&rdquo; or &ldquo;300 on the waitlist&rdquo;
+              tells us more than &ldquo;strong traction&rdquo;.
+            </span>
+          </li>
+          <li>
+            <span className="font-medium">Names we can verify.</span>{" "}
+            <span className="text-neutral-600 dark:text-neutral-400">
+              Customers, pilots, accelerators, employers, publications.
+            </span>
+          </li>
+          <li>
+            <span className="font-medium">Proof of what you did.</span>{" "}
+            <span className="text-neutral-600 dark:text-neutral-400">
+              Commits, designs, a thing with your name on it.
+            </span>
+          </li>
+        </ul>
+        <p className="mt-3 text-xs text-neutral-500">
+          No links is genuinely fine. We never hold missing evidence against you;
+          evidence we can check just earns more confidence.
+        </p>
+      </section>
+
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="grid grid-cols-2 gap-4">
           <div>

@@ -191,6 +191,17 @@ export interface FounderFeedback {
   nextSteps: string[];
 }
 
+// Shown to the founder before the interview begins: what it will dig into and
+// what evidence is worth having to hand. Derived deterministically from the
+// planned questions and graded claims already in Memory — never invented, and
+// never coaching on how to score better, only what to bring.
+export interface InterviewBrief {
+  focusAreas: { trait: Trait; label: string; why: string }[];
+  couldNotVerify: string[]; // claims we hold but could not confirm from public sources
+  bringThese: string[];
+  hasPublicEvidence: boolean; // false for a true cold-start founder
+}
+
 export interface Interview {
   id: string;
   opportunityId: string;
