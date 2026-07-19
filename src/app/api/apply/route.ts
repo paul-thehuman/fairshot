@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { completeJSON, extractClaims, gradeClaim } from "@/lib/llm";
 import { searchEvidence } from "@/lib/tavily";
 import { findOrCreateFounder } from "@/lib/dedupe";
+import { probePublications } from "@/lib/publications";
 import { screenPending } from "@/lib/pipeline";
 import { updateFounderScore } from "@/lib/founderScore";
 import { getAll, getById, logEvent, newId, now, patchById, upsert } from "@/lib/store";
@@ -56,6 +57,14 @@ export async function POST(req: Request) {
     observedAt: now(),
     ingestedAt: now(),
   });
+
+  // If any link is a Medium, Substack, or personal site, harvest the author
+  // feed: applicants who write arrive with public evidence already attached.
+  try {
+    await probePublications(founder.id, links);
+  } catch {
+    // Best-effort only.
+  }
 
   let venture = getAll("ventures").find((v) => v.founderId === founder.id);
   if (!venture) {

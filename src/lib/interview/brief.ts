@@ -23,7 +23,7 @@ const TRAIT_BRING: Record<Trait, string> = {
     "A decision that was yours to make, and how it turned out, good or bad",
 };
 
-const PUBLIC_SIGNAL_SOURCES = new Set(["github", "hackernews", "arxiv", "web"]);
+const PUBLIC_SIGNAL_SOURCES = new Set(["github", "hackernews", "arxiv", "web", "publication"]);
 
 // Build the pre-interview brief from state already in Memory. Returns null when
 // there are no planned questions yet (nothing honest to show).

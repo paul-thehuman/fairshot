@@ -23,6 +23,7 @@ const SOURCE_BADGE: Record<SignalSource, string> = {
   application: "Applied",
   interview: "Interview",
   web: "Web",
+  publication: "Writing",
 };
 
 export default async function PipelinePage() {

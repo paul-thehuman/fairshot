@@ -1,6 +1,7 @@
 import { completeJSON } from "./llm";
 import { searchEvidence } from "./tavily";
 import { findOrCreateFounder } from "./dedupe";
+import { probePublications } from "./publications";
 import { screenPending } from "./pipeline";
 import { getAll, getById, logEvent, newId, now, patchById, upsert } from "./store";
 import type { Opportunity, Venture } from "./types";
@@ -32,6 +33,9 @@ interface GhUser {
   blog: string | null;
   bio: string | null;
   html_url: string;
+  followers: number;
+  public_repos: number;
+  created_at: string;
 }
 
 interface GhRepo {
@@ -40,19 +44,46 @@ interface GhRepo {
   html_url: string;
   pushed_at: string;
   stargazers_count: number;
+  forks_count: number;
+  open_issues_count: number;
   fork: boolean;
   language: string | null;
 }
 
+interface GhEvent {
+  type: string;
+  created_at: string;
+  repo?: { name: string };
+}
+
 export async function sourceFounderByGithub(handle: string) {
   const user = await ghJson<GhUser>(`https://api.github.com/users/${handle}`);
-  const repos = (
+  const allRepos = (
     await ghJson<GhRepo[]>(
       `https://api.github.com/users/${handle}/repos?sort=pushed&per_page=8`
     )
-  )
-    .filter((r) => !r.fork)
-    .slice(0, 4);
+  ).filter((r) => !r.fork);
+  const repos = allRepos.slice(0, 4);
+
+  // Activity pulse: public events over the last 90 days. Best-effort; a
+  // fetch failure just means the footprint signal omits the pulse.
+  let pulse = "";
+  try {
+    const events = await ghJson<GhEvent[]>(
+      `https://api.github.com/users/${handle}/events/public?per_page=100`
+    );
+    const cutoff = Date.now() - 90 * 24 * 60 * 60 * 1000;
+    const recent = events.filter((e) => new Date(e.created_at).getTime() > cutoff);
+    const pushes = recent.filter((e) => e.type === "PushEvent").length;
+    const activeRepos = new Set(recent.map((e) => e.repo?.name).filter(Boolean));
+    if (recent.length > 0) {
+      pulse = ` Last 90 days: ${recent.length} public events (${pushes} pushes) across ${activeRepos.size} repo(s).`;
+    } else {
+      pulse = " No public activity in the last 90 days.";
+    }
+  } catch {
+    // Pulse unavailable; the footprint stays honest without it.
+  }
 
   const { founder } = findOrCreateFounder({
     name: user.name || user.login,
@@ -85,11 +116,23 @@ export async function sourceFounderByGithub(handle: string) {
     signalsAdded += 1;
   };
 
+  // Account-level footprint: reach, output, and recency in one signal, so the
+  // planner, dossier, and capability engine can weigh sustained activity.
+  const totalStars = allRepos.reduce((sum, r) => sum + r.stargazers_count, 0);
+  const totalForks = allRepos.reduce((sum, r) => sum + r.forks_count, 0);
+  addSignal({
+    source: "github",
+    title: `GitHub footprint — @${user.login}`,
+    content: `${user.followers} followers, ${user.public_repos} public repos, account since ${user.created_at.slice(0, 4)}. Top ${allRepos.length} active repos: ${totalStars} stars, ${totalForks} forks.${pulse}`,
+    url: user.html_url,
+    observedAt: now(),
+  });
+
   for (const repo of repos) {
     addSignal({
       source: "github",
       title: `${repo.name} — repository by ${user.login}`,
-      content: `${repo.description ?? "No description"}. ${repo.stargazers_count} stars${repo.language ? `, ${repo.language}` : ""}, pushed ${repo.pushed_at.slice(0, 10)}.`,
+      content: `${repo.description ?? "No description"}. ${repo.stargazers_count} stars, ${repo.forks_count} forks, ${repo.open_issues_count} open issues${repo.language ? `, ${repo.language}` : ""}, pushed ${repo.pushed_at.slice(0, 10)}.`,
       url: repo.html_url,
       observedAt: repo.pushed_at,
     });
@@ -149,6 +192,15 @@ export async function sourceFounderByGithub(handle: string) {
       "sourcing.web_skipped",
       `Web enrichment skipped for ${handle}: ${err instanceof Error ? err.message : "error"}`
     );
+  }
+
+  // Author feeds: Medium, Substack, or the founder's own site. Writing is
+  // public evidence the same way code is.
+  try {
+    const pubs = await probePublications(founder.id, user.blog ? [user.blog] : []);
+    signalsAdded += pubs;
+  } catch {
+    // Best-effort only.
   }
 
   let venture = getAll("ventures").find((v) => v.founderId === founder.id);

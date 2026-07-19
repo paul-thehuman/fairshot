@@ -1,7 +1,7 @@
 "use client";
 
 import { use, useCallback, useEffect, useRef, useState } from "react";
-import type { FounderFeedback, Interview, InterviewBrief } from "@/lib/types";
+import type { FounderFeedback, Interview, InterviewBrief, TurnCheck } from "@/lib/types";
 import { listenContinuous, speak, speechRecognitionAvailable, stopSpeaking } from "./voice";
 
 interface Payload {
@@ -183,8 +183,14 @@ export default function InterviewPage({
                 }
               >
                 {turn.text}
+                {turn.check && <CheckChip check={turn.check} />}
               </div>
             ))}
+            {sending && (
+              <div className="max-w-[85%] animate-pulse rounded-lg border border-dashed border-neutral-300 p-3 text-sm text-neutral-500 dark:border-neutral-700">
+                🔍 Checking what you said against public sources…
+              </div>
+            )}
             <div ref={bottomRef} />
           </div>
 
@@ -234,6 +240,43 @@ export default function InterviewPage({
         </>
       )}
     </main>
+  );
+}
+
+// The live fact-check performed on the founder's previous answer, rendered on
+// the interviewer's reply. The source link is only ever a URL the evidence
+// engine actually retrieved.
+function CheckChip({ check }: { check: TurnCheck }) {
+  const style =
+    check.grade === "corroborated"
+      ? "border-emerald-300 text-emerald-700 dark:border-emerald-800 dark:text-emerald-400"
+      : "border-amber-300 text-amber-700 dark:border-amber-800 dark:text-amber-400";
+  const label =
+    check.grade === "corroborated"
+      ? "Corroborated"
+      : check.grade === "weak_signal"
+        ? "Weak public signal"
+        : "No public record found";
+  return (
+    <div
+      className={`mt-2 rounded-md border border-dashed px-2.5 py-1.5 text-xs ${style}`}
+    >
+      <span className="font-medium">🔍 Checked while you spoke:</span>{" "}
+      &ldquo;{check.claim}&rdquo; — {label}
+      {check.sourceUrl && (
+        <>
+          {" · "}
+          <a
+            href={check.sourceUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="underline"
+          >
+            {check.sourceTitle || "source"}
+          </a>
+        </>
+      )}
+    </div>
   );
 }
 

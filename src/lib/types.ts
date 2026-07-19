@@ -99,7 +99,8 @@ export type SignalSource =
   | "accelerator"
   | "application"
   | "interview"
-  | "web";
+  | "web"
+  | "publication";
 
 export interface Signal {
   id: string;
@@ -177,10 +178,21 @@ export interface InterviewQuestion {
   why: string; // which evidence gap this question targets; powers traceability
 }
 
+// A live fact-check performed on the founder's previous answer, attached to
+// the agent turn that follows it. Grade and sources obey the same rule as
+// everywhere else: only URLs actually retrieved may be cited.
+export interface TurnCheck {
+  claim: string;
+  grade: Grade;
+  sourceUrl?: string;
+  sourceTitle?: string;
+}
+
 export interface InterviewTurn {
   role: "agent" | "founder";
   text: string;
   at: string;
+  check?: TurnCheck;
 }
 
 export type InterviewStatus = "invited" | "in_progress" | "complete";

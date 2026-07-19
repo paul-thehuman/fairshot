@@ -10,18 +10,122 @@ import type {
   Interview,
   InterviewTurn,
   StoredClaim,
+  TurnCheck,
 } from "../types";
 
 const MAX_AGENT_TURNS = 10;
 const CATEGORIES: ClaimCategory[] = ["traction", "technical", "experience", "team", "market"];
 
 const CONDUCT_SYSTEM = `You are conducting a planned behavioural interview for a venture fund. Decide the next move after the founder's latest answer.
+You also receive "dossier": everything the fund already holds on this founder (signals found by sourcing, claims with evidence grades). Use it: when acknowledging or following up, reference a concrete dossier fact by name where it genuinely connects to their answer ("that fits the commit history on your rota-model repo"). Never invent dossier facts, and never recite the dossier for its own sake.
+You may also receive "liveCheck": the fund just fact-checked one claim from the founder's latest answer, while they were speaking. A standard sentence announcing the result is automatically placed before your message, so do NOT restate the result. You MAY use it to shape your move: for an unverifiable claim, a good follow-up asks who or what could confirm it.
 Rules:
 - "follow_up" only if followUpAvailable is true AND the answer lacked a concrete example, numbers, or the founder's specific role. The follow-up must reference the founder's own words and ask for the exact missing specifics: numbers, dates, names, or what the founder personally did.
 - otherwise "next": briefly acknowledge one specific thing from their answer (no flattery), then ask nextQuestion. If nextQuestion is null, choose "close" instead.
 - "close": thank them, and say their evidence will be reviewed and they will see honest feedback either way.
-- message: 1-3 sentences, plain warm English.
+- message: 1-4 sentences, plain warm English.
 Output strict JSON only: {"action":"follow_up"|"next"|"close","message":"..."}`;
+
+const LIVE_CHECK_SYSTEM = `From a founder's interview answer, pick the ONE claim most worth fact-checking against public sources right now.
+A claim is worth checking only if a public web search could plausibly confirm it: a named product, employer, event, publication, repository, organisation, or public number. Personal behavioural accounts ("I decided to...", "I felt...") are not checkable.
+claim: ONE short self-contained sentence, maximum 15 words, third person ("The founder ..."), names attached.
+Output strict JSON only: {"checkable":true|false,"claim":"..."}`;
+
+// Everything the fund already holds on this founder, compact enough to ride
+// along on every conduct call. This is what makes the interviewer feel like it
+// has actually read the file.
+function buildDossier(interview: Interview) {
+  const founder = getById("founders", interview.founderId);
+  const venture = getAll("ventures").find((v) => v.founderId === interview.founderId);
+  const signals = getAll("signals")
+    .filter((s) => s.founderId === interview.founderId)
+    .map((s) => ({ source: s.source, title: s.title, content: s.content.slice(0, 300) }));
+  const claims = getAll("claims")
+    .filter((c) => c.founderId === interview.founderId)
+    .map((c) => ({ text: c.text, grade: c.grade ?? "ungraded" }));
+  return {
+    founder: founder?.name,
+    bio: founder?.bio,
+    venture: venture ? { name: venture.name, oneLiner: venture.oneLiner } : null,
+    signals,
+    claims,
+  };
+}
+
+// Spoken announcement of a live check. Deterministic so the demo never depends
+// on the model choosing to mention it. Claims are stored in third person for
+// the memo; speech addresses the founder directly.
+function toSecondPerson(claim: string): string {
+  return claim
+    .replace(/^The founder's\s/i, "your ")
+    .replace(/^The founder\s/i, "you ")
+    .replace(/\sthe founder's\s/gi, " your ")
+    .replace(/\sthe founder\s/gi, " you ");
+}
+
+function checkSentence(check: TurnCheck): string {
+  const claim = toSecondPerson(check.claim.replace(/\.$/, ""));
+  if (check.grade === "corroborated") {
+    return `Quick note: while you were answering, I checked "${claim}" and found it${
+      check.sourceTitle ? ` (${check.sourceTitle})` : ""
+    }.`;
+  }
+  if (check.grade === "weak_signal") {
+    return `Quick note: I looked for a public record of "${claim}" while you were answering and found only weak traces, which is common for early work.`;
+  }
+  return `Quick note: I looked for a public record of "${claim}" while you were answering and couldn't find one. That's expected for internal work, and it is not held against you.`;
+}
+
+// Fact-check the most checkable claim in the founder's latest answer, while
+// they are mid-interview. Stores the graded claim in Memory and returns what
+// was found. Any failure returns null and the interview proceeds untouched.
+async function liveCheckAnswer(
+  interview: Interview,
+  founderAnswer: string
+): Promise<TurnCheck | null> {
+  try {
+    const picked = await completeJSON<{ checkable: boolean; claim: string }>(
+      LIVE_CHECK_SYSTEM,
+      founderAnswer
+    );
+    if (!picked.checkable || !picked.claim?.trim()) return null;
+    const claimText = picked.claim.trim();
+
+    const evidence = await searchEvidence(claimText, []);
+    const graded = await gradeClaim(claimText, evidence);
+
+    const stored: StoredClaim = {
+      id: newId(),
+      opportunityId: interview.opportunityId,
+      founderId: interview.founderId,
+      origin: "interview",
+      text: claimText,
+      category: "experience",
+      grade: graded.grade,
+      reasoning: graded.reasoning,
+      sources: graded.sources,
+    };
+    upsert("claims", stored);
+    patchById("interviews", interview.id, {
+      extractedClaimIds: [...(getById("interviews", interview.id)?.extractedClaimIds ?? []), stored.id],
+    });
+    logEvent(
+      "interview.live_check",
+      `Live-checked mid-interview: "${claimText.slice(0, 80)}" → ${graded.grade}`,
+      { founderId: interview.founderId, opportunityId: interview.opportunityId }
+    );
+
+    const top = graded.sources[0];
+    return {
+      claim: claimText,
+      grade: graded.grade,
+      sourceUrl: top?.url,
+      sourceTitle: top?.title,
+    };
+  } catch {
+    return null; // The check is a bonus, never a blocker.
+  }
+}
 
 const INTERVIEW_EXTRACT_SYSTEM = `You extract discrete claims from a founder's behavioural interview answers.
 Rules:
@@ -75,16 +179,29 @@ export async function nextTurn(id: string, founderAnswer: string): Promise<Inter
     agentTurnCount(turns) < MAX_AGENT_TURNS - 1;
   const nextQuestion = isLast ? null : questions[qi + 1].question;
 
+  // Vet the answer while the founder is still in the room: pick the most
+  // checkable claim, search for it, grade it. Runs before the conduct call so
+  // the interviewer's next words can honestly reference what was found.
+  const liveCheck = await liveCheckAnswer(interview, founderAnswer);
+
   let decision: { action: string; message: string };
   try {
     decision = await completeJSON<{ action: string; message: string }>(
       CONDUCT_SYSTEM,
       JSON.stringify({
+        dossier: buildDossier(interview),
         plannedQuestions: questions.map((q) => q.question),
         currentQuestionIndex: qi,
         latestAnswer: founderAnswer,
         followUpAvailable,
         nextQuestion,
+        liveCheck: liveCheck
+          ? {
+              claim: liveCheck.claim,
+              grade: liveCheck.grade,
+              sourceTitle: liveCheck.sourceTitle ?? null,
+            }
+          : null,
         transcript: turns.slice(-8).map((t) => `${t.role}: ${t.text}`),
       })
     );
@@ -103,8 +220,22 @@ export async function nextTurn(id: string, founderAnswer: string): Promise<Inter
   if (action === "follow_up" && !followUpAvailable) action = "next";
   if (action === "next" && isLast) action = "close";
 
+  // The check announcement is deterministic code, not a model behaviour: it is
+  // spoken every time a check ran, in the same honest register.
+  const message = liveCheck
+    ? `${checkSentence(liveCheck)} ${decision.message}`
+    : decision.message;
+
   const patch: Partial<Interview> = {
-    turns: [...turns, { role: "agent", text: decision.message, at: now() }],
+    turns: [
+      ...turns,
+      {
+        role: "agent",
+        text: message,
+        at: now(),
+        ...(liveCheck ? { check: liveCheck } : {}),
+      },
+    ],
   };
   if (action === "follow_up") {
     patch.followUpsUsed = (interview.followUpsUsed ?? 0) + 1;
@@ -134,13 +265,28 @@ async function finalizeInterview(interview: Interview): Promise<void> {
     .map((t) => t.text)
     .join("\n\n");
 
+  // Claims already banked by live checks during the conversation; the closing
+  // extraction must not repeat them.
+  const alreadyCaptured = getAll("claims").filter(
+    (c) => c.opportunityId === interview.opportunityId && c.origin === "interview"
+  );
+
   const claimIds: string[] = [];
   try {
     const parsed = await completeJSON<{
       claims: { text: string; category: string; checkable: boolean }[];
-    }>(INTERVIEW_EXTRACT_SYSTEM, `Founder's interview answers:\n${founderAnswers}`);
+    }>(
+      INTERVIEW_EXTRACT_SYSTEM,
+      `Already captured during the interview (do NOT repeat these or close variants):\n${
+        alreadyCaptured.map((c) => `- ${c.text}`).join("\n") || "- none"
+      }\n\nFounder's interview answers:\n${founderAnswers}`
+    );
 
     for (const extracted of (parsed.claims ?? []).slice(0, 8)) {
+      const duplicate = alreadyCaptured.some(
+        (c) => c.text.trim().toLowerCase() === extracted.text.trim().toLowerCase()
+      );
+      if (duplicate) continue;
       const claim: StoredClaim = {
         id: newId(),
         opportunityId: interview.opportunityId,
@@ -173,7 +319,12 @@ async function finalizeInterview(interview: Interview): Promise<void> {
       upsert("claims", claim);
       claimIds.push(claim.id);
     }
-    patchById("interviews", interview.id, { extractedClaimIds: claimIds });
+    patchById("interviews", interview.id, {
+      extractedClaimIds: [
+        ...(getById("interviews", interview.id)?.extractedClaimIds ?? []),
+        ...claimIds,
+      ],
+    });
   } catch (err) {
     logEvent(
       "interview.extraction_failed",

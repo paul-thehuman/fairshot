@@ -12,8 +12,8 @@ Capital flows through networks. A founder's story is scattered across repos, lau
 
 Sourcing -> Screening -> Interview -> Diligence -> Decision. Two doors into one funnel:
 
-- **Outbound**: scanners watch GitHub, Hacker News launches and arXiv (live), plus hackathon results and accelerator cohorts (synthetic channels). Discoveries become evidence profiles, deduplicated and screened against the fund's thesis. Crossing the conviction threshold triggers an interview invitation. Targeted sourcing is also supported: point FairShot at any GitHub handle and it profiles that person from their real footprint.
-- **Inbound**: a founder applies with a company name and a pitch. Minimum bar, by design. Claims are extracted and graded against real web evidence immediately.
+- **Outbound**: scanners watch GitHub, Hacker News launches and arXiv (live), plus hackathon results and accelerator cohorts (synthetic channels). Discoveries become evidence profiles, deduplicated and screened against the fund's thesis. Crossing the conviction threshold triggers an interview invitation. Targeted sourcing is also supported: point FairShot at any GitHub handle and it profiles that person from their real footprint, including a follower/stars/forks summary, a 90-day public activity pulse from the events API, and author feeds (Medium, Substack, or a personal site's RSS), so founders who write arrive with their writing attached.
+- **Inbound**: a founder applies with a company name and a pitch. Minimum bar, by design. Claims are extracted and graded against real web evidence immediately, and any Medium, Substack, or personal-site link is harvested for recent posts via RSS.
 
 Both doors converge on the same universal gate: the **Socratic interview**.
 
@@ -32,7 +32,9 @@ Each trait gets a score, a confidence level, a rationale, and citations into the
 
 **The cold-start case is the point, not an afterthought.** A founder with no GitHub, no funding and no network still generates assessable evidence, because the interview is a behavioural instrument: adaptive questions anchored in whatever evidence exists, probing for specific past events the way a skilled human assessor would. The interview plans itself against the founder's evidence gaps, and every question stores the gap it targets.
 
-**The system is two-way.** Every assessed founder receives "What we saw": strengths, thin evidence, and concrete steps that would strengthen a future application. Assessment that helps people succeed, not surveillance.
+**The interview does diligence while the founder speaks.** After each answer, FairShot picks the most checkable claim just made, searches the public web for it, grades it, and says what it found before asking the next question. The announcement is deterministic code, not model discretion, so it happens every time. A corroboration arrives with its source attached and visible to the founder ("Checked while you spoke"); a missing public record is stated neutrally, expected for internal work, and followed by the assessor's natural next move: who could confirm this? The conducting agent also carries the founder's full dossier into every turn, so acknowledgements and follow-ups connect answers to the evidence already held rather than only to the last message.
+
+**The system is two-way.** Every assessed founder receives "What we saw": strengths, thin evidence, and concrete steps that would strengthen a future application. Guidance starts before assessment, not after: the apply page shows what checkable evidence looks like, and every invited founder gets a pre-interview brief naming the areas the interview will probe and the specific claims that could not be confirmed, so they can bring proof. Assessment that helps people succeed, not surveillance.
 
 **Memory never forgets.** The Founder Score persists across ventures and applications, never resets, and strengthens with shipped milestones. It is one input into the Founder axis, not a substitute for per-opportunity assessment.
 
@@ -45,6 +47,7 @@ Each trait gets a score, a confidence level, a rationale, and citations into the
 - The three screening axes (Founder, Market, Idea-vs-Market) are scored independently and never averaged; each carries its own trend.
 - "No prior VC backing" queries are negation-aware: a founder saying they have never raised money is counted for them, not against them.
 - Web enrichment passes an identity gate: results about namesakes are excluded and the exclusion is logged. No verification means no enrichment.
+- Mid-interview fact-checks are announced by deterministic code, never left to the model's discretion, and obey the same retrieved-URLs-only citation rule.
 - Speed is instrumented: every status change is timestamped, and each decision records elapsed time from first signal.
 
 ## Assessment policy
@@ -56,7 +59,7 @@ Real people discovered outbound are prioritised for outreach, never capability-j
 | Criterion | FairShot's answer |
 |---|---|
 | Data Architecture & Intelligence (30%) | Multi-channel live + synthetic sourcing, dedup on handle, domain and name, identity-gated enrichment, explicit cold-start method |
-| Intelligent Analysis & Trust (25%) | Per-claim trust grades with retrieved sources, confidence levels, contradictions flagged before the investor sees them |
+| Intelligent Analysis & Trust (25%) | Per-claim trust grades with retrieved sources, confidence levels, contradictions flagged before the investor sees them, and live mid-interview fact-checks shown to the founder in real time |
 | Investment Utility & Execution (30%) | Actionable memo with a recommendation against a configurable thesis; signal-to-decision time measured; one-click decision |
 | UX & Design (15%) | Investor dashboard, funnel board, plain-English querying, voice interview |
 
