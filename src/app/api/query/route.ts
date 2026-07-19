@@ -23,7 +23,7 @@ const QUERY_SYSTEM = `You translate an investor's plain-English founder query in
 Filter fields, ALL optional — include only what the query implies:
 - sectors: string[] — sector terms. When you use a sector, ALSO add its synonym expansion to keywords
 - geographies: string[] — regions, countries, or cities
-- sources: string[] — subset of ["github","hackernews","arxiv","hackathon","accelerator","application","interview","web","publication"] when the query names where founders were found
+- sources: string[] — subset of ["github","hackernews","arxiv","hackathon","accelerator","application","interview","web","publication","founder_supplied"] when the query names where founders were found
 - minFounderScore: number 0-100 — when the query asks for "strong"/"top" founders, use 70
 - minConviction: number 0-100
 - traits: [{"trait":"ability"|"aspiration"|"learning_agility"|"accountability","min":number}]

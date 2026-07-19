@@ -51,6 +51,9 @@ export default async function MemoPage({
   const claims = getAll("claims").filter((c) => c.founderId === opp.founderId);
   const founderScore = getById("founderScores", opp.founderId);
   const interview = getAll("interviews").find((i) => i.opportunityId === opportunityId);
+  const submittedEvidence = getAll("signals").filter(
+    (s) => s.founderId === opp.founderId && s.source === "founder_supplied"
+  );
 
   const traitLabel = (t: string) => t.replace("_", " ");
 
@@ -256,6 +259,34 @@ export default async function MemoPage({
           )}
         </ul>
       </section>
+
+      {submittedEvidence.length > 0 && (
+        <section className="mt-10">
+          <h2 className="mb-1 text-lg">Founder-submitted evidence</h2>
+          <p className="mb-3 text-sm text-muted">
+            Provided by the founder before assessment. Links were retrieved and
+            graded like any other source; uploads are shown as self-attested and
+            not independently verified.
+          </p>
+          <ul className="space-y-2">
+            {submittedEvidence.map((s) => (
+              <li key={s.id} className="nb-card-flat p-3 text-sm">
+                <p className="font-medium">{s.title}</p>
+                {s.url && (
+                  <a
+                    href={s.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium text-[var(--color-main)] hover:underline"
+                  >
+                    {s.url.startsWith("/api/") ? "View upload" : s.url}
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {interview?.feedback && (
         <section className="nb-card mt-10 p-5">

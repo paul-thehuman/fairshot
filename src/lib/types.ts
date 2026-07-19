@@ -100,7 +100,8 @@ export type SignalSource =
   | "application"
   | "interview"
   | "web"
-  | "publication";
+  | "publication"
+  | "founder_supplied";
 
 export interface Signal {
   id: string;

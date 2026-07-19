@@ -9,6 +9,7 @@ import {
   stopSpeaking,
   unlockAudio,
 } from "./voice";
+import EvidencePanel from "./evidence-panel";
 
 interface Payload {
   interview: Interview;
@@ -71,7 +72,7 @@ export default function InterviewPage({
     }
   }
 
-  useEffect(() => {
+  const loadInterview = useCallback(() => {
     fetch(`/api/interview/${id}`)
       .then(async (r) => {
         const data = (await r.json()) as Payload;
@@ -87,6 +88,10 @@ export default function InterviewPage({
       })
       .catch((err) => setError(err.message));
   }, [id]);
+
+  useEffect(() => {
+    loadInterview();
+  }, [loadInterview]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -176,10 +181,12 @@ export default function InterviewPage({
         <PreInterviewBrief
           brief={brief}
           firstName={(founder?.name ?? "there").split(" ")[0]}
+          opportunityId={interview.opportunityId}
           onReady={() => {
             unlockAudio();
             setReady(true);
           }}
+          onUpdated={loadInterview}
         />
       ) : (
         <>
@@ -294,11 +301,15 @@ function CheckChip({ check }: { check: TurnCheck }) {
 function PreInterviewBrief({
   brief,
   firstName,
+  opportunityId,
   onReady,
+  onUpdated,
 }: {
   brief: InterviewBrief;
   firstName: string;
+  opportunityId: string;
   onReady: () => void;
+  onUpdated: () => void;
 }) {
   return (
     <div className="flex-1">
@@ -352,6 +363,8 @@ function PreInterviewBrief({
             ))}
           </ul>
         </section>
+
+        <EvidencePanel opportunityId={opportunityId} onUpdated={onUpdated} />
 
         <button type="button" onClick={onReady} className="nb-btn nb-btn-primary mt-6 text-sm">
           I&rsquo;m ready, start the interview

@@ -24,6 +24,7 @@ const SOURCE_BADGE: Record<SignalSource, string> = {
   interview: "Interview",
   web: "Web",
   publication: "Writing",
+  founder_supplied: "Shared",
 };
 
 export default async function PipelinePage() {
