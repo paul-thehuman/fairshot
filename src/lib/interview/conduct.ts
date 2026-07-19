@@ -217,14 +217,25 @@ export async function nextTurn(id: string, founderAnswer: string): Promise<Inter
   }
 
   let action = decision.action;
+  if (action !== "follow_up" && action !== "next" && action !== "close") {
+    // Off-vocabulary model output must never kill the interview: treat it as
+    // a plain move to the next question, or a close on the last one.
+    action = isLast ? "close" : "next";
+  }
   if (action === "follow_up" && !followUpAvailable) action = "next";
   if (action === "next" && isLast) action = "close";
 
+  let spoken = (decision.message ?? "").trim();
+  if (!spoken) {
+    spoken =
+      action === "close"
+        ? "Thank you, that's everything I needed. Your evidence goes for review now, and you'll see honest feedback either way."
+        : nextQuestion ?? "Let's move on.";
+  }
+
   // The check announcement is deterministic code, not a model behaviour: it is
   // spoken every time a check ran, in the same honest register.
-  const message = liveCheck
-    ? `${checkSentence(liveCheck)} ${decision.message}`
-    : decision.message;
+  const message = liveCheck ? `${checkSentence(liveCheck)} ${spoken}` : spoken;
 
   const patch: Partial<Interview> = {
     turns: [

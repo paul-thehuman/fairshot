@@ -32,7 +32,7 @@ Each trait gets a score, a confidence level, a rationale, and citations into the
 
 **The cold-start case is the point, not an afterthought.** A founder with no GitHub, no funding and no network still generates assessable evidence, because the interview is a behavioural instrument: adaptive questions anchored in whatever evidence exists, probing for specific past events the way a skilled human assessor would. The interview plans itself against the founder's evidence gaps, and every question stores the gap it targets.
 
-**The interview does diligence while the founder speaks.** After each answer, FairShot picks the most checkable claim just made, searches the public web for it, grades it, and says what it found before asking the next question. The announcement is deterministic code, not model discretion, so it happens every time. A corroboration arrives with its source attached and visible to the founder ("Checked while you spoke"); a missing public record is stated neutrally, expected for internal work, and followed by the assessor's natural next move: who could confirm this? The conducting agent also carries the founder's full dossier into every turn, so acknowledgements and follow-ups connect answers to the evidence already held rather than only to the last message.
+**The interview does diligence while the founder speaks.** After each answer, FairShot picks the most checkable claim just made, searches the public web for it, grades it, and says what it found before asking the next question. The announcement is deterministic code, not model discretion, so whenever a check runs it is guaranteed to be spoken; a purely behavioural answer with nothing checkable is simply not checked, and the system never pretends otherwise. A corroboration arrives with its source attached and visible to the founder ("Checked while you spoke"); a missing public record is stated neutrally, expected for internal work, and followed by the assessor's natural next move: who could confirm this? The conducting agent also carries the founder's full dossier into every turn, so acknowledgements and follow-ups connect answers to the evidence already held rather than only to the last message.
 
 **The system is two-way.** Every assessed founder receives "What we saw": strengths, thin evidence, and concrete steps that would strengthen a future application. Guidance starts before assessment, not after: the apply page shows what checkable evidence looks like, and every invited founder gets a pre-interview brief naming the areas the interview will probe and the specific claims that could not be confirmed, so they can bring proof. Assessment that helps people succeed, not surveillance.
 
@@ -42,7 +42,7 @@ Each trait gets a score, a confidence level, a rationale, and citations into the
 
 - The evidence grader can only cite source URLs it actually retrieved; fabricated citations are dropped server-side.
 - The capability engine can only cite evidence ids that exist in Memory; invented references are filtered.
-- Headline scores are deterministic aggregations computed in code, never numbers a model asserts.
+- Headline scores (Founder Score, evidence score) are deterministic aggregations computed in code, never numbers a model asserts. The one exception is named: the thesis-fit conviction score is an explicit LLM judgment, clamped and bounded in code and always shown with its rationale.
 - Investment memos must flag missing data explicitly ("Cap table: not disclosed"); the standard gaps are appended in code even if the model forgets.
 - The three screening axes (Founder, Market, Idea-vs-Market) are scored independently and never averaged; each carries its own trend.
 - "No prior VC backing" queries are negation-aware: a founder saying they have never raised money is counted for them, not against them.
@@ -54,25 +54,25 @@ Each trait gets a score, a confidence level, a rationale, and citations into the
 
 Real people discovered outbound are prioritised for outreach, never capability-judged, until they choose to participate in an interview. Applying inbound is participation. Synthetic demo profiles are labelled "Synthetic" in the UI, carry no fabricated clickable links, and any name collision with a real person is coincidental. During this hackathon, decisions and memos are demonstrated on synthetic profiles, plus one real, consenting volunteer: the builder, who was sourced by his own system, interviewed by voice, and honestly rated WATCH.
 
-## Rubric mapping
+## How FairShot answers the challenge
 
-| Criterion | FairShot's answer |
+| Dimension | FairShot's answer |
 |---|---|
-| Data Architecture & Intelligence (30%) | Multi-channel live + synthetic sourcing, dedup on handle, domain and name, identity-gated enrichment, explicit cold-start method |
-| Intelligent Analysis & Trust (25%) | Per-claim trust grades with retrieved sources, confidence levels, contradictions flagged before the investor sees them, and live mid-interview fact-checks shown to the founder in real time |
-| Investment Utility & Execution (30%) | Actionable memo with a recommendation against a configurable thesis; signal-to-decision time measured; one-click decision |
-| UX & Design (15%) | Investor dashboard, funnel board, plain-English querying, voice interview |
+| Data architecture & intelligence | Multi-channel live + synthetic sourcing, dedup on handle, domain and name, identity-gated enrichment, explicit cold-start method |
+| Intelligent analysis & trust | Per-claim trust grades with retrieved sources, confidence levels, contradictions flagged before the investor sees them, and live mid-interview fact-checks shown to the founder in real time |
+| Investment utility & execution | Actionable memo with a recommendation against a configurable thesis; signal-to-decision time measured; one-click decision |
+| UX & design | Investor dashboard, funnel board, plain-English querying, voice interview |
 
 ## Architecture
 
-Next.js 16 (App Router) + TypeScript. Memory is a typed JSON file store behind one repository module (src/lib/store.ts); swapping to a real database touches one file. Runtime LLM calls run through a provider-agnostic layer (src/lib/llm.ts): OpenAI first, Gemini fallback, JSON mode, deliberately separate from the coding assistant used to build the product. Evidence search via Tavily. Voice via ElevenLabs text-to-speech plus browser speech recognition; the interview brain stays FairShot's own.
+Next.js 16 (App Router) + TypeScript. Memory is a typed JSON file store behind one repository module (src/lib/store.ts); swapping to a real database touches one file. Runtime LLM calls run through a provider-agnostic layer (src/lib/llm.ts): OpenAI, Gemini, or Anthropic, selected by which key is configured, OpenAI first, so partner credits keep runtime inference deliberately separate from the coding assistant used to build the product. Evidence search via Tavily. Voice via ElevenLabs text-to-speech plus browser speech recognition; the interview brain stays FairShot's own.
 
 Key modules: scanners/ (sourcing channels), pipeline.ts (ingest, dedup, screen, threshold), sourceFounder.ts (targeted sourcing + identity gate), interview/ (planner + adaptive conduct), capability.ts (trait scoring), founderScore.ts (persistent score), screening.ts (three axes), memo.ts (evidence-backed memo), feedback.ts (founder-facing feedback).
 
 ## Run it
 
     npm install
-    cp .env.local.example .env.local   # add TAVILY_API_KEY and OPENAI_API_KEY or GEMINI_API_KEY
+    cp .env.local.example .env.local   # TAVILY_API_KEY + one LLM key; ELEVENLABS_API_KEY for voice
     npm run dev
     curl -X POST localhost:3000/api/seed
 

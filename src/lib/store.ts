@@ -63,7 +63,10 @@ function load<K extends CollectionName>(name: K): CollectionMap[K][] {
   try {
     items = JSON.parse(fs.readFileSync(fileFor(name), "utf8"));
   } catch {
-    items = [];
+    // Never cache a failed read: caching [] against the current mtime would
+    // let a subsequent upsert persist an empty collection over real data.
+    // Serve empty for this read and retry the file next time.
+    return [];
   }
   cache.set(name, { mtimeMs, items });
   return items;

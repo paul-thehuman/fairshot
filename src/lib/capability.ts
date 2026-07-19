@@ -12,6 +12,7 @@ Trait definitions:
 Rules:
 - Score each of the four traits strictly from the evidence provided: 0-100 with confidence "high"|"medium"|"low", OR confidence "insufficient" with score null. Never guess; "insufficient" is a respectable first-class answer.
 - Externally corroborated evidence outweighs self-report. Interview answers are behavioural evidence worth at most "medium" confidence unless corroborated.
+- FAIRNESS, non-negotiable: school and university names, employer or investor brand prestige, referrals and warm introductions, follower counts, age, gender, nationality, and location are NOT evidence and must not move any trait score in either direction. Score what the person did, never who they know, where they studied, or how many people follow them.
 - rationale: 1-2 plain sentences naming the specific evidence used.
 - evidenceIds: cite ONLY ids present in the provided evidence lists.
 - Output strict JSON only: {"traits":[{"trait":"ability","score":0,"confidence":"low","rationale":"...","evidenceIds":["..."]}]}`;

@@ -44,8 +44,20 @@ Rules:
 - Output strict JSON only: {"grade":"...","reasoning":"...","sourceUrls":["..."]}`;
 
 function parseJson<T>(text: string): T {
-  const cleaned = text.trim().replace(/^```json\s*|```$/g, "");
-  return JSON.parse(cleaned) as T;
+  const cleaned = text
+    .trim()
+    .replace(/^```[a-z]*\s*/i, "")
+    .replace(/```\s*$/, "")
+    .trim();
+  try {
+    return JSON.parse(cleaned) as T;
+  } catch {
+    // Providers without a JSON response mode sometimes preface or wrap the
+    // object; recover the first object-shaped block before giving up.
+    const block = cleaned.match(/\{[\s\S]*\}/);
+    if (block) return JSON.parse(block[0]) as T;
+    throw new Error("Model returned non-JSON output");
+  }
 }
 
 async function callOpenAI(system: string, user: string): Promise<string> {

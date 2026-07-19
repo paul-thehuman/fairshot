@@ -1,6 +1,6 @@
 import { getAll } from "@/lib/store";
 import { loadThesis } from "@/lib/thesis";
-import { FAIRNESS_EXCLUSIONS } from "@/lib/fairness";
+import { FAIRNESS_EXCLUSIONS, FAIRNESS_NOTE } from "@/lib/fairness";
 import QueryBar from "./query-bar";
 
 export const dynamic = "force-dynamic";
@@ -153,14 +153,15 @@ export default async function Dashboard() {
       <section className="nb-card mt-10 p-5">
         <h2 className="text-lg">What FairShot deliberately ignores</h2>
         <p className="mt-1 text-sm text-muted">
-          Capability is scored from evidence tied to specific claims. The system
-          does not use:
+          Capability is scored from evidence tied to specific claims. The scoring
+          rules are explicitly instructed to exclude:
         </p>
         <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted">
           {FAIRNESS_EXCLUSIONS.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>
+        <p className="mt-3 text-sm text-muted">{FAIRNESS_NOTE}</p>
         <p className="mt-3 text-sm font-medium">
           And one enforced policy: real people discovered outbound are prioritised
           for outreach, never capability-judged until they choose to take part.

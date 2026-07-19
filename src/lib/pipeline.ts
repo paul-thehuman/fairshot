@@ -24,6 +24,7 @@ You receive the fund's thesis and a list of sourced opportunities with their evi
 Rules:
 - conviction is 0-100: how strongly the evidence says this founder and venture fit the thesis and merit a capability interview now.
 - Score only the evidence given. Do not invent facts.
+- Fairness: school names, brand-name employers or investors, referrals, and follower counts are not evidence of thesis fit; judge the work, not the pedigree.
 - An off-thesis sector or geography caps conviction at 40.
 - rationale: one plain sentence naming the deciding factors.
 - Output strict JSON only: {"results":[{"id":"...","conviction":0,"rationale":"..."}]}`;

@@ -5,11 +5,25 @@ function normaliseName(name: string): string {
   return name.toLowerCase().replace(/[^a-zÀ-ɏ ]/g, "").trim();
 }
 
+// Hosts shared by many unrelated people: a linkedin.com or medium.com profile
+// URL identifies the platform, not the person, so it must never drive a merge.
+const MULTI_TENANT_HOSTS = new Set([
+  "linkedin.com",
+  "medium.com",
+  "x.com",
+  "twitter.com",
+  "github.com",
+  "youtube.com",
+  "instagram.com",
+  "facebook.com",
+]);
+
 function domainOf(url?: string): string | undefined {
   if (!url) return undefined;
   try {
     const withProto = url.startsWith("http") ? url : `https://${url}`;
-    return new URL(withProto).hostname.replace(/^www\./, "");
+    const host = new URL(withProto).hostname.replace(/^www\./, "");
+    return MULTI_TENANT_HOSTS.has(host) ? undefined : host;
   } catch {
     return undefined;
   }

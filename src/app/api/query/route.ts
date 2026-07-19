@@ -35,7 +35,10 @@ Output strict JSON only: {"filter":{...},"interpretation":"one plain sentence re
 // Positive funding evidence only; negated mentions ("never raised", "no
 // funding") must not count against a founder, that is the cold-start case.
 const NEGATED_FUNDING = /\b(never|not|no|without|haven't|hasn't|didn't)\b[^.!?]{0,40}\b(raised|funding|funded|backed|investors?)\b/gi;
-const FUNDING_EVIDENCE = /\braised (\$|£|€|an? |over |around )|series [a-c]\b|closed (a|our|the) (round|seed)|vc[- ]backed|venture[- ]backed|angel round|led by [A-Z]/;
+const FUNDING_EVIDENCE = /\braised (\$|£|€|an? |over |around )|series [a-c]\b|closed (a|our|the) (round|seed)|vc[- ]backed|venture[- ]backed|angel round/i;
+// Case-sensitive on purpose: "led by Sequoia" is funding evidence, "led by a
+// colleague" is not.
+const FUNDING_EVIDENCE_CS = /led by [A-Z][a-z]/;
 
 function fuzzyHit(haystack: string, needles: string[]): string | null {
   const lower = haystack.toLowerCase();
@@ -133,7 +136,8 @@ export async function POST(req: Request) {
       }
       if (filter.noPriorVcBacking) {
         const denegated = myEvidence.replace(NEGATED_FUNDING, "");
-        if (FUNDING_EVIDENCE.test(denegated)) return null;
+        if (FUNDING_EVIDENCE.test(denegated) || FUNDING_EVIDENCE_CS.test(denegated))
+          return null;
         matched.push("no funding evidence in Memory (treated as no prior VC backing)");
       }
       if (filter.status?.length) {

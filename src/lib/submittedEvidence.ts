@@ -6,6 +6,14 @@ import { getAll, getById, logEvent, newId, now, patchById, upsert } from "./stor
 
 const UPLOAD_DIR = join(process.cwd(), "data", "uploads");
 
+function hostOf(u: string): string {
+  try {
+    return new URL(u).hostname.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+}
+
 export interface UrlEvidenceResult {
   checked: number;
   upgraded: number;
@@ -55,13 +63,18 @@ export async function submitUrlEvidence(
         (graded.grade === "weak_signal" &&
           (claim.grade == null || claim.grade === "unverifiable"));
       if (improved && graded.sources.length > 0) {
+        // Label integrity: only sources that actually come from the founder's
+        // link are marked Founder-provided; an independent page the search
+        // surfaced keeps its own attribution.
+        const submittedHost = hostOf(url);
         patchById("claims", claim.id, {
           grade: graded.grade,
-          reasoning: `Re-graded against a link the founder shared. ${graded.reasoning}`,
-          sources: graded.sources.map((s) => ({
-            url: s.url,
-            title: `Founder-provided · ${s.title}`,
-          })),
+          reasoning: `Re-graded after the founder shared a link. ${graded.reasoning}`,
+          sources: graded.sources.map((s) =>
+            submittedHost && hostOf(s.url) === submittedHost
+              ? { url: s.url, title: `Founder-provided · ${s.title}` }
+              : s
+          ),
         });
         upgraded += 1;
         upgradedClaims.push(claim.text);
